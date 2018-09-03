@@ -3,6 +3,7 @@
 ## About the Project
 
 Working on the Perfect Explanation
+![Still working! Give us some time!](https://i.imgur.com/k9GyXLC.gif)
 
 ## Starter Paper
 
@@ -14,6 +15,15 @@ Or, you can check out this [video](https://www.youtube.com/watch?v=gSQXq2_j-mw) 
 
 [A Guide to Building Your First Decentralized App](https://www.youtube.com/watch?v=gSQXq2_j-mws)
 
+## Frameworks and Dependencies
+
+First of all, install Node.js on your machine. [Node.js Installation](https://nodejs.org/en/download/)
+
+We are using a Decentralized App framework called [Truffle](https://truffleframework.com/). To install `truffle`, open your terminal/command prompt and run the command `npm install -g truffle`
+
+We are using a `truffle box`. Which is basically a `truffle` project coupled with other frameworks and dependencies such as [React](https://reactjs.org/), [UPort](https://www.uport.me/) and bunch of other stuff such as `Webpack`, `react-router`, `redux`, and `redux-auth-wrapper`. 
+
+You can install [Truffle React-UPort Box](https://truffleframework.com/boxes/react-uport) by running first cloning our project `git clone https://github.com/ishanjoshi02/Project-INK.git`, then `cd Project-INK` and then, just run `npm install`  
 
 ## UML Diagrams and Documentation
 
