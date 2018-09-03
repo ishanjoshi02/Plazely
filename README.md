@@ -27,4 +27,4 @@ We are still working on documenting our project.
 [<img src="https://avatars3.githubusercontent.com/u/21663847?s=460&v=4" width="100px;"/><br /><sub><b>Kishlaya Kunj</b></sub>](https://github.com/kishlayakunj)  
 
 
-[<img src="https://avatars3.githubusercontent.com/u/14982214?s=460&v=4" width="100px;"/><br /><sub><b>Ishan Joshi</b></sub>](https://github.com/ishanjoshi02) 
+[<img src="https://avatars3.githubusercontent.com/u/14982214?s=460&v=4" width="100px;"/><br /><sub><b>Ishan Joshi</b></sub>](https://ishanjoshi02.github.io/) 
