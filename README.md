@@ -7,9 +7,9 @@ Working on the Perfect Explanation
 
 ## Starter Paper
 
-For people who don't know anything about Blockchain, [Ethereum](https://www.ethereum.org/), or the [Interplanetary File System](https://ipfs.io/), can refer a Review Paper we wrote.
+For people who don't know anything about Blockchain, [Ethereum](https://www.ethereum.org/), or the [Interplanetary File System](https://ipfs.io/), can refer a [Review Paper]((https://github.com/ishanjoshi02/BeProjectReviewPaper/blob/master/Final.pdf)) we wrote.
 
-[Review Paper](https://github.com/ishanjoshi02/BeProjectReviewPaper/blob/master/Final.pdf)
+[Interplanetary File System and Ethereum: A Brief Overview](https://github.com/ishanjoshi02/BeProjectReviewPaper/blob/master/Final.pdf)
 
 Or, you can check out this [video](https://www.youtube.com/watch?v=gSQXq2_j-mw) from [Siraj Raval's YouTube Channel](https://www.youtube.com/channel/UCWN3xxRkmTPmbKwht9FuE5A)
 
@@ -19,32 +19,36 @@ Or, you can check out this [video](https://www.youtube.com/watch?v=gSQXq2_j-mw) 
 
 ### Backend
 
-[<img src="https://pluralsight.imgix.net/paths/path-icons/nodejs-601628d09d.png" alt="NodeJS" width="100px;" /><br /><sub><b>NodeJS</b></sub>](https://nodejs.org/)
-
-[<img src="http://dashmasternode.org/wp-content/uploads/2016/03/ethereum-logo.jpg" alt="Ethereum" width="100px;" /><br /><sub><b>Ethereum</b></sub>](https://www.ethereum.org/)
-
-[<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Ipfs-logo-1024-ice-text.png/220px-Ipfs-logo-1024-ice-text.png" alt="IPFS" width="100px;"/><br /><sub><b>IPFS</b></sub>](https://ipfs.io/)
-
-[<img src="https://pbs.twimg.com/profile_images/932688008314109952/3_QkvZeQ_400x400.jpg" alt="UPort" width="100px;"/><br /><sub><b>UPort</b></sub>](https://www.uport.me/)
-
-[<img src="https://pbs.twimg.com/profile_images/829006702334922752/VHFPphGM_400x400.jpg" alt="BigChainDB" width="100px;"/><br /><sub><b>BigChainDB</b></sub>](https://www.bigchaindb.com/)
-
+<p float="left">
+    <a href="https://nodejs.org/"><img src="https://pluralsight.imgix.net/paths/path-icons/nodejs-601628d09d.png" alt="NodeJS" width="100px;" /><br /><sub><b>NodeJS</b></sub></a>
+    <a href="https://www.ethereum.org/"><img src="http://dashmasternode.org/wp-content/uploads/2016/03/ethereum-logo.jpg" alt="Ethereum" width="100px;" /><br /><sub><b>Ethereum</b></sub>]</a>
+    <a href="https://ipfs.io/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Ipfs-logo-1024-ice-text.png/220px-Ipfs-logo-1024-ice-text.png" alt="IPFS" width="100px;"/><br /><sub><b>IPFS</b></sub></a>
+    <a href="https://uport.me"><img src="https://pbs.twimg.com/profile_images/932688008314109952/3_QkvZeQ_400x400.jpg" alt="UPort" width="100px;"/><br /><sub><b>UPort</b></sub></a>
+    <a href="https://www.bigchaindb.com/"><img src="https://pbs.twimg.com/profile_images/829006702334922752/VHFPphGM_400x400.jpg" alt="BigChainDB" width="100px;"/><br /><sub><b>BigChainDB</b></sub></a>
+</p>
 
 ### Frontend
 
-[<img src="https://ih1.redbubble.net/image.535653319.4004/raf,360x360,075,t,fafafa:ca443f4786.jpg" alt="Truffle Framework" width="100px;" /><br /><sub><b>Truffle Framework</b></sub>](https://truffleframework.com/)
+<a href="https://truffleframework.com/"><img src="https://ih1.redbubble.net/image.535653319.4004/raf,360x360,075,t,fafafa:ca443f4786.jpg" alt="Truffle Framework" width="100px;" /><br /><sub><b>Truffle Framework</b></sub></a>
 
-[<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png" alt="ReactJS" width="100px;"/><br /><sub><b>ReactJS</b></sub>](https://reactjs.org/)
+<a href="https://reactjs.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png" alt="ReactJS" width="100px;"/><br /><sub><b>ReactJS</b></sub></a>
 
 
 ### Installing dependencies
+
+#### Node.js Installation
+
 First of all, install Node.js on your machine. 
 
 [Node.js Installation](https://nodejs.org/en/download/)
 
+#### Truffle Framework Installation
+
 We are using a Decentralized App framework called [Truffle](https://truffleframework.com/). 
 
 To install `truffle`, open your terminal/command prompt and run the command `npm install -g truffle`
+
+#### Truffle Box and other dependencies
 
 We are using a `truffle box`. Which is basically a `truffle` project coupled with other frameworks and dependencies such as [React](https://reactjs.org/), [UPort](https://www.uport.me/) and bunch of other stuff such as `Webpack`, `react-router`, `redux`, and `redux-auth-wrapper`. 
 We are using [BigChainDB](https://www.bigchaindb.com/), a decentralized non-relational database.
