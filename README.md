@@ -19,7 +19,7 @@ Or, you can check out this [video](https://www.youtube.com/watch?v=gSQXq2_j-mw) 
 
 ### Backend
 
-<div style="flex: 1; flex-direction: row">
+<div style="flex-direction: row">
     <div style="flex: 1;">
         <a href="https://nodejs.org/"><img src="https://pluralsight.imgix.net/paths/path-icons/nodejs-601628d09d.png" alt="NodeJS" width="100px;" /><br /><sub><b>NodeJS</b></sub></a>
     </div>
