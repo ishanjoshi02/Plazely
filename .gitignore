@@ -3,3 +3,7 @@
 
 
 node_modules/
+package-lock.json
+
+# Be responsible and do the same for your own editor of choice
+.vscode
