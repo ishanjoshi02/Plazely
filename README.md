@@ -20,6 +20,7 @@ Or, you can check out this [video](https://www.youtube.com/watch?v=gSQXq2_j-mw) 
 
 ### Backend
 
+{::no-markdown}
 <div>
     <div style="display:inline-block; margin: 10px;">
         <a href="https://nodejs.org/"><img src="https://pluralsight.imgix.net/paths/path-icons/nodejs-601628d09d.png" alt="NodeJS" width="100px;" /><br /><center><sub><b>NodeJS</b></sub></center></a>
@@ -36,9 +37,8 @@ Or, you can check out this [video](https://www.youtube.com/watch?v=gSQXq2_j-mw) 
     <div style="display:inline-block; margin: 10px;">
         <a href="https://www.bigchaindb.com/"><img src="https://pbs.twimg.com/profile_images/829006702334922752/VHFPphGM_400x400.jpg" alt="BigChainDB" width="100px;"/><br /><center><sub><b>BigChainDB</b></sub></center></a>
     </div>
-
 </div>
-
+{:/}
 
 
 
