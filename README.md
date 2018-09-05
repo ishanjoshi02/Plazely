@@ -38,20 +38,15 @@ Or, you can check out this [video](https://www.youtube.com/watch?v=gSQXq2_j-mw) 
         <a href="https://www.bigchaindb.com/"><img src="https://pbs.twimg.com/profile_images/829006702334922752/VHFPphGM_400x400.jpg" alt="BigChainDB" width="100px;"/><br /><center><sub><b>BigChainDB</b></sub></center></a>
     </div>
 </div>
-{:/}
-
 
 
 ### Frontend
+| :---: | :---: |
 
-<div style="">
-    <div style="display:inline-block;margin:10px;">
-        <a href="https://truffleframework.com/"><img src="https://ih1.redbubble.net/image.535653319.4004/raf,360x360,075,t,fafafa:ca443f4786.jpg" alt="Truffle Framework" width="100px;" /><br /><center><sub><b>Truffle Framework</b></sub></center></a>
-    </div>
-    <div style="display:inline-block;margin: 10px;">
-        <a href="https://reactjs.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png" alt="ReactJS" width="100px;"/><br /><center><sub><b>ReactJS</b></sub></center></a>
-    </div>
-</div>
+| [<img src="https://ih1.redbubble.net/image.535653319.4004/raf,360x360,075,t,fafafa:ca443f4786.jpg" alt="Truffle Framework" width="100px;" /><br /><sub><b>Truffle Framework</b></sub>](https://truffleframework.com) |
+
+ [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png" alt="ReactJS" width="100px;"/><br /><sub><b>ReactJS</b></sub>](https://reactjs.org/) |
+
 
 ### Installing dependencies
 
