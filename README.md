@@ -22,20 +22,15 @@ Or, you can check out this [video](https://www.youtube.com/watch?v=gSQXq2_j-mw) 
 ### Backend
 
 [<img src="https://pluralsight.imgix.net/paths/path-icons/nodejs-601628d09d.png" alt="NodeJS" width="100px;" /><br /><sub><b>NodeJS</b></sub>](https://nodejs.org/)
-
 [<img src="http://dashmasternode.org/wp-content/uploads/2016/03/ethereum-logo.jpg" alt="Ethereum" width="100px;" /><br /><sub><b>Ethereum</b></sub>](https://www.ethereum.org/)
-
 [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Ipfs-logo-1024-ice-text.png/220px-Ipfs-logo-1024-ice-text.png" alt="IPFS" width="100px;"/><br /><sub><b>IPFS</b></sub>](https://ipfs.io/)
-
 [<img src="https://pbs.twimg.com/profile_images/932688008314109952/3_QkvZeQ_400x400.jpg" alt="UPort" width="100px;"/><br /><sub><b>UPort</b></sub>](https://www.uport.me/)
-
 [<img src="https://pbs.twimg.com/profile_images/829006702334922752/VHFPphGM_400x400.jpg" alt="BigChainDB" width="100px;"/><br /><sub><b>BigChainDB</b></sub>](https://www.bigchaindb.com/)
 
 
 ### Frontend
 
 [<img src="https://ih1.redbubble.net/image.535653319.4004/raf,360x360,075,t,fafafa:ca443f4786.jpg" alt="Truffle Framework" width="100px;" /><br /><sub><b>Truffle Framework</b></sub>](https://truffleframework.com/)
-
 [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png" alt="ReactJS" width="100px;"/><br /><sub><b>ReactJS</b></sub>](https://reactjs.org/)
 
 
