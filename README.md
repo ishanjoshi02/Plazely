@@ -30,8 +30,8 @@ Or, you can check out this [video](https://www.youtube.com/watch?v=gSQXq2_j-mw) 
 
 ### Frontend
 
-[<img src="https://ih1.redbubble.net/image.535653319.4004/raf,360x360,075,t,fafafa:ca443f4786.jpg" alt="Truffle Framework" width="100px;" /><br /><sub><b>Truffle Framework</b></sub>](https://truffleframework.com/)
-[<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png" alt="ReactJS" width="100px;"/><br /><sub><b>ReactJS</b></sub>](https://reactjs.org/)
+[<img src="https://ih1.redbubble.net/image.535653319.4004/raf,360x360,075,t,fafafa:ca443f4786.jpg" alt="Truffle Framework" width="100px;" />](https://truffleframework.com/)
+[<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png" alt="ReactJS" width="100px;"/>](https://reactjs.org/)
 
 
 ### Installing dependencies
@@ -76,10 +76,8 @@ We are still working on documenting our project.
 
 ## Contributors
 
-[<img src="https://avatars1.githubusercontent.com/u/13968549?s=460&v=4" width="100px;"/><br /><sub><b>Neeraj Lagwankar</b></sub>](https://github.com/FlashBlaze)
+[<img src="https://avatars1.githubusercontent.com/u/13968549?s=460&v=4" width="100px;"/>](https://github.com/FlashBlaze)
 
+[<img src="https://avatars3.githubusercontent.com/u/21663847?s=460&v=4" width="100px;"/>](https://github.com/kishlayakunj)  
 
-[<img src="https://avatars3.githubusercontent.com/u/21663847?s=460&v=4" width="100px;"/><br /><sub><b>Kishlaya Kunj</b></sub>](https://github.com/kishlayakunj)  
-
-
-[<img src="https://avatars3.githubusercontent.com/u/14982214?s=460&v=4" width="100px;"/><br /><sub><b>Ishan Joshi</b></sub>](https://ishanjoshi02.github.io/)
+[<img src="https://avatars3.githubusercontent.com/u/14982214?s=460&v=4" width="100px;"/>](https://ishanjoshi02.github.io/)
