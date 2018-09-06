@@ -50,6 +50,12 @@ To install `truffle`, open your terminal/command prompt and run the command
 
 `npm install -g truffle`
 
+Before you proceed to install other dependencies, you need to install `Python 2.7.11`.
+
+[Python 2.7.11](https://www.python.org/downloads/release/python-2711/)
+
+Also, don't forget to add `Python 2.7` to `PATH` for `Windows` users.
+
 We are using a `truffle box`. Which is basically a `truffle` project coupled with other frameworks and dependencies such as [React](https://reactjs.org/), [UPort](https://www.uport.me/) and bunch of other stuff such as `Webpack`, `react-router`, `redux`, and `redux-auth-wrapper`.
 We are using [BigChainDB](https://www.bigchaindb.com/), a decentralized non-relational database.
 
