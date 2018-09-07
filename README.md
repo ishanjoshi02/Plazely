@@ -33,43 +33,6 @@ Or, you can check out this [video](https://www.youtube.com/watch?v=gSQXq2_j-mw) 
 [<img src="https://ih1.redbubble.net/image.535653319.4004/raf,360x360,075,t,fafafa:ca443f4786.jpg" alt="Truffle Framework" width="100px;" />](https://truffleframework.com/)
 [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png" alt="ReactJS" width="100px;"/>](https://reactjs.org/)
 
-
-### Installing dependencies
-First of all, install Node.js on your machine.
-
-[Node.js Installation](https://nodejs.org/en/download/)
-
-We are using a Decentralized App framework called [Truffle](https://truffleframework.com/).
-
-To install `truffle`, open your terminal/command prompt and run the command
-
-`npm install -g truffle`
-
-Before you proceed to install other dependencies, you need to install `Python 2.7.11`.
-
-[Python 2.7.11](https://www.python.org/downloads/release/python-2711/)
-
-Also, don't forget to add `Python 2.7` to `PATH` for `Windows` users.
-
-We are using a `truffle box`. Which is basically a `truffle` project coupled with other frameworks and dependencies such as [React](https://reactjs.org/), [UPort](https://www.uport.me/) and bunch of other stuff such as `Webpack`, `react-router`, `redux`, and `redux-auth-wrapper`.
-We are using [BigChainDB](https://www.bigchaindb.com/), a decentralized non-relational database.
-
-You can install [Truffle React-UPort Box](https://truffleframework.com/boxes/react-uport) by running first cloning our project
-
-`git clone https://github.com/ishanjoshi02/Project-INK.git`,
-
-then
-
-`cd Project-INK`
-
- and then, just run
-
- `npm install`  
-
- To start the project on localhost
-
- `npm start`
-
 ## UML Diagrams and Documentation
 
 We are still working on documenting our project.
