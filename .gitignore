@@ -1,13 +1,5 @@
-# No need to git add node modules. `npm install` will install
-# all the dependencies that are written within package.json
-
-
 node_modules/
+package.json
 package-lock.json
-
-# Ignoring the folder that stores our private keys
-
-src/keys
-
-# Be responsible and do the same for your own editor of choice
-.vscode
+keys/
+.vscode/
