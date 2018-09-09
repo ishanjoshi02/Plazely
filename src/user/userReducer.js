@@ -9,13 +9,11 @@ const userReducer = (state = initialState, action) => {
         data: action.payload
       });
     }
-
     case "USER_LOGGED_OUT": {
       return Object.assign({}, state, {
         data: null
       });
     }
-
     default:
       return state;
   }

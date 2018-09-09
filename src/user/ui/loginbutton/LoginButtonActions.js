@@ -25,12 +25,14 @@ export function loginUser() {
         // Used a manual redirect here as opposed to a wrapper.
         // This way, once logged in a user can still access the home page.
 
-        // Save user credentials to cookies. Used library called js-cookie.
-        // Js-Cookie GitHub Repo : https://github.com/js-cookie/js-cookie
-        // Retrieve on browser window reload or restart so that user is still signed in
+        // localStorage.setItem(
+        //   "uPortUserCredentials",
+        //   JSON.stringify(credentials)
+        // );
 
-        Cookies.set("userCredentials", credentials);
-        console.log(Cookies.getJSON("userCredentials"));
+        Cookies.set("uPortUserCredentials", credentials);
+        console.log(Cookies.getJSON("uPortUserCredentials"));
+        // console.log(JSON.parse(localStorage.getItem("uPortUserCredentials")));
 
         var currentLocation = browserHistory.getCurrentLocation();
 
