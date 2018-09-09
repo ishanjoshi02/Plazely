@@ -57,6 +57,7 @@ pre {
 
 .navbar .pure-menu-heading {
   font-weight: bold;
+  float: left;
   text-transform: none;
 }
 
