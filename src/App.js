@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router";
 import { HiddenOnlyAuth, VisibleOnlyAuth } from "./util/wrappers.js";
+// import AppBar from "@material-ui/core/AppBar";
+// import ToolBar from "@material-ui/core/Toolbar";
+// import Typography from "@material-ui/core/Typography";
+// import Button from "@material-ui/core/Button";
 
 // UI Components
 import LoginButtonContainer from "./user/ui/loginbutton/LoginButtonContainer";
@@ -35,6 +39,18 @@ class App extends Component {
         <LoginButtonContainer />
       </span>
     ));
+
+    // const mAppBar = (
+    //   <AppBar position="static">
+    //     <Link to="/" className="pure-menu-heading pure-menu-link">
+    //       INK
+    //     </Link>
+    //     <ul className="pure-menu-list navbar-right">
+    //       <OnlyGuestLinks />
+    //       <OnlyAuthLinks />
+    //     </ul>
+    //   </AppBar>
+    // );
 
     return (
       <div className="App">
