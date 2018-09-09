@@ -4,7 +4,6 @@
 
 Working on the Perfect Explanation
 
-
 ![Still working! Give us some time!](https://i.imgur.com/k9GyXLC.gif)
 
 ## Starter Paper
@@ -27,11 +26,14 @@ Or, you can check out this [video](https://www.youtube.com/watch?v=gSQXq2_j-mw) 
 [<img src="https://pbs.twimg.com/profile_images/932688008314109952/3_QkvZeQ_400x400.jpg" alt="UPort" width="100px;"/>](https://www.uport.me/)
 [<img src="https://pbs.twimg.com/profile_images/829006702334922752/VHFPphGM_400x400.jpg" alt="BigChainDB" width="100px;"/>](https://www.bigchaindb.com/)
 
-
 ### Frontend
 
 [<img src="https://ih1.redbubble.net/image.535653319.4004/raf,360x360,075,t,fafafa:ca443f4786.jpg" alt="Truffle Framework" width="100px;" />](https://truffleframework.com/)
 [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png" alt="ReactJS" width="100px;"/>](https://reactjs.org/)
+
+## Installation
+
+Refer to [Installation](Installation.md)
 
 ## UML Diagrams and Documentation
 
@@ -41,6 +43,6 @@ We are still working on documenting our project.
 
 [<img src="https://avatars1.githubusercontent.com/u/13968549?s=460&v=4" width="100px;"/>](https://github.com/FlashBlaze)
 
-[<img src="https://avatars3.githubusercontent.com/u/21663847?s=460&v=4" width="100px;"/>](https://github.com/kishlayakunj)  
+[<img src="https://avatars3.githubusercontent.com/u/21663847?s=460&v=4" width="100px;"/>](https://github.com/kishlayakunj)
 
 [<img src="https://avatars3.githubusercontent.com/u/14982214?s=460&v=4" width="100px;"/>](https://ishanjoshi02.github.io/)

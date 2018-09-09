@@ -40,23 +40,11 @@ class App extends Component {
       </span>
     ));
 
-    // const mAppBar = (
-    //   <AppBar position="static">
-    //     <Link to="/" className="pure-menu-heading pure-menu-link">
-    //       INK
-    //     </Link>
-    //     <ul className="pure-menu-list navbar-right">
-    //       <OnlyGuestLinks />
-    //       <OnlyAuthLinks />
-    //     </ul>
-    //   </AppBar>
-    // );
-
     return (
       <div className="App">
         <nav className="navbar pure-menu pure-menu-horizontal">
           <Link to="/" className="pure-menu-heading pure-menu-link">
-            Truffle Box
+            INK
           </Link>
           <ul className="pure-menu-list navbar-right">
             <OnlyGuestLinks />

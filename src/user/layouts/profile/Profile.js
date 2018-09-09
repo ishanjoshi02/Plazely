@@ -1,20 +1,26 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import { Image, Card } from "semantic-ui-react";
 
 class Profile extends Component {
   constructor(props, { authData }) {
-    super(props)
-    authData = this.props
+    super(props);
+    authData = this.props;
   }
 
   render() {
-    return(
+    const avatarURI = this.props.authData.avatar.uri;
+    // console.log(AvatarURI);
+
+    return (
       <main className="container">
         <div className="pure-g">
-          <div className="pure-u-1-1">
+          <Card className="pure-u-1-1">
             <h1>Profile</h1>
-            <p>Change these details in UPort to see them reflected here.</p>
+            {/* <img src={AvatarURI} alt={this.props.authData.name} /> */}
+            <Image src={avatarURI} size="small" wrapped />
             <p>
-              <strong>Name</strong><br />
+              <strong>Name</strong>
+              <br />
               {this.props.authData.name}
             </p>
             <p>
@@ -32,11 +38,11 @@ class Profile extends Component {
               <br />
               {this.props.authData.country}
             </p>
-          </div>
+          </Card>
         </div>
       </main>
-    )
+    );
   }
 }
 
-export default Profile
+export default Profile;
