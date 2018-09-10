@@ -6,15 +6,34 @@ class INKVideo extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // playing: false,
+      // buttonName: "Play",
       source: this.props.src
     };
   }
 
+  // playPause = () => {
+  //   if (this.state.playing) {
+  //     this.setState({
+  //       playing: true,
+  //       buttonName: "Pause"
+  //     });
+  //   } else {
+  //     this.setState({
+  //       playing: false,
+  //       buttonName: "Play"
+  //     });
+  //   }
+  // };
+
   render() {
     return (
-      <video>
-        <source src={this.state.source} />
-      </video>
+      <div>
+        <video controls="true">
+          <source src={this.state.source} />
+        </video>
+        <button />
+      </div>
     );
   }
 }
