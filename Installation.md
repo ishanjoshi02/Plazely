@@ -49,9 +49,10 @@ Copy all the files that are present in `temp` folder into `INK` folder.
 5. Scan the QR Code again.
 6. Click on `Click Here for App Code`.
 7. Copy the code inside `SimpleSigner` function. It should resemble something like `5e75f3b9cef1edc5820fdcaa6221ec18c25938155d8622745243d6a80cxxxxxx`
-8. Go to your `INK/src` folder
-9. Create a new file called `key/uportkeys.js`
-10. Paste the following code (Change the key to the one you got the previous step)
+8. Also copy `clientId`.
+9. Go to your `INK/src` folder
+10. Create a new file called `key/uportkeys.js`
+11. Paste the copied `SimpleSigner` and `clientId` (Change the key to the one you got the previous step)
 
 ```javascript
 export const SigningKey =
