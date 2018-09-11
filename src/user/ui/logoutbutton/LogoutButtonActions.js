@@ -13,6 +13,8 @@ export function logoutUser() {
     // Logout user.
     dispatch(userLoggedOut());
 
+    localStorage.setItem("uPortUserCredentials", JSON.stringify(null));
+
     // Redirect home.
     return browserHistory.push("/");
   };

@@ -12,9 +12,9 @@ import LogoutButtonContainer from "./user/ui/logoutbutton/LogoutButtonContainer"
 
 // Styles
 import "./css/oswald.css";
-import "./css/open-sans.css";
-import "./css/pure-min.css";
-import "./App.css";
+// import "./css/open-sans.css";
+// import "./css/pure-min.css";
+// import "./App.css";
 
 class App extends Component {
   render() {
@@ -43,6 +43,7 @@ class App extends Component {
     return (
       <div className="App">
         <nav className="navbar pure-menu pure-menu-horizontal">
+          {/* <nav className="navbar navbar-expand-lg navbar-light bg-light"> */}
           <Link to="/" className="pure-menu-heading pure-menu-link">
             INK
           </Link>

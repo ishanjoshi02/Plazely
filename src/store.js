@@ -1,7 +1,7 @@
 import { browserHistory } from "react-router";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunkMiddleware from "redux-thunk";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import { routerMiddleware } from "react-router-redux";
 
 import reducer from "./reducer";
@@ -12,7 +12,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const routingMiddleware = routerMiddleware(browserHistory);
 
 // const userData = JSON.parse(localStorage.getItem("uPortUserCredentials"));
-const userData = Cookies.getJSON("uPortUserCredentials");
+// const userData = Cookies.getJSON("uPortUserCredentials");
+const userData = JSON.parse(localStorage.getItem("uPortUserCredentials"));
 const preLoadedState = {
   user: {
     data: userData

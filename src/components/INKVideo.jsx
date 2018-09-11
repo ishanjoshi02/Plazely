@@ -29,10 +29,10 @@ class INKVideo extends Component {
   render() {
     return (
       <div>
-        <video controls="true">
+        <video controls="true" width="1000" height="600">
           <source src={this.state.source} />
         </video>
-        <button />
+        {/* <button /> */}
       </div>
     );
   }

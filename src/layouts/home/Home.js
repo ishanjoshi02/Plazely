@@ -33,7 +33,11 @@ class Home extends Component {
     // ));
 
     const AuthVideoPlayer = VisibleOnlyAuth(() => (
-      <INKVideo src="https://ipfs.io/ipfs/QmSsmiN8rycAi8dcx9FymV35pUJX3vgtaMy6VoPVe47BtY" />
+      <div style={{}}>
+        <INKVideo src="https://ipfs.io/ipfs/QmYqcJJip5cyYuaSgCGUEBEaq2fxMA46B7nhkb5Ay4oh2E" />
+        <INKVideo src="https://ipfs.io/ipfs/QmReCgkcuh2ETJPqjiSV5NKiUf11Pg3tcb12hqm4h8zHo4" />
+        <INKVideo src="https://ipfs.io/ipfs/QmSsmiN8rycAi8dcx9FymV35pUJX3vgtaMy6VoPVe47BtY" />
+      </div>
     ));
 
     const GuestVideoPlayer = HiddenOnlyAuth(() => (

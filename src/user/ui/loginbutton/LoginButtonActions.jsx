@@ -1,4 +1,4 @@
-import { uport } from "./../../../util/connectors.js";
+import { uport } from "../../../util/connectors.js";
 import { browserHistory } from "react-router";
 import Cookies from "js-cookie";
 
@@ -30,7 +30,11 @@ export function loginUser() {
         //   JSON.stringify(credentials)
         // );
 
-        Cookies.set("uPortUserCredentials", credentials);
+        // Cookies.set("uPortUserCredentials", credentials);
+        localStorage.setItem(
+          "uPortUserCredentials",
+          JSON.stringify(credentials)
+        );
         console.log(Cookies.getJSON("uPortUserCredentials"));
         // console.log(JSON.parse(localStorage.getItem("uPortUserCredentials")));
 
