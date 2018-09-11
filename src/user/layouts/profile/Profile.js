@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, Card } from "semantic-ui-react";
+// import { Image, Card } from "semantic-ui-react";
 
 class Profile extends Component {
   constructor(props, { authData }) {
@@ -14,7 +14,8 @@ class Profile extends Component {
     return (
       <main className="container">
         <div className="pure-g">
-          <Card className="pure-u-1-1">
+          {/* <Card className="pure-u-1-1"> */}
+          <div className="pure-u-1-1">
             <h1>Profile</h1>
             {/* <img src={AvatarURI} alt={this.props.authData.name} /> */}
             <Image src={avatarURI} size="small" wrapped />
@@ -38,7 +39,7 @@ class Profile extends Component {
               <br />
               {this.props.authData.country}
             </p>
-          </Card>
+          </div>
         </div>
       </main>
     );
