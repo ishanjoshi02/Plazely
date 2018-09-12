@@ -4,12 +4,6 @@ import { HiddenOnlyAuth, VisibleOnlyAuth } from "../../util/wrappers";
 import { createNode } from "ipfs";
 class Home extends Component {
   state = {
-    hashes: [
-      "QmSsmiN8rycAi8dcx9FymV35pUJX3vgtaMy6VoPVe47BtY"
-      // "QmVjdpDSkBn13CwUWtb475WVYfUQNzMzwBe8wrpaPdKUSs"
-      // "QmYYMMKS5z9h2CL69GBTTys2SFRZH7XM2iiRTuqrYhYGkj"
-      // add more ipfs hashes
-    ],
     guestHash:
       "https://ipfs.io/ipfs/QmTKZgRNwDNZwHtJSjCp6r5FYefzpULfy37JvMt9DwvXse/video.mp4"
   };
@@ -41,7 +35,15 @@ class Home extends Component {
     ));
 
     const GuestVideoPlayer = HiddenOnlyAuth(() => (
-      <INKVideo src={this.state.guestHash} />
+      <div className="card mb-6">
+        <h3 className="card-header">Sample Video Streaming using IPFS</h3>
+        <center>
+          <INKVideo src={this.state.guestHash} />
+        </center>
+        <div className="card-body">
+          <p className="card-text">Add project description</p>
+        </div>
+      </div>
     ));
 
     return (

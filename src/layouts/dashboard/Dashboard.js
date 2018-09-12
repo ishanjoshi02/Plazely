@@ -9,12 +9,11 @@ class Dashboard extends Component {
   render() {
     return (
       <main className="container">
-        <div className="pure-g">
-          <div className="pure-u-1-1">
-            <h1>Dashboard</h1>
-            <p>
-              <strong>Congratulations {this.props.authData.name}!</strong> If
-              you're seeing this page, you've logged in with UPort successfully.
+        <div className="card text-white bg-info mb-3">
+          <div className="card-header">Dashboard</div>
+          <div className="card-body">
+            <p className="card-text">
+              <strong>Welcome {this.props.authData.name}!</strong>
             </p>
           </div>
         </div>

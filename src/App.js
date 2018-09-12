@@ -12,47 +12,47 @@ import LogoutButtonContainer from "./user/ui/logoutbutton/LogoutButtonContainer"
 
 // Styles
 import "./css/oswald.css";
-// import "./css/open-sans.css";
-// import "./css/pure-min.css";
-// import "./App.css";
 
 class App extends Component {
   render() {
     const OnlyAuthLinks = VisibleOnlyAuth(() => (
-      <span>
-        <li className="pure-menu-item">
-          <Link to="/dashboard" className="pure-menu-link">
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <Link to="/dashboard" className="nav-link">
             Dashboard
           </Link>
         </li>
-        <li className="pure-menu-item">
-          <Link to="/profile" className="pure-menu-link">
+        <li className="nav-item">
+          <Link to="/profile" className="nav-link">
             Profile
           </Link>
         </li>
-        <LogoutButtonContainer />
-      </span>
+        <li className="nav-item">
+          <LogoutButtonContainer />
+        </li>
+      </ul>
     ));
 
     const OnlyGuestLinks = HiddenOnlyAuth(() => (
-      <span>
-        <LoginButtonContainer />
-      </span>
+      <ul className="navbar-nav">
+        <li>
+          <LoginButtonContainer />
+        </li>
+      </ul>
     ));
 
     return (
       <div className="App">
-        <nav className="navbar pure-menu pure-menu-horizontal">
-          {/* <nav className="navbar navbar-expand-lg navbar-light bg-light"> */}
-          <Link to="/" className="pure-menu-heading pure-menu-link">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+          <Link to="/" className="navbar-brand">
             INK
           </Link>
-          <ul className="pure-menu-list navbar-right">
+          <div className="collapse navbar-collapse justify-content-end">
             <OnlyGuestLinks />
             <OnlyAuthLinks />
-          </ul>
+          </div>
         </nav>
-
+        <br />
         {this.props.children}
       </div>
     );
