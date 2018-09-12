@@ -9,7 +9,7 @@ class Dashboard extends Component {
   render() {
     return (
       <main className="container">
-        <div className="card text-white bg-info mb-3">
+        <div className="card text-black border-primary">
           <div className="card-header">Dashboard</div>
           <div className="card-body">
             <p className="card-text">
