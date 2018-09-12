@@ -59,11 +59,19 @@ export const SigningKey =
   "5e75f3b9cef1edc5820fdcaa6221ec18c25938155d8622745243d6a80cxxxxxx";
 ```
 
-11. Now you can run your project
+12. Now you can run your project
 
 ## Run the project
 
 `npm run start`
+
+### I'm getting some errors. What should I do?
+
+If you're getting some compilation errors, one option is to check what the errors are and install the required dependencies.
+
+For example, if you're getting js-cookie error, install it by `npm i js-cookie`. Similarly, check for missing dependencies and install the packages. A comprehensive list will be available as soon as possible.
+
+Another option is to see the [package.json](package.json) file and see the required dependencies.
 
 ### Why the long process
 
