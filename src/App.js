@@ -12,6 +12,7 @@ import LogoutButtonContainer from "./user/ui/logoutbutton/LogoutButtonContainer"
 
 // Styles
 import "./css/oswald.css";
+import "./App.css";
 
 class App extends Component {
   render() {
@@ -52,7 +53,7 @@ class App extends Component {
             <OnlyAuthLinks />
           </div>
         </nav>
-        <br />
+        {/* <br /> */}
         {this.props.children}
       </div>
     );
