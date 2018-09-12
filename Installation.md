@@ -69,6 +69,8 @@ export const SigningKey =
 
 If you're getting some compilation errors, one option is to check what the errors are and install the required dependencies.
 
-For example, if you're getting js-cookie error, install it by `npm i js-cookie`. Similarly, check for missing dependencies and install the packages. A comprehensive list will be available as soon as possible.
+For example, if you're getting js-cookie error, install it by `npm i js-cookie`. Similarly, check for missing dependencies and install the packages.
 
 Another option is to see the [package.json](package.json) file and see the required dependencies.
+
+A comprehensive list will be available as soon as possible.
