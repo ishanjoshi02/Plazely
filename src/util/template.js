@@ -7,3 +7,5 @@ export let uport = new Connect("INK", {
   signer: SimpleSigner(SigningKey)
 });
 export const web3 = uport.getWeb3();
+
+//after adding your cliendId rename this file to connectors.js

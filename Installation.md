@@ -72,11 +72,3 @@ If you're getting some compilation errors, one option is to check what the error
 For example, if you're getting js-cookie error, install it by `npm i js-cookie`. Similarly, check for missing dependencies and install the packages. A comprehensive list will be available as soon as possible.
 
 Another option is to see the [package.json](package.json) file and see the required dependencies.
-
-### Why the long process
-
-The simple way to install `node`-based projects is to `clone` them and run `npm install` to install all the dependencies.
-
-But, in our case, the newer version of the `node-modules` such as `uport-connect` and `web3` are not cohesive together. Thus, the `unbox` command takes care of the correct dependencies, and `git clone` takes care of importing the existing code base.
-
-After setting this up, you can use the directory like any other `git` directory and can run all `git` commands.

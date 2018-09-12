@@ -9,7 +9,7 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <main className="container">
+      <div className="container">
         <div className="card text-black border">
           <div className="card-header">Dashboard</div>
           <div className="card-body">
@@ -23,7 +23,7 @@ class Dashboard extends Component {
             </p>
           </div>
         </div>
-      </main>
+      </div>
     );
   }
 }
