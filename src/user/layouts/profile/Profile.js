@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, Card } from "semantic-ui-react";
+// import { Image, Card } from "semantic-ui-react";
 
 class Profile extends Component {
   constructor(props, { authData }) {
