@@ -14,31 +14,17 @@ To install [Truffle](https://truffleframework.com/), run,
 
 `npm install -g truffle`
 
-## Setting up Truffle Unbox
+## Cloning the Git repo
 
-We are using a Truffle Boilerplate called [React-Uport Box](https://truffleframework.com/boxes/react-uport). To install this box, firstly, create an empty folder using:
+Clone the git repository by running the command,
 
-`mkdir INK`
+`git clone https://github.com/ishanjoshi02/Project-INK.git`
 
-then, go into this directory,
+## Installing Dependencies
 
-`cd INK`
+Install the dependencies by running command,
 
-Now, run the following command to setup the `React-Uport Box`,
-
-`truffle unbox react-uport`
-
-## Cloning Git Repository
-
-Clone the repository into an empty directory by running command,
-
-`git clone https://github.com/ishanjoshi02/Project-INK.git temp`
-
-This will clone the repository code into a new folder called temp.
-
-## Copy files from `temp` to `INK`
-
-Copy all the files that are present in `temp` folder into `INK` folder.
+`npm install`
 
 ## Getting uPort key
 
