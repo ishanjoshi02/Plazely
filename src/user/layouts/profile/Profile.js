@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 // import { Image, Card } from "semantic-ui-react";
+import "./Profile.css";
 
 class Profile extends Component {
   constructor(props, { authData }) {
@@ -20,15 +21,7 @@ class Profile extends Component {
             </h5>
             <br />
             <center>
-              <img
-                style={{
-                  height: "200px",
-                  display: "block",
-                  borderRadius: "50%",
-                  width: "200px"
-                }}
-                src={this.props.authData.avatar.uri}
-              />
+              <img className="avatar" src={this.props.authData.avatar.uri} />
             </center>
             <br />
             <ul className="list-group list-group-flush">

@@ -14,31 +14,17 @@ To install [Truffle](https://truffleframework.com/), run,
 
 `npm install -g truffle`
 
-## Setting up Truffle Unbox
+## Cloning the Git repo
 
-We are using a Truffle Boilerplate called [React-Uport Box](https://truffleframework.com/boxes/react-uport). To install this box, firstly, create an empty folder using:
+Clone the git repository by running the command,
 
-`mkdir INK`
+`git clone https://github.com/ishanjoshi02/Project-INK.git`
 
-then, go into this directory,
+## Installing Dependencies
 
-`cd INK`
+Install the dependencies by running command,
 
-Now, run the following command to setup the `React-Uport Box`,
-
-`truffle unbox react-uport`
-
-## Cloning Git Repository
-
-Clone the repository into an empty directory by running command,
-
-`git clone https://github.com/ishanjoshi02/Project-INK.git temp`
-
-This will clone the repository code into a new folder called temp.
-
-## Copy files from `temp` to `INK`
-
-Copy all the files that are present in `temp` folder into `INK` folder.
+`npm install`
 
 ## Getting uPort key
 
@@ -59,16 +45,18 @@ export const SigningKey =
   "5e75f3b9cef1edc5820fdcaa6221ec18c25938155d8622745243d6a80cxxxxxx";
 ```
 
-11. Now you can run your project
+12. Now you can run your project
 
 ## Run the project
 
 `npm run start`
 
-### Why the long process
+### I'm getting some errors. What should I do?
 
-The simple way to install `node`-based projects is to `clone` them and run `npm install` to install all the dependencies.
+If you're getting some compilation errors, one option is to check what the errors are and install the required dependencies.
 
-But, in our case, the newer version of the `node-modules` such as `uport-connect` and `web3` are not cohesive together. Thus, the `unbox` command takes care of the correct dependencies, and `git clone` takes care of importing the existing code base.
+For example, if you're getting js-cookie error, install it by `npm i js-cookie`. Similarly, check for missing dependencies and install the packages.
 
-After setting this up, you can use the directory like any other `git` directory and can run all `git` commands.
+Another option is to see the [package.json](package.json) file and see the required dependencies.
+
+A comprehensive list will be available as soon as possible.

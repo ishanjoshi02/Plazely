@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Dashboard.css";
 
 class Dashboard extends Component {
   constructor(props, { authData }) {
@@ -8,16 +9,21 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <main className="container">
-        <div className="card text-black border-primary">
+      <div className="container">
+        <div className="card text-black border">
           <div className="card-header">Dashboard</div>
           <div className="card-body">
             <p className="card-text">
-              <strong>Welcome {this.props.authData.name}!</strong>
+              <p>
+                Welcome <strong>{this.props.authData.name}!</strong>
+              </p>
+              <button className="upload-video btn btn-primary">
+                Upload Video
+              </button>
             </p>
           </div>
         </div>
-      </main>
+      </div>
     );
   }
 }
