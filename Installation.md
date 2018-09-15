@@ -46,6 +46,8 @@ Your code should look something like this:
 
 <img src="./CodePictures/connector_js_picture.png" alt="connectors" width="600px" height="400px" />
 
+*Code Image created with [Carbon](https://carbon.now.sh/)*
+
 ```javascript
 export const SigningKey =
   "5e75f3b9cef1edc5820fdcaa6221ec18c25938155d8622745243d6a80cxxxxxx";
