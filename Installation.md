@@ -40,6 +40,11 @@ Install the dependencies by running command,
 10. Create a new file called `key/uportkeys.js`
 11. Paste the copied `SimpleSigner` and `clientId` (Change the key to the one you got the previous step)
 
+Your code should look something like this:
+
+![`src/util/connector.js`](CodePictures/connector_js_picture.png)
+
+
 ```javascript
 export const SigningKey =
   "5e75f3b9cef1edc5820fdcaa6221ec18c25938155d8622745243d6a80cxxxxxx";
