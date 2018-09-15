@@ -26,6 +26,8 @@ Install the dependencies by running command,
 
 `npm install`
 
+*Note: Do not run `npm audit fix` even if `npm` suggests it. It breaks the `uport-connect` module*
+
 ## Getting uPort key
 
 1. To get the `uPort` key, go on over to [uPort App Manager](https://appmanager.uport.me/), and, create your uPort Identity if you don't have one.
