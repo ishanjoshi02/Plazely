@@ -42,8 +42,7 @@ Install the dependencies by running command,
 
 Your code should look something like this:
 
-![`src/util/connector.js`](CodePictures/connector_js_picture.png)
-
+<img src="./CodePictures/connector_js_picture.png" alt="src/util/connectors.js" width="600px">
 
 ```javascript
 export const SigningKey =
