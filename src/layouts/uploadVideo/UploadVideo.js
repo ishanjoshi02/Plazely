@@ -5,6 +5,7 @@ var Buffer = require("buffer/").Buffer;
 class UploadVideo extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       title: "",
       description: "",
