@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Dashboard.css";
+import { Link } from "react-router";
 
 class Dashboard extends Component {
   constructor(props, { authData }) {
@@ -17,9 +18,11 @@ class Dashboard extends Component {
               <p>
                 Welcome <strong>{this.props.authData.name}!</strong>
               </p>
-              <button className="upload-video btn btn-primary">
-                Upload Video
-              </button>
+              <Link to="uploadVideo">
+                <button className="upload-video btn btn-primary">
+                  Upload Video
+                </button>
+              </Link>
             </p>
           </div>
         </div>
