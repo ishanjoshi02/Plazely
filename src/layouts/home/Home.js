@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import INKVideo from "../../components/INKVideo";
 import { HiddenOnlyAuth, VisibleOnlyAuth } from "../../util/wrappers";
 import { createNode } from "ipfs";
+import "./Home.css";
 class Home extends Component {
   state = {
     guestHash:
@@ -27,7 +28,7 @@ class Home extends Component {
     // ));
 
     const AuthVideoPlayer = VisibleOnlyAuth(() => (
-      <div style={{}}>
+      <div className="video-grid">
         <INKVideo src="https://ipfs.io/ipfs/QmYqcJJip5cyYuaSgCGUEBEaq2fxMA46B7nhkb5Ay4oh2E" />
         <INKVideo src="https://ipfs.io/ipfs/QmReCgkcuh2ETJPqjiSV5NKiUf11Pg3tcb12hqm4h8zHo4" />
         <INKVideo src="https://ipfs.io/ipfs/QmSsmiN8rycAi8dcx9FymV35pUJX3vgtaMy6VoPVe47BtY" />

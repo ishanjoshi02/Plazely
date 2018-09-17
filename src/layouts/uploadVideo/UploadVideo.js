@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./UploadVideo.css";
 const IPFS = require("ipfs");
 const node = new IPFS();
 var Buffer = require("buffer/").Buffer;
@@ -43,7 +44,7 @@ class UploadVideo extends Component {
   onFileLoad = () => {
     console.log("started uploading");
     this.setState({ file: this.reader.result });
-    alert("finised local upload");
+    alert("Finished local upload");
   };
 
   onVideoFileChange = event => {
@@ -54,7 +55,11 @@ class UploadVideo extends Component {
 
     this.setState({
       filePreview: (
-        <video controls src={URL.createObjectURL(event.target.files[0])} />
+        <video
+          className="video-preview"
+          controls
+          src={URL.createObjectURL(event.target.files[0])}
+        />
       )
     });
   };
@@ -69,7 +74,6 @@ class UploadVideo extends Component {
       } else {
         console.log(files);
         alert("File now on IPFS");
-
         // add file metadata such as author, description, title from this.state to bigchain db
 
         // after adding redirect to viewing page. pass the ipfs hash as query
@@ -79,9 +83,9 @@ class UploadVideo extends Component {
 
   render() {
     return (
-      <main className="container">
-        <div className="row" style={{ width: "100%", marginLeft: "10px" }}>
-          <div className="card" style={{ maxWidth: "25rem", height: "100%" }}>
+      <main className="container-fluid">
+        <div className="row">
+          <div className="card upload-info">
             <div className="card-header">
               <strong>Upload a Video</strong>
             </div>
@@ -91,16 +95,14 @@ class UploadVideo extends Component {
                   <div className="form-group">
                     <input
                       className="form-control"
-                      aria-describedby="emailHelp"
-                      placeholder="Video title"
+                      placeholder="Title"
                       type="text"
                     />
                   </div>
                   <div className="form-group">
                     <input
                       className="form-control"
-                      aria-describedby="emailHelp"
-                      placeholder="Video description"
+                      placeholder="Description"
                       type="text"
                     />
                   </div>
@@ -108,8 +110,8 @@ class UploadVideo extends Component {
                     <input
                       onChange={this.onVideoFileChange}
                       className="form-control-file"
-                      aria-describedby="emailHelp"
                       type="file"
+                      accept="video/*"
                     />
                   </div>
                   <button
