@@ -2,6 +2,8 @@ import React, { Component } from "react";
 const IPFS = require("ipfs");
 const node = new IPFS();
 var Buffer = require("buffer/").Buffer;
+import { browserHistory } from "react-router";
+
 class UploadVideo extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +14,8 @@ class UploadVideo extends Component {
       author: "",
       dateAdded: "",
       file: null,
-      filePreview: ""
+      filePreview: "",
+      ipfsHash: null
     };
 
     this.onVideoFileChange = this.onVideoFileChange.bind(this);
@@ -41,9 +44,7 @@ class UploadVideo extends Component {
   };
 
   onFileLoad = () => {
-    console.log("started uploading");
     this.setState({ file: this.reader.result });
-    alert("finised local upload");
   };
 
   onVideoFileChange = event => {
@@ -60,21 +61,18 @@ class UploadVideo extends Component {
   };
 
   onSubmitVideo = event => {
-    console.log(this.state.file);
-    const dataObject = Buffer.from(this.state.file);
-    console.log("uploading to ipfs");
-    node.files.add(dataObject, function(error, files) {
-      if (error) {
-        console.error(error);
-      } else {
-        console.log(files);
-        alert("File now on IPFS");
-
-        // add file metadata such as author, description, title from this.state to bigchain db
-
-        // after adding redirect to viewing page. pass the ipfs hash as query
-      }
-    });
+    if (this.state.file != null) {
+      const dataObject = Buffer.from(this.state.file);
+      console.log("started upload");
+      //add code to show progress
+      node.files.add(dataObject, (error, files) => {
+        if (error) {
+          console.error(error);
+        } else {
+          browserHistory.push("/watchVideo?hash=" + files[0].hash);
+        }
+      });
+    }
   };
 
   render() {
