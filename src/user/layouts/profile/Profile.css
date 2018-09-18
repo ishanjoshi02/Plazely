@@ -4,3 +4,13 @@
   border-radius: 50%;
   width: 200px;
 }
+
+.card {
+  max-width: 20rem;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+
+.card-header {
+  background-color: #fff;
+}

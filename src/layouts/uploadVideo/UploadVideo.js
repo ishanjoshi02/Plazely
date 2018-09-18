@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./UploadVideo.css";
+import Dashboard from "../dashboard/Dashboard";
 const IPFS = require("ipfs");
 const node = new IPFS();
 var Buffer = require("buffer/").Buffer;
@@ -13,7 +14,8 @@ class UploadVideo extends Component {
       author: "",
       dateAdded: "",
       file: null,
-      filePreview: ""
+      filePreview: "",
+      vidCount: 0
     };
 
     this.onVideoFileChange = this.onVideoFileChange.bind(this);
@@ -79,15 +81,21 @@ class UploadVideo extends Component {
         // after adding redirect to viewing page. pass the ipfs hash as query
       }
     });
+    this.setState({
+      vidCount: this.state.vidCount + 1
+    });
+    console.log(this.state.vidCount);
   };
 
   render() {
     return (
-      <main className="container-fluid">
+      <div className="container-fluid">
         <div className="row">
           <div className="card upload-info">
             <div className="card-header">
-              <strong>Upload a Video</strong>
+              <strong>
+                <center>Upload a Video</center>
+              </strong>
             </div>
             <div className="card-body">
               <form>
@@ -114,6 +122,7 @@ class UploadVideo extends Component {
                       accept="video/*"
                     />
                   </div>
+
                   <button
                     onClick={this.onSubmitVideo}
                     className="btn btn-primary"
@@ -129,7 +138,7 @@ class UploadVideo extends Component {
             <center>{this.state.filePreview}</center>
           </div>
         </div>
-      </main>
+      </div>
     );
   }
 }
