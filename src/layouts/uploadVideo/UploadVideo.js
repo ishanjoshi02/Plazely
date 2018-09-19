@@ -14,8 +14,7 @@ class UploadVideo extends Component {
       author: "",
       dateAdded: "",
       file: null,
-      filePreview: "",
-      vidCount: 0
+      filePreview: ""
     };
 
     this.onVideoFileChange = this.onVideoFileChange.bind(this);
@@ -81,10 +80,6 @@ class UploadVideo extends Component {
         // after adding redirect to viewing page. pass the ipfs hash as query
       }
     });
-    this.setState({
-      vidCount: this.state.vidCount + 1
-    });
-    console.log(this.state.vidCount);
   };
 
   render() {
