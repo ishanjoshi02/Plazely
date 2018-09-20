@@ -3,11 +3,18 @@ import INKVideo from "../../components/INKVideo";
 import { HiddenOnlyAuth, VisibleOnlyAuth } from "../../util/wrappers";
 import { createNode } from "ipfs";
 import "./Home.css";
+import Lottie from "react-lottie";
+import * as animationData from "./data.json";
 class Home extends Component {
-  state = {
-    guestHash:
-      "https://ipfs.io/ipfs/QmTKZgRNwDNZwHtJSjCp6r5FYefzpULfy37JvMt9DwvXse/video.mp4"
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      guestHash:
+        "https://ipfs.io/ipfs/QmTKZgRNwDNZwHtJSjCp6r5FYefzpULfy37JvMt9DwvXse/video.mp4",
+      isStopped: false,
+      isPaused: false
+    };
+  }
 
   getUri = hash => {
     return "https://ipfs.io/ipfs/" + hash;
@@ -18,6 +25,14 @@ class Home extends Component {
     node.on("ready", () => {
       console.log("Node " + JSON.stringify(node));
     });
+    const defaultOptions = {
+      loop: false,
+      autoplay: true,
+      animationData: animationData,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice"
+      }
+    };
 
     // const VideoPlayer = this.state.hashes.map(hash => (
     //   // let ipfsURI =
@@ -35,7 +50,7 @@ class Home extends Component {
       </div>
     ));
 
-    const GuestVideoPlayer = HiddenOnlyAuth(() => (
+    /*const GuestVideoPlayer = HiddenOnlyAuth(() => (
       <div className="card mb-6">
         <h3 className="card-header">Sample Video Streaming using IPFS</h3>
         <center>
@@ -45,16 +60,23 @@ class Home extends Component {
           <p className="card-text">Add project description</p>
         </div>
       </div>
-    ));
+    ));*/
 
     return (
       <main className="container">
         <div className="pure-g">
           {/* <div className="pure-u-1-1"> */}
           <AuthVideoPlayer />
-          <GuestVideoPlayer />
+          {/* <GuestVideoPlayer /> */}
         </div>
         {/* </div> */}
+        <div className="container-fluid home-animation">
+          <Lottie
+            options={defaultOptions}
+            isStopped={this.state.isStopped}
+            isPaused={this.state.isPaused}
+          />
+        </div>
       </main>
     );
   }
