@@ -12,11 +12,15 @@ class Profile extends Component {
     if (this.props.authData.avatar) {
       return (
         <center>
-          <img className="avatar" alt={} src={this.props.authData.avatar.uri} />
+          <img
+            className="avatar"
+            alt="Avatar"
+            src={this.props.authData.avatar.uri}
+          />
         </center>
-      )
+      );
     }
-  }
+  };
 
   render() {
     return (
@@ -30,7 +34,7 @@ class Profile extends Component {
               <center>{this.props.authData.name}</center>
             </h5>
             <br />
-              {this.renderAvatar()}
+            {this.renderAvatar()}
             <br />
             <ul className="list-group list-group-flush">
               <li className="list-group-item">
