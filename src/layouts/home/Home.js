@@ -48,11 +48,9 @@ class Home extends Component {
 
     return (
       <main className="container">
-        <div className="pure-g">
-          {/* <div className="pure-u-1-1"> */}
-          <AuthVideoPlayer />
-          <GuestVideoPlayer />
-        </div>
+        {/* <div className="pure-u-1-1"> */}
+        <AuthVideoPlayer />
+        <GuestVideoPlayer />
         {/* </div> */}
       </main>
     );
