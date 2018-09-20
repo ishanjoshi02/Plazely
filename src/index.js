@@ -10,8 +10,8 @@ import App from "./App";
 import Home from "./layouts/home/Home";
 import Dashboard from "./layouts/dashboard/Dashboard";
 import Profile from "./user/layouts/profile/Profile";
-import UploadVideo from "./layouts/uploadVideo/UploadVideo.js";
-
+import WatchVideo from "./layouts/watchVideo/WatchVideo";
+import UploadVideo from "./layouts/uploadVideo/UploadVideo";
 // Redux Store
 import store from "./store";
 
@@ -28,6 +28,7 @@ ReactDOM.render(
           path="uploadVideo"
           component={UserIsAuthenticated(UploadVideo)}
         />
+        <Route path="watchVideo" component={WatchVideo} />
       </Route>
     </Router>
   </Provider>,
