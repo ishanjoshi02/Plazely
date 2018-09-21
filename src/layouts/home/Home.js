@@ -63,21 +63,21 @@ class Home extends Component {
     ));*/
 
     return (
-      <main className="container">
+      <div className="container-fluid">
         <div className="pure-g">
           {/* <div className="pure-u-1-1"> */}
           <AuthVideoPlayer />
           {/* <GuestVideoPlayer /> */}
         </div>
         {/* </div> */}
-        <div className="container-fluid home-animation">
+        <div className="home-animation">
           <Lottie
             options={defaultOptions}
             isStopped={this.state.isStopped}
             isPaused={this.state.isPaused}
           />
         </div>
-      </main>
+      </div>
     );
   }
 }
