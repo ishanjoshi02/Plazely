@@ -29,6 +29,11 @@ class App extends Component {
           </Link>
         </li>
         <li className="nav-item">
+          <Link to="/uploadVideo" className="nav-link">
+            Upload Video
+          </Link>
+        </li>
+        <li className="nav-item">
           <LogoutButtonContainer />
         </li>
       </ul>

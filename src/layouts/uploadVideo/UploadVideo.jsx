@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import "./UploadVideo.css";
+import Dashboard from "../dashboard/Dashboard";
 const IPFS = require("ipfs");
 const node = new IPFS();
 var Buffer = require("buffer/").Buffer;
@@ -55,7 +57,11 @@ class UploadVideo extends Component {
 
     this.setState({
       filePreview: (
-        <video controls src={URL.createObjectURL(event.target.files[0])} />
+        <video
+          className="video-preview"
+          controls
+          src={URL.createObjectURL(event.target.files[0])}
+        />
       )
     });
   };
@@ -79,11 +85,13 @@ class UploadVideo extends Component {
 
   render() {
     return (
-      <main className="container">
-        <div className="row" style={{ width: "100%", marginLeft: "10px" }}>
-          <div className="card" style={{ maxWidth: "25rem", height: "100%" }}>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="card upload-info">
             <div className="card-header">
-              <strong>Upload a Video</strong>
+              <strong>
+                <center>Upload a Video</center>
+              </strong>
             </div>
             <div className="card-body">
               <form>
@@ -91,16 +99,14 @@ class UploadVideo extends Component {
                   <div className="form-group">
                     <input
                       className="form-control"
-                      aria-describedby="emailHelp"
-                      placeholder="Video title"
+                      placeholder="Title"
                       type="text"
                     />
                   </div>
                   <div className="form-group">
                     <input
                       className="form-control"
-                      aria-describedby="emailHelp"
-                      placeholder="Video description"
+                      placeholder="Description"
                       type="text"
                     />
                   </div>
@@ -108,10 +114,11 @@ class UploadVideo extends Component {
                     <input
                       onChange={this.onVideoFileChange}
                       className="form-control-file"
-                      aria-describedby="emailHelp"
                       type="file"
+                      accept="video/*"
                     />
                   </div>
+
                   <button
                     onClick={this.onSubmitVideo}
                     className="btn btn-primary"
@@ -127,7 +134,7 @@ class UploadVideo extends Component {
             <center>{this.state.filePreview}</center>
           </div>
         </div>
-      </main>
+      </div>
     );
   }
 }
