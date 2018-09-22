@@ -24,7 +24,7 @@ class Profile extends Component {
 
   render() {
     return (
-      <main className="container">
+      <div className="container-fluid">
         <div className="card" style={{ maxWidth: "20rem" }}>
           <h3 className="card-header">
             <center>Profile</center>
@@ -48,7 +48,7 @@ class Profile extends Component {
             </ul>
           </div>
         </div>
-      </main>
+      </div>
     );
   }
 }
