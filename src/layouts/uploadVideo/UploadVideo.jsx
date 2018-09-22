@@ -62,6 +62,8 @@ class UploadVideo extends Component {
 
   onSubmitVideo = event => {
     if (this.state.file != null) {
+      // Check if the video title and video description is empty
+
       const dataObject = Buffer.from(this.state.file);
       console.log("started upload");
       //add code to show progress

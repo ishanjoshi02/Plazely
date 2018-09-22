@@ -48,10 +48,8 @@ class Home extends Component {
 
     return (
       <main className="container">
-        {/* <div className="pure-u-1-1"> */}
         <AuthVideoPlayer />
         <GuestVideoPlayer />
-        {/* </div> */}
       </main>
     );
   }
