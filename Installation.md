@@ -26,7 +26,7 @@ Install the dependencies by running command,
 
 `npm install`
 
-*Note: Do not run `npm audit fix` even if `npm` suggests it. It breaks the `uport-connect` module*
+_Note: Do not run `npm audit fix` even if `npm` suggests it. It breaks the `uport-connect` module_
 
 ## Getting uPort key
 
@@ -39,32 +39,45 @@ Install the dependencies by running command,
 7. Copy the code inside `SimpleSigner` function. It should resemble something like `5e75f3b9cef1edc5820fdcaa6221ec18c25938155d8622745243d6a80cxxxxxx`
 8. Also copy `clientId`.
 9. Go to your `INK/src` folder
-10. Create a new file called `key/uportkeys.js`
-11. Paste the copied `SimpleSigner` and `clientId` (Change the key to the one you got the previous step)
+10. Create a new folder `keys` and file `uportkeys.js`
+    It should look something like this:
 
-Your code should look something like this:
+```
+project
+|
+|-src
+  |
+  |-keys
+    |-uportkeys.js
+```
 
-<img src="./CodePictures/connector_js_picture.png" alt="connectors" width="600px" height="400px" />
-
-*Code Image created with [Carbon](https://carbon.now.sh/)*
+11. Paste the copied key as:
 
 ```javascript
 export const SigningKey =
   "5e75f3b9cef1edc5820fdcaa6221ec18c25938155d8622745243d6a80cxxxxxx";
 ```
 
-12. Now you can run your project
+12. Paste the `SimpleSigner` and `clientId` (Change the key to the one you got the previous step) in `connectors.js`
+
+Your code should look something like this:
+
+<img src="./CodePictures/connector_js_picture.png" alt="connectors" width="50%" />
+
+_Code Image created with [Carbon](https://carbon.now.sh/)_
+
+13. Now you can run your project
 
 ## Run the project
 
 `npm run start`
 
-### I'm getting some errors. What should I do?
+## I'm getting some errors. What should I do?
 
 If you're getting some compilation errors, one option is to check what the errors are and install the required dependencies.
 
-For example, if you're getting js-cookie error, install it by `npm i js-cookie`. Similarly, check for missing dependencies and install the packages.
+For example, if you're getting js-cookie error, install it by `npm i js-cookie`.
 
-Another option is to see the [package.json](package.json) file and see the required dependencies.
+Or
 
-A comprehensive list will be available as soon as possible.
+Simply run `npm install` which installs all the dependencies which are in [package.json](package.json).
