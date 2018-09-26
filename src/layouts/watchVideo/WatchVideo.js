@@ -9,11 +9,13 @@ class WatchVideo extends Component {
       hash: null
     };
   }
-  render() {
+  componentWillMount = () => {
     var currentLocation = browserHistory.getCurrentLocation();
     if ("hash" in currentLocation.query) {
       this.setState({ hash: currentLocation.query.hash });
     }
+  };
+  render() {
     return <INKVideo src={"https://ipfs.io/ipfs/" + this.state.hash} />;
   }
 }

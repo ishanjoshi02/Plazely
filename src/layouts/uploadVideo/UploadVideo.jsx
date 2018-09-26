@@ -17,7 +17,9 @@ class UploadVideo extends Component {
       dateAdded: "",
       file: null,
       filePreview: "",
-      ipfsHash: null
+      ipfsHash: null,
+      fileSize: 0,
+      percentUploaded: "0"
     };
 
     this.onVideoFileChange = this.onVideoFileChange.bind(this);
@@ -54,7 +56,7 @@ class UploadVideo extends Component {
     this.reader = new FileReader();
     this.reader.onload = this.onFileLoad;
     this.reader.readAsArrayBuffer(event.target.files[0]);
-
+    this.setState({ fileSize: event.target.files[0].size });
     this.setState({
       filePreview: (
         <video
@@ -66,6 +68,12 @@ class UploadVideo extends Component {
     });
   };
 
+  setProgressBar = chunks => {
+    this.setState({
+      percentUploaded: "" + Math.floor((chunks / this.state.fileSize) * 100)
+    });
+  };
+
   onSubmitVideo = event => {
     if (this.state.file != null) {
       // Check if the video title and video description is empty
@@ -73,13 +81,17 @@ class UploadVideo extends Component {
       const dataObject = Buffer.from(this.state.file);
       console.log("started upload");
       //add code to show progress
-      node.files.add(dataObject, (error, files) => {
-        if (error) {
-          console.error(error);
-        } else {
-          browserHistory.push("/watchVideo?hash=" + files[0].hash);
+      node.files.add(
+        dataObject,
+        { progress: this.setProgressBar },
+        (error, files) => {
+          if (error) {
+            console.error(error);
+          } else {
+            browserHistory.push("/watchVideo?hash=" + files[0].hash);
+          }
         }
-      });
+      );
     }
   };
 
@@ -129,7 +141,17 @@ class UploadVideo extends Component {
                 </fieldset>
               </form>
             </div>
+            <div className="progress">
+              <div
+                className="progress-bar"
+                style={{ width: "25%" }}
+                aria-valuenow={this.state.percentUploaded}
+                aria-valuemin="0"
+                aria-valuemax="100"
+              />
+            </div>
           </div>
+
           <div style={{ float: "right", marginLeft: "20px" }}>
             <center>{this.state.filePreview}</center>
           </div>
