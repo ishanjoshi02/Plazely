@@ -1,10 +1,18 @@
 import React, { Component } from "react";
 import "./UploadVideo.css";
-import Dashboard from "../dashboard/Dashboard";
+import { browserHistory } from "react-router";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import { withStyles } from "@material-ui/core/styles";
+
 const IPFS = require("ipfs");
 const node = new IPFS();
 var Buffer = require("buffer/").Buffer;
-import { browserHistory } from "react-router";
+
+const styles = {
+  root: {
+    flexGrow: 1
+  }
+};
 
 class UploadVideo extends Component {
   constructor(props) {
@@ -19,7 +27,7 @@ class UploadVideo extends Component {
       filePreview: "",
       ipfsHash: null,
       fileSize: 0,
-      percentUploaded: "0"
+      percentUploaded: 0
     };
 
     this.onVideoFileChange = this.onVideoFileChange.bind(this);
@@ -69,8 +77,9 @@ class UploadVideo extends Component {
   };
 
   setProgressBar = chunks => {
+    console.log(chunks);
     this.setState({
-      percentUploaded: "" + Math.floor((chunks / this.state.fileSize) * 100)
+      percentUploaded: Math.floor((chunks / this.state.fileSize) * 100)
     });
   };
 
@@ -141,15 +150,10 @@ class UploadVideo extends Component {
                 </fieldset>
               </form>
             </div>
-            <div className="progress">
-              <div
-                className="progress-bar"
-                style={{ width: "25%" }}
-                aria-valuenow={this.state.percentUploaded}
-                aria-valuemin="0"
-                aria-valuemax="100"
-              />
-            </div>
+            <LinearProgress
+              variant="determinate"
+              value={this.state.percentUploaded}
+            />
           </div>
 
           <div style={{ float: "right", marginLeft: "20px" }}>
@@ -161,4 +165,4 @@ class UploadVideo extends Component {
   }
 }
 
-export default UploadVideo;
+export default withStyles(styles)(UploadVideo);
