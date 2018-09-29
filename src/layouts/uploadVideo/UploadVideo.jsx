@@ -1,10 +1,18 @@
 import React, { Component } from "react";
 import "./UploadVideo.css";
-import Dashboard from "../dashboard/Dashboard";
+import { browserHistory } from "react-router";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import { withStyles } from "@material-ui/core/styles";
+
 const IPFS = require("ipfs");
 const node = new IPFS();
 var Buffer = require("buffer/").Buffer;
-import { browserHistory } from "react-router";
+
+const styles = {
+  root: {
+    flexGrow: 1
+  }
+};
 
 class UploadVideo extends Component {
   constructor(props) {
@@ -17,7 +25,9 @@ class UploadVideo extends Component {
       dateAdded: "",
       file: null,
       filePreview: "",
-      ipfsHash: null
+      ipfsHash: null,
+      fileSize: 0,
+      percentUploaded: 0
     };
 
     this.onVideoFileChange = this.onVideoFileChange.bind(this);
@@ -54,7 +64,7 @@ class UploadVideo extends Component {
     this.reader = new FileReader();
     this.reader.onload = this.onFileLoad;
     this.reader.readAsArrayBuffer(event.target.files[0]);
-
+    this.setState({ fileSize: event.target.files[0].size });
     this.setState({
       filePreview: (
         <video
@@ -66,6 +76,13 @@ class UploadVideo extends Component {
     });
   };
 
+  setProgressBar = chunks => {
+    console.log(chunks);
+    this.setState({
+      percentUploaded: Math.floor((chunks / this.state.fileSize) * 100)
+    });
+  };
+
   onSubmitVideo = event => {
     if (this.state.file != null) {
       // Check if the video title and video description is empty
@@ -73,13 +90,17 @@ class UploadVideo extends Component {
       const dataObject = Buffer.from(this.state.file);
       console.log("started upload");
       //add code to show progress
-      node.files.add(dataObject, (error, files) => {
-        if (error) {
-          console.error(error);
-        } else {
-          browserHistory.push("/watchVideo?hash=" + files[0].hash);
+      node.files.add(
+        dataObject,
+        { progress: this.setProgressBar },
+        (error, files) => {
+          if (error) {
+            console.error(error);
+          } else {
+            browserHistory.push("/watchVideo?hash=" + files[0].hash);
+          }
         }
-      });
+      );
     }
   };
 
@@ -129,7 +150,12 @@ class UploadVideo extends Component {
                 </fieldset>
               </form>
             </div>
+            <LinearProgress
+              variant="determinate"
+              value={this.state.percentUploaded}
+            />
           </div>
+
           <div style={{ float: "right", marginLeft: "20px" }}>
             <center>{this.state.filePreview}</center>
           </div>
@@ -139,4 +165,4 @@ class UploadVideo extends Component {
   }
 }
 
-export default UploadVideo;
+export default withStyles(styles)(UploadVideo);
