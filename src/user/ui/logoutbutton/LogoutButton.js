@@ -1,14 +1,11 @@
 import React from "react";
+import { Button } from "@material-ui/core";
 
 const LogoutButton = ({ onLogoutUserClick }) => {
   return (
-    <a
-      href="#"
-      className="nav-link"
-      onClick={event => onLogoutUserClick(event)}
-    >
+    <Button color="inherit" onClick={event => onLogoutUserClick(event)}>
       Logout
-    </a>
+    </Button>
   );
 };
 

@@ -3,27 +3,68 @@ import "./UploadVideo.css";
 import { browserHistory } from "react-router";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { withStyles } from "@material-ui/core/styles";
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  TextField,
+  CardActions,
+  Button,
+  InputLabel,
+  Input,
+  FormControl
+} from "@material-ui/core";
+import { Label } from "semantic-ui-react";
+import CardActionArea from "@material-ui/core/CardActionArea";
 
 const IPFS = require("ipfs");
 const node = new IPFS();
 var Buffer = require("buffer/").Buffer;
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1
+  },
+  media: {
+    // ⚠️ object-fit is not supported by IE11.
+    objectFit: "cover"
+  },
+  formControl: {
+    margin: theme.spacing.unit
+  },
+  card: {
+    marginLeft: "auto",
+    marginRight: "auto"
+  },
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200
+  },
+  dense: {
+    marginTop: 19
+  },
+  menu: {
+    width: 200
   }
-};
+});
 
 class UploadVideo extends Component {
   constructor(props) {
     super(props);
-
+    // const { classes } = props;
     this.state = {
       title: "",
       description: "",
       author: "",
       dateAdded: "",
       file: null,
+      fileName: "Select File",
       filePreview: "",
       ipfsHash: null,
       fileSize: 0,
@@ -45,7 +86,7 @@ class UploadVideo extends Component {
 
   onVideoTitleChange = event => {
     this.setState({
-      title: event.target.value
+      title: event.target.values
     });
   };
 
@@ -65,12 +106,16 @@ class UploadVideo extends Component {
     this.reader.onload = this.onFileLoad;
     this.reader.readAsArrayBuffer(event.target.files[0]);
     this.setState({ fileSize: event.target.files[0].size });
+    this.setState({ fileName: event.target.files[0].name });
+    const { classes } = this.props;
     this.setState({
       filePreview: (
-        <video
-          className="video-preview"
+        <CardMedia
+          component="video"
           controls
+          className={classes.media}
           src={URL.createObjectURL(event.target.files[0])}
+          title={event.target.files[0].name}
         />
       )
     });
@@ -105,61 +150,64 @@ class UploadVideo extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="card upload-info">
-            <div className="card-header">
-              <strong>
-                <center>Upload a Video</center>
-              </strong>
-            </div>
-            <div className="card-body">
-              <form>
-                <fieldset>
-                  <div className="form-group">
-                    <input
-                      className="form-control"
-                      placeholder="Title"
-                      type="text"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      className="form-control"
-                      placeholder="Description"
-                      type="text"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      onChange={this.onVideoFileChange}
-                      className="form-control-file"
-                      type="file"
-                      accept="video/*"
-                    />
-                  </div>
-
-                  <button
-                    onClick={this.onSubmitVideo}
-                    className="btn btn-primary"
-                    type="button"
-                  >
-                    Upload
-                  </button>
-                </fieldset>
-              </form>
-            </div>
-            <LinearProgress
-              variant="determinate"
-              value={this.state.percentUploaded}
+      <div className="container-fluid" style={{ padding: "20px" }}>
+        <Card className={classes.card} style={{ width: "60%" }}>
+          <CardContent>
+            <form>
+              <fieldset>
+                <div className="form-group">
+                  <input
+                    className="form-control"
+                    placeholder="Title"
+                    type="text"
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    className="form-control"
+                    placeholder="Description"
+                    type="text"
+                  />
+                </div>
+              </fieldset>
+            </form>
+          </CardContent>
+          {this.state.filePreview}
+          <CardActions>
+            <label className="btn btn-primary" htmlFor="video_file_input">
+              {this.state.fileName}
+            </label>
+            <input
+              onChange={this.onVideoFileChange}
+              style={{ display: "none" }}
+              type="file"
+              accept="video"
+              id="video_file_input"
             />
-          </div>
-
-          <div style={{ float: "right", marginLeft: "20px" }}>
-            <center>{this.state.filePreview}</center>
-          </div>
-        </div>
+            <div
+              style={
+                this.state.file != null
+                  ? { display: "block" }
+                  : { display: "none" }
+              }
+            >
+              <button
+                onClick={this.onSubmitVideo}
+                className="btn btn-primary"
+                style={{ WebkitTextFillColor: "white" }}
+                role="button"
+              >
+                Upload
+              </button>
+            </div>
+          </CardActions>
+          <LinearProgress
+            variant="determinate"
+            value={this.state.percentUploaded}
+          />
+        </Card>
       </div>
     );
   }
