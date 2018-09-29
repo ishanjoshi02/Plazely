@@ -13,7 +13,8 @@ import {
   Button,
   InputLabel,
   Input,
-  FormControl
+  FormControl,
+  Chip
 } from "@material-ui/core";
 import { Label } from "semantic-ui-react";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -196,17 +197,33 @@ class UploadVideo extends Component {
               <button
                 onClick={this.onSubmitVideo}
                 className="btn btn-primary"
-                style={{ WebkitTextFillColor: "white" }}
                 role="button"
               >
                 Upload
               </button>
             </div>
           </CardActions>
-          <LinearProgress
-            variant="determinate"
-            value={this.state.percentUploaded}
-          />
+
+          <div
+            style={
+              this.state.percentUploaded != 0
+                ? { display: "block" }
+                : { display: "none" }
+            }
+          >
+            <center>
+              {/* <p>{this.state.percentUploaded} %</p> */}
+              <Chip
+                style={{ marginBottom: "5px" }}
+                label={this.state.percentUploaded + "%"}
+                color="primary"
+              />
+            </center>
+            <LinearProgress
+              variant="determinate"
+              value={this.state.percentUploaded}
+            />
+          </div>
         </Card>
       </div>
     );
