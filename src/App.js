@@ -95,7 +95,12 @@ class App extends Component {
     const { classes } = this.props;
     return (
       <div className="App">
-        <AppBar position="static">
+        <AppBar
+          position="static"
+          style={{
+            marginBottom: "20px"
+          }}
+        >
           <Toolbar>
             <IconButton
               className={classes.menuButton}
@@ -110,9 +115,8 @@ class App extends Component {
               color="inherit"
               className={classes.grow}
             >
-              Project INK
+              INK Player
             </Typography>
-
             <OnlyGuestLinks />
             <LogoutButton />
           </Toolbar>

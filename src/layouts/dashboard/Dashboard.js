@@ -16,9 +16,7 @@ class Dashboard extends Component {
           <div className="card-header">Dashboard</div>
           <div className="card-body">
             <p className="card-text">
-              <p>
-                Welcome <strong>{this.props.authData.name}!</strong>
-              </p>
+              Welcome <strong>{this.props.authData.name}!</strong>
             </p>
           </div>
         </div>

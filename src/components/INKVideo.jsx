@@ -6,7 +6,7 @@ class INKVideo extends Component {
   render() {
     return (
       <div className="uploaded-videos">
-        <video controls="true" width="50%" height="50%">
+        <video controls={true} width="50%" height="50%">
           <source src={this.props.src} />
         </video>
       </div>

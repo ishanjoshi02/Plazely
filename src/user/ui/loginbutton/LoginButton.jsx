@@ -1,10 +1,11 @@
 import React from "react";
+import { Button } from "@material-ui/core";
 
 const LoginButton = ({ onLoginUserClick }) => {
   return (
-    <a className="nav-link" href="#" onClick={event => onLoginUserClick(event)}>
+    <Button color="inherit" onClick={event => onLoginUserClick(event)}>
       Login with UPort
-    </a>
+    </Button>
   );
 };
 

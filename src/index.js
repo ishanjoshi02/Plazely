@@ -14,6 +14,7 @@ import WatchVideo from "./layouts/watchVideo/WatchVideo";
 import UploadVideo from "./layouts/uploadVideo/UploadVideo";
 // Redux Store
 import store from "./store";
+// semantic-ui-css
 
 const history = syncHistoryWithStore(browserHistory, store);
 
