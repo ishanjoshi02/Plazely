@@ -8,8 +8,11 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
+import { browserHistory } from "react-router";
 import Drawer from "@material-ui/core/Drawer";
+import classNames from "classnames";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 // // Styles
 import "./css/oswald.css";
@@ -24,17 +27,73 @@ import LogoutButtonContainer from "./user/ui/logoutbutton/LogoutButtonContainer"
 import { ListItem } from "@material-ui/core";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-
-const styles = {
+const drawerWidth = 240;
+const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    height: 440,
+    zIndex: 1,
+    overflow: "hidden",
+    position: "relative",
+    display: "flex"
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    marginBottom: "20px"
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  menuButton: {
+    marginLeft: 12,
+    marginRight: 36
+  },
+  hide: {
+    display: "none"
+  },
+  drawerPaper: {
+    position: "relative",
+    whiteSpace: "nowrap",
+    width: drawerWidth,
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  drawerPaperClose: {
+    overflowX: "hidden",
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    width: theme.spacing.unit * 7,
+    [theme.breakpoints.up("sm")]: {
+      width: theme.spacing.unit * 9
+    }
+  },
+  toolbar: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: "0 8px",
+    ...theme.mixins.toolbar
+  },
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing.unit * 3
   },
   grow: {
     flexGrow: 1
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
   },
   list: {
     width: 250
@@ -42,7 +101,7 @@ const styles = {
   fullList: {
     width: "auto"
   }
-};
+});
 
 class App extends Component {
   constructor(props) {
@@ -59,61 +118,96 @@ class App extends Component {
   };
 
   render() {
+    const { classes, theme } = this.props;
     const OnlyAuthLinks = VisibleOnlyAuth(() => (
-      <Drawer open={this.state.drawerOpen} onClose={this.setDrawerState(false)}>
-        <div
-          tabIndex={0}
-          className={classes.list}
-          role="button"
-          onClick={this.setDrawerState(false)}
-          onKeyDown={this.setDrawerState(false)}
-        >
-          <List>
-            <ListItem>
-              <Button>
-                <Link to="/dashboard">Dashboard</Link>
-              </Button>
-            </ListItem>
-            <ListItem>
-              <Button>
-                <Link to="/profile">Profile</Link>
-              </Button>
-            </ListItem>
-            <ListItem>
-              <Button>
-                <Link to="/uploadVideo">Upload Video</Link>
-              </Button>
-            </ListItem>
-          </List>
+      <Drawer
+        variant="permanent"
+        classes={{
+          paper: classNames(
+            classes.drawerPaper,
+            !this.state.drawerOpen && classes.drawerPaperClose
+          )
+        }}
+        open={this.state.drawerOpen}
+      >
+        <div className={classes.toolbar}>
+          <IconButton onClick={this.setDrawerState(false)}>
+            {theme.direction === "rtl" ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
+          </IconButton>
         </div>
+        <List>
+          {" "}
+          <ListItem
+            button
+            onClick={() => {
+              browserHistory.push("/dashboard");
+            }}
+          >
+            <ListItemIcon>
+              <i className="material-icons">dashboard</i>
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" />
+          </ListItem>
+          <ListItem
+            button
+            onClick={() => {
+              browserHistory.push("/profile");
+            }}
+          >
+            <ListItemIcon>
+              <i className="material-icons">account_circle</i>
+            </ListItemIcon>
+            <ListItemText primary="Profile" />
+          </ListItem>{" "}
+          <ListItem
+            button
+            onClick={() => {
+              browserHistory.push("/uploadVideo");
+            }}
+          >
+            <ListItemIcon>
+              <i className="material-icons">cloud_upload</i>
+            </ListItemIcon>
+            <ListItemText primary="Upload Video" />
+          </ListItem>
+        </List>
       </Drawer>
     ));
-
     const LogoutButton = VisibleOnlyAuth(() => <LogoutButtonContainer />);
-
     const OnlyGuestLinks = HiddenOnlyAuth(() => <LoginButtonContainer />);
-    const { classes } = this.props;
     return (
-      <div className="App">
+      <div className={classes.root}>
         <AppBar
-          position="static"
-          style={{
-            marginBottom: "20px"
-          }}
+          className={classNames(
+            classes.appBar,
+            this.state.drawerOpen && classes.appBarShift
+          )}
+          position="absolute"
         >
-          <Toolbar>
+          <Toolbar disableGutters={!this.state.drawerOpen}>
             <IconButton
-              className={classes.menuButton}
+              className={classNames(
+                classes.menuButton,
+                this.state.drawerOpen && classes.hide
+              )}
               color="inherit"
               onClick={this.setDrawerState(true)}
-              aria-label="Menu"
+              aria-label="Open Drawer"
             >
               <MenuIcon />
             </IconButton>
             <Typography
               variant="title"
               color="inherit"
+              noWrap
               className={classes.grow}
+              onClick={() => {
+                browserHistory.push("");
+              }}
             >
               INK Player
             </Typography>
@@ -128,7 +222,8 @@ class App extends Component {
   }
 }
 App.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(App);
+export default withStyles(styles, { withTheme: true })(App);

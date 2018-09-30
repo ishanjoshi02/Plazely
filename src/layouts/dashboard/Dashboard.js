@@ -11,7 +11,7 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container-fluid" style={{ paddingTop: "5%" }}>
         <div className="card text-black border">
           <div className="card-header">Dashboard</div>
           <div className="card-body">

@@ -4,7 +4,39 @@ import { HiddenOnlyAuth, VisibleOnlyAuth } from "../../util/wrappers";
 import { createNode } from "ipfs";
 import "./Home.css";
 import Lottie from "react-lottie";
+import { browserHistory } from "react-router";
 import * as animationData from "./data.json";
+import Grid from "@material-ui/core/Grid";
+import PropTypes from "prop-types";
+import Card from "@material-ui/core/Card";
+import CardMedia from "@material-ui/core/CardMedia";
+import { withStyles } from "@material-ui/core/styles";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import {
+  CardActionArea,
+  CardContent,
+  Typography,
+  CardActions,
+  Button
+} from "@material-ui/core";
+import { Icon } from "semantic-ui-react";
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: "center",
+    color: theme.palette.text.secondary
+  },
+  card: {
+    maxWidth: 345
+  },
+  media: {
+    // height: 140,
+    width: "100%"
+  }
+});
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -20,10 +52,14 @@ class Home extends Component {
     return "https://ipfs.io/ipfs/" + hash;
   };
 
+  redirectToWatchVideo = hash => {
+    browserHistory.push("/watchVideo?hash=" + hash);
+  };
+
   render() {
     const node = createNode();
     node.on("ready", () => {
-      console.log("Node " + JSON.stringify(node));
+      console.log(node);
     });
     const defaultOptions = {
       loop: false,
@@ -34,48 +70,61 @@ class Home extends Component {
       }
     };
 
-    // const VideoPlayer = this.state.hashes.map(hash => (
-    //   // let ipfsURI =
-    //   <div key={hash}>
-    //     <INKVideo src={this.getUri(hash)} />
-    //     <br />
-    //   </div>
-    // ));
+    const { classes } = this.props;
 
+    const links = ["QmSpQj4KwWNZT7mQsPyCyt2XWMueCgJe1C5PAVdYgYnz2S"];
     const AuthVideoPlayer = VisibleOnlyAuth(() => (
-      <div className="video-grid">
-        <INKVideo src="https://ipfs.io/ipfs/QmYqcJJip5cyYuaSgCGUEBEaq2fxMA46B7nhkb5Ay4oh2E" />
-        <INKVideo src="https://ipfs.io/ipfs/QmReCgkcuh2ETJPqjiSV5NKiUf11Pg3tcb12hqm4h8zHo4" />
-        <INKVideo src="https://ipfs.io/ipfs/QmSsmiN8rycAi8dcx9FymV35pUJX3vgtaMy6VoPVe47BtY" />
+      <div className={classes.root}>
+        <Grid container spacing={8}>
+          {" "}
+          {links.map(hash => (
+            <Grid item key={hash}>
+              <Card
+                onClick={() => {
+                  this.redirectToWatchVideo(hash);
+                }}
+                className={classes.card}
+              >
+                <CardActionArea>
+                  {" "}
+                  <CardMedia
+                    component="video"
+                    className={classes.media}
+                    src={"https://ipfs.io/ipfs/" + hash}
+                  />
+                </CardActionArea>
+                <CardContent>
+                  <Typography gutterBottom variant="headline" component="h2">
+                    Placeholder Title
+                  </Typography>
+                  <Typography component="p">Placeholder Description</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
       </div>
     ));
 
-    /*const GuestVideoPlayer = HiddenOnlyAuth(() => (
-      <div className="card mb-6">
-        <h3 className="card-header">Sample Video Streaming using IPFS</h3>
-        <center>
-          <INKVideo src={this.state.guestHash} />
-        </center>
-        <div className="card-body">
-          <p className="card-text">Add project description</p>
-        </div>
-      </div>
-    ));*/
+    const GuestVideoPlayer = HiddenOnlyAuth(() => {
+      <div className="home-animation">
+        <Lottie
+          options={defaultOptions}
+          isStopped={this.state.isStopped}
+          isPaused={this.state.isPaused}
+        />
+      </div>;
+    });
 
     return (
-      <div className="container-fluid">
+      <div className="container-fluid" style={{ paddingTop: "5%" }}>
         <AuthVideoPlayer />
-        {/* <GuestVideoPlayer /> */}
-        <div className="home-animation">
-          <Lottie
-            options={defaultOptions}
-            isStopped={this.state.isStopped}
-            isPaused={this.state.isPaused}
-          />
-        </div>
+        <GuestVideoPlayer />
       </div>
     );
   }
 }
-
-export default Home;
+Home.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+export default withStyles(styles)(Home);
