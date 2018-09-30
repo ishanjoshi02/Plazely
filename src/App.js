@@ -28,12 +28,14 @@ import { ListItem } from "@material-ui/core";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 const drawerWidth = 240;
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 440,
+    height: window.innerHeight,
     zIndex: 1,
-    overflow: "hidden",
+    overflow: "auto",
+    paddingBottom: "5%",
     position: "relative",
     display: "flex"
   },
@@ -191,6 +193,7 @@ class App extends Component {
           <Toolbar disableGutters={!this.state.drawerOpen}>
             <IconButton
               className={classNames(
+                "App",
                 classes.menuButton,
                 this.state.drawerOpen && classes.hide
               )}
