@@ -219,7 +219,7 @@ class App extends Component {
           </Toolbar>
         </AppBar>
         <OnlyAuthLinks />
-        {this.props.children}
+        <div className={classes.content}>{this.props.children}</div>
       </div>
     );
   }

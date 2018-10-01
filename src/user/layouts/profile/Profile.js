@@ -3,7 +3,7 @@ import Avatar from "avataaars";
 import "./Profile.css";
 import Card from "@material-ui/core/Card";
 import PropTypes from "prop-types";
-import { CardMedia, CardContent } from "@material-ui/core";
+import { CardMedia, CardContent, Divider } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -48,12 +48,12 @@ class Profile extends Component {
     } else {
       return (
         <Avatar
-          style={{ width: "200px", height: "200px" }}
+          style={{ width: "200px", height: "200px", margin: 10 }}
           avatarStyle="Circle"
           topType="ShortHairShortCurly"
           accessoriesType="Prescription02"
           hairColor="BrownDark"
-          facialHairType="BeardLight"
+          // facialHairType="BeardLight"
           facialHairColor="BrownDark"
           clotheType="BlazerSweater"
           eyeType="Default"
@@ -72,12 +72,25 @@ class Profile extends Component {
         <Card className={classes.card}>
           <CardContent>
             <center>{this.state.avatar}</center>
-            <Typography gutterBottom variant="headline" component="h2">
+            <Divider />
+
+            <Typography
+              style={{ marginTop: 10 }}
+              gutterBottom
+              variant="headline"
+              component="h2"
+            >
               {this.props.authData.name}
             </Typography>
-            <Typography component="p">
+            <Divider />
+            <Typography
+              style={{ marginTop: 10, marginBottom: 10 }}
+              component="p"
+            >
               {this.props.authData.phone}
-              <br />
+            </Typography>
+            <Divider />
+            <Typography style={{ marginTop: 10 }} component="p">
               {this.props.authData.country}
             </Typography>
           </CardContent>
