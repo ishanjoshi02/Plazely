@@ -32,7 +32,7 @@ const styles = theme => ({
   },
   media: {
     // ⚠️ object-fit is not supported by IE11.
-    objectFit: "cover"
+    // objectFit: "cover",
   },
   formControl: {
     margin: theme.spacing.unit
@@ -116,16 +116,24 @@ class UploadVideo extends Component {
     this.setState({ fileSize: event.target.files[0].size });
     this.setState({ fileName: event.target.files[0].name });
     const { classes } = this.props;
+
     this.setState({
       filePreview: (
         <CardMedia
           component="video"
           controls
+          style={{ height: "560px", background: "#000000" }}
           className={classes.media}
           src={URL.createObjectURL(event.target.files[0])}
           title={event.target.files[0].name}
         />
       )
+    });
+  };
+
+  onCategoryChange = event => {
+    this.setState({
+      category: event.target.value
     });
   };
 
@@ -161,9 +169,9 @@ class UploadVideo extends Component {
 
   render() {
     const { classes } = this.props;
-    const categories = ["Music", "Gaming", "Trailer"];
+    const categories = ["Music", "Gaming", "Trailer", "Vlogs", "Advertisement"];
     return (
-      <div className="container-fluid" style={{ paddingTop: "5%" }}>
+      <div className="container-fluid" style={{ padding: "5%" }}>
         <Card className={classes.card} style={{ width: "70%" }}>
           <CardContent>
             <form>
@@ -182,6 +190,19 @@ class UploadVideo extends Component {
                     type="text"
                   />
                 </div>
+
+                <Select
+                  style={{ minWidth: 120, width: "auto" }}
+                  value={this.state.category}
+                  onChange={this.onCategoryChange}
+                >
+                  <MenuItem>
+                    <em value={""}>None</em>
+                  </MenuItem>
+                  {categories.map(category => (
+                    <MenuItem value={category}>{category}</MenuItem>
+                  ))}
+                </Select>
               </fieldset>
             </form>
           </CardContent>
