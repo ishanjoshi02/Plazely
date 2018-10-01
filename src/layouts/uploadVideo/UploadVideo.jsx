@@ -32,7 +32,7 @@ const styles = theme => ({
   },
   media: {
     // ⚠️ object-fit is not supported by IE11.
-    objectFit: "cover"
+    // objectFit: "cover",
   },
   formControl: {
     margin: theme.spacing.unit
@@ -121,6 +121,7 @@ class UploadVideo extends Component {
         <CardMedia
           component="video"
           controls
+          style={{ height: "560px", background: "#000000" }}
           className={classes.media}
           src={URL.createObjectURL(event.target.files[0])}
           title={event.target.files[0].name}
