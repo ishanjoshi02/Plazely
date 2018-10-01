@@ -14,7 +14,10 @@ import {
   InputLabel,
   Input,
   FormControl,
-  Chip
+  Chip,
+  CircularProgress,
+  Select,
+  MenuItem
 } from "@material-ui/core";
 import { Label } from "semantic-ui-react";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -64,12 +67,15 @@ class UploadVideo extends Component {
       description: "",
       author: "",
       dateAdded: "",
+      fileLoadComplete: false,
       file: null,
       fileName: "Select File",
       filePreview: "",
       ipfsHash: null,
       fileSize: 0,
-      percentUploaded: 0
+      category: null,
+      percentUploaded: 0,
+      uploading: false
     };
 
     this.onVideoFileChange = this.onVideoFileChange.bind(this);
@@ -98,7 +104,8 @@ class UploadVideo extends Component {
   };
 
   onFileLoad = () => {
-    this.setState({ file: this.reader.result });
+    this.setState({ file: Buffer.from(this.reader.result) });
+    this.setState({ fileLoadComplete: true });
   };
 
   onVideoFileChange = event => {
@@ -123,7 +130,7 @@ class UploadVideo extends Component {
   };
 
   setProgressBar = chunks => {
-    console.log(chunks);
+    // console.log(chunks);
     this.setState({
       percentUploaded: Math.floor((chunks / this.state.fileSize) * 100)
     });
@@ -131,9 +138,10 @@ class UploadVideo extends Component {
 
   onSubmitVideo = event => {
     if (this.state.file != null) {
+      this.setState({ uploading: true });
       // Check if the video title and video description is empty
-
-      const dataObject = Buffer.from(this.state.file);
+      console.log("Starting upload of " + this.state.fileName);
+      const dataObject = this.state.file;
       console.log("started upload");
       //add code to show progress
       node.files.add(
@@ -143,6 +151,7 @@ class UploadVideo extends Component {
           if (error) {
             console.error(error);
           } else {
+            console.log(files[0].hash);
             browserHistory.push("/watchVideo?hash=" + files[0].hash);
           }
         }
@@ -152,9 +161,10 @@ class UploadVideo extends Component {
 
   render() {
     const { classes } = this.props;
+    const categories = ["Music", "Gaming", "Trailer"];
     return (
-      <div className="container-fluid" style={{ padding: "20px" }}>
-        <Card className={classes.card} style={{ width: "60%" }}>
+      <div className="container-fluid" style={{ paddingTop: "5%" }}>
+        <Card className={classes.card} style={{ width: "70%" }}>
           <CardContent>
             <form>
               <fieldset>
@@ -177,10 +187,18 @@ class UploadVideo extends Component {
           </CardContent>
           {this.state.filePreview}
           <CardActions>
-            <label className="btn btn-primary" htmlFor="video_file_input">
+            <label
+              className={
+                !this.state.uploading
+                  ? "btn btn-primary"
+                  : "btn btn-primary disabled"
+              }
+              htmlFor="video_file_input"
+            >
               {this.state.fileName}
             </label>
             <input
+              disabled={this.state.uploading}
               onChange={this.onVideoFileChange}
               style={{ display: "none" }}
               type="file"
@@ -189,17 +207,24 @@ class UploadVideo extends Component {
             />
             <div
               style={
-                this.state.file != null
+                this.state.fileSize > 0
                   ? { display: "block" }
                   : { display: "none" }
               }
             >
               <button
-                onClick={this.onSubmitVideo}
+                disabled={this.state.uploading}
+                onClick={() => {
+                  this.onSubmitVideo();
+                }}
                 className="btn btn-primary"
                 role="button"
               >
-                Upload
+                {this.state.fileLoadComplete ? (
+                  "Upload"
+                ) : (
+                  <CircularProgress size={20} />
+                )}
               </button>
             </div>
           </CardActions>
@@ -212,7 +237,6 @@ class UploadVideo extends Component {
             }
           >
             <center>
-              {/* <p>{this.state.percentUploaded} %</p> */}
               <Chip
                 style={{ marginBottom: "5px" }}
                 label={this.state.percentUploaded + "%"}

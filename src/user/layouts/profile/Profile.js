@@ -68,7 +68,7 @@ class Profile extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div style={{ padding: "20px" }} className="container-fluid">
+      <div style={{ paddingTop: "5%" }} className="container-fluid">
         <Card className={classes.card}>
           <CardContent>
             <center>{this.state.avatar}</center>

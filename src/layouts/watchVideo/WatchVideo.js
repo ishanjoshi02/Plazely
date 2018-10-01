@@ -16,7 +16,11 @@ class WatchVideo extends Component {
     }
   };
   render() {
-    return <INKVideo src={"https://ipfs.io/ipfs/" + this.state.hash} />;
+    return (
+      <div className="container-fluid" style={{ paddingTop: "5%" }}>
+        <INKVideo src={"https://ipfs.io/ipfs/" + this.state.hash} />
+      </div>
+    );
   }
 }
 

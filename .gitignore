@@ -2,4 +2,4 @@ node_modules/
 keys/
 .vscode/
 build
-src/util/connectors.js
+src\util\connectors.js
