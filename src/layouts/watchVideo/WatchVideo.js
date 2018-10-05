@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { SnackbarContent } from "@material-ui/core";
+import driver from "bigchaindb-driver";
 
 const styles = theme => ({
   snackbar: {
@@ -17,15 +18,22 @@ class WatchVideo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hash: null
+      hash: null,
+      uuid: null
     };
   }
   componentWillMount = () => {
     const { classes } = this.props;
     var currentLocation = browserHistory.getCurrentLocation();
-    if ("hash" in currentLocation.query) {
-      this.setState({ hash: currentLocation.query.hash });
+    if ("uuid" in currentLocation.query) {
+      this.setState({ uuid: currentLocation.query.uuid });
     }
+
+    const conn = new driver.Connection();
+
+    conn.searchAssets(this.state.uuid).then(assets => {
+      this.setState({ hash: assets[0]["data"]["720p"] });
+    });
   };
   render() {
     return (

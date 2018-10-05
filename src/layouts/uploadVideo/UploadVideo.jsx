@@ -1,27 +1,21 @@
 import React, { Component } from "react";
 import "./UploadVideo.css";
-import { browserHistory } from "react-router";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { withStyles } from "@material-ui/core/styles";
+const bip39 = require("bip39");
+const BigchainDB = require("bigchaindb-driver");
+import { applicationID, applicationKey } from "../../keys/bigchaindbKey";
 import {
   Card,
   CardMedia,
   CardContent,
-  Typography,
-  TextField,
   CardActions,
-  Button,
-  InputLabel,
-  Input,
-  FormControl,
   Chip,
   CircularProgress,
   Select,
   MenuItem
 } from "@material-ui/core";
-import { Label } from "semantic-ui-react";
-import CardActionArea from "@material-ui/core/CardActionArea";
-
+const uuidv1 = require("uuid/v1");
 const IPFS = require("ipfs");
 const node = new IPFS();
 var Buffer = require("buffer/").Buffer;
@@ -152,6 +146,7 @@ class UploadVideo extends Component {
       const dataObject = this.state.file;
       console.log("started upload");
       //add code to show progress
+
       node.files.add(
         dataObject,
         { progress: this.setProgressBar },
@@ -160,11 +155,54 @@ class UploadVideo extends Component {
             console.error(error);
           } else {
             console.log(files[0].hash);
-            browserHistory.push("/watchVideo?hash=" + files[0].hash);
+            const videoHashes = {
+              "720p": files[0].hash
+            };
+
+            // add hashes to db
+            const uuid = uuidv1();
+            const asset = {
+              videoHashes,
+              author: this.state.author,
+              title: this.state.title,
+              uuid: uuid,
+              category: this.state.category,
+              description: this.state.description,
+              submissionTime: new Date().toDateString()
+            };
+
+            this.addVideoToDB(asset);
           }
         }
       );
     }
+  };
+  addVideoToDB = assets => {
+    const API_PATH = "https://test.bigchaindb.com/api/v1/";
+    const conn = new BigchainDB.Connection(API_PATH, {
+      app_id: "9b81ac62",
+      app_key: "3018c3958254035206e6d4c147649afa"
+    });
+    const seed = bip39.mnemonicToSeed("ProjectINK").slice(0, 32);
+    const alice = new BigchainDB.Ed25519Keypair(seed);
+
+    const txCreateVideo = BigchainDB.Transaction.makeCreateTransaction(
+      {
+        assets
+      },
+      {},
+      [
+        BigchainDB.Transaction.makeOutput(
+          BigchainDB.Transaction.makeEd25519Condition(alice.publicKey)
+        )
+      ],
+      alice.publicKey
+    );
+    const txSigned = BigchainDB.Transaction.signTransaction(
+      txCreateVideo,
+      alice.privateKey
+    );
+    conn.postTransactionCommit(txSigned).then(res => console.log(res));
   };
 
   render() {
@@ -200,7 +238,9 @@ class UploadVideo extends Component {
                     <em value={""}>None</em>
                   </MenuItem>
                   {categories.map(category => (
-                    <MenuItem value={category}>{category}</MenuItem>
+                    <MenuItem key={category} value={category}>
+                      {category}
+                    </MenuItem>
                   ))}
                 </Select>
               </fieldset>
