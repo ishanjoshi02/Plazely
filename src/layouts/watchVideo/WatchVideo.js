@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { browserHistory } from "react-router";
+import {
+  applicationID,
+  applicationKey,
+  API_PATH
+} from "../../keys/bigchaindbKey";
 import INKVideo from "../../components/INKVideo";
 import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
-import { SnackbarContent } from "@material-ui/core";
-import driver from "bigchaindb-driver";
+const BigchainDB = require("bigchaindb-driver");
 
 const styles = theme => ({
   snackbar: {
@@ -18,27 +21,36 @@ class WatchVideo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hash: null,
+      hash: "QmTKZgRNwDNZwHtJSjCp6r5FYefzpULfy37JvMt9DwvXse/video.mp4",
       uuid: null
     };
   }
-  componentWillMount = () => {
+  componentWillMount = async () => {
     const { classes } = this.props;
     var currentLocation = browserHistory.getCurrentLocation();
     if ("uuid" in currentLocation.query) {
-      this.setState({ uuid: currentLocation.query.uuid });
+      console.log(currentLocation.query.uuid);
+      await this.setState({ uuid: currentLocation.query.uuid });
+      const conn = new BigchainDB.Connection(API_PATH, {
+        app_id: applicationID,
+        app_key: applicationKey
+      });
+      conn.searchAssets(this.state.uuid).then(assets => {
+        console.log(assets[0]["data"]["assets"]["videoHashes"]["720p"]);
+        this.setState({
+          hash: assets[0]["data"]["assets"]["videoHashes"]["720p"]
+        });
+      });
     }
-
-    const conn = new driver.Connection();
-
-    conn.searchAssets(this.state.uuid).then(assets => {
-      this.setState({ hash: assets[0]["data"]["720p"] });
-    });
   };
   render() {
     return (
       <div className="container-fluid" style={{ paddingTop: "5%" }}>
-        <INKVideo src={"https://ipfs.io/ipfs/" + this.state.hash} />
+        <video
+          src={"https://ipfs.io/ipfs/" + this.state.hash}
+          autoPlay
+          controls
+        />
       </div>
     );
   }

@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 const bip39 = require("bip39");
 const BigchainDB = require("bigchaindb-driver");
 import { applicationID, applicationKey } from "../../keys/bigchaindbKey";
+import { browserHistory } from "react-router";
 import {
   Card,
   CardMedia,
@@ -172,6 +173,7 @@ class UploadVideo extends Component {
             };
 
             this.addVideoToDB(asset);
+            browserHistory.push("/watchVideo?uuid=" + uuid);
           }
         }
       );
@@ -180,8 +182,8 @@ class UploadVideo extends Component {
   addVideoToDB = assets => {
     const API_PATH = "https://test.bigchaindb.com/api/v1/";
     const conn = new BigchainDB.Connection(API_PATH, {
-      app_id: "9b81ac62",
-      app_key: "3018c3958254035206e6d4c147649afa"
+      app_id: applicationID,
+      app_key: applicationKey
     });
     const seed = bip39.mnemonicToSeed("ProjectINK").slice(0, 32);
     const alice = new BigchainDB.Ed25519Keypair(seed);
@@ -190,7 +192,7 @@ class UploadVideo extends Component {
       {
         assets
       },
-      {},
+      null,
       [
         BigchainDB.Transaction.makeOutput(
           BigchainDB.Transaction.makeEd25519Condition(alice.publicKey)
