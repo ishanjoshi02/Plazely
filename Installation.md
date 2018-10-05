@@ -66,7 +66,15 @@ Your code should look something like this:
 
 _Code Image created with [Carbon](https://carbon.now.sh/)_
 
-13. Now you can run your project
+13. Get the BigChainDB Keys from [Bigchain](https://testnet.bigchaindb.com/login)
+
+After getting the keys, create a file called `bigchaindbKeys.js`. Your code should look like this
+
+<img src="./CodePictures/bigchainkeys.png" alt="connectors" width="50%" />
+
+_Code Image created with [Carbon](https://carbon.now.sh/)_
+
+14. Now you can run your project
 
 ## Run the project
 
