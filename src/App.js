@@ -12,6 +12,7 @@ import { browserHistory } from "react-router";
 import Drawer from "@material-ui/core/Drawer";
 import classNames from "classnames";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 // // Styles
@@ -27,6 +28,7 @@ import LogoutButtonContainer from "./user/ui/logoutbutton/LogoutButtonContainer"
 import { ListItem } from "@material-ui/core";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import { Image } from "semantic-ui-react";
 const drawerWidth = 240;
 
 const styles = theme => ({
