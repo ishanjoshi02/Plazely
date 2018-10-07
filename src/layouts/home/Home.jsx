@@ -52,8 +52,8 @@ class Home extends Component {
     return "https://ipfs.io/ipfs/" + hash;
   };
 
-  redirectToWatchVideo = hash => {
-    browserHistory.push("/watchVideo?hash=" + hash);
+  redirectToWatchVideo = uuid => {
+    browserHistory.push("/watchVideo?uuid=" + uuid);
   };
 
   render() {
@@ -72,16 +72,21 @@ class Home extends Component {
 
     const { classes } = this.props;
 
-    const links = ["QmSpQj4KwWNZT7mQsPyCyt2XWMueCgJe1C5PAVdYgYnz2S"];
+    const links = [
+      {
+        hash: "QmSpQj4KwWNZT7mQsPyCyt2XWMueCgJe1C5PAVdYgYnz2S",
+        uuid: "2fef4dc0-c893-11e8-8cb6-af52269aab72"
+      }
+    ];
     const AuthVideoPlayer = VisibleOnlyAuth(() => (
       <div className={classes.root}>
         <Grid container spacing={8}>
           {" "}
-          {links.map(hash => (
-            <Grid item key={hash}>
+          {links.map(vid => (
+            <Grid item key={vid.hash}>
               <Card
                 onClick={() => {
-                  this.redirectToWatchVideo(hash);
+                  this.redirectToWatchVideo(vid.uuid);
                 }}
                 className={classes.card}
               >
@@ -90,7 +95,7 @@ class Home extends Component {
                   <CardMedia
                     component="video"
                     className={classes.media}
-                    src={"https://ipfs.io/ipfs/" + hash}
+                    src={"https://ipfs.io/ipfs/" + vid.hash}
                   />
                 </CardActionArea>
                 <CardContent>
@@ -106,18 +111,18 @@ class Home extends Component {
       </div>
     ));
 
-    const GuestVideoPlayer = HiddenOnlyAuth(() => {
+    const GuestVideoPlayer = HiddenOnlyAuth(() => (
       <div className="home-animation">
         <Lottie
           options={defaultOptions}
           isStopped={this.state.isStopped}
           isPaused={this.state.isPaused}
         />
-      </div>;
-    });
+      </div>
+    ));
 
     return (
-      <div className="container-fluid" style={{ paddingTop: "5%" }}>
+      <div style={{ paddingTop: "5%" }}>
         <AuthVideoPlayer />
         <GuestVideoPlayer />
       </div>

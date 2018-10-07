@@ -4,7 +4,12 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import { withStyles } from "@material-ui/core/styles";
 const bip39 = require("bip39");
 const BigchainDB = require("bigchaindb-driver");
-import { applicationID, applicationKey } from "../../keys/bigchaindbKey";
+import Orm from "bigchaindb-orm";
+import {
+  applicationID,
+  applicationKey,
+  API_PATH
+} from "../../keys/bigchaindbKey";
 import { browserHistory } from "react-router";
 import {
   Card,
@@ -88,7 +93,7 @@ class UploadVideo extends Component {
 
   onVideoTitleChange = event => {
     this.setState({
-      title: event.target.values
+      title: event.target.value
     });
   };
 
@@ -139,7 +144,7 @@ class UploadVideo extends Component {
     });
   };
 
-  onSubmitVideo = event => {
+  onSubmitVideo = async => {
     if (this.state.file != null) {
       this.setState({ uploading: true });
       // Check if the video title and video description is empty
@@ -162,50 +167,68 @@ class UploadVideo extends Component {
 
             // add hashes to db
             const uuid = uuidv1();
+            const title = this.state.title;
+            console.log(title);
             const asset = {
               videoHashes,
               author: this.state.author,
-              title: this.state.title,
+              title: title,
               uuid: uuid,
               category: this.state.category,
               description: this.state.description,
               submissionTime: new Date().toDateString()
             };
-
             this.addVideoToDB(asset);
-            browserHistory.push("/watchVideo?uuid=" + uuid);
           }
         }
       );
     }
   };
-  addVideoToDB = assets => {
-    const API_PATH = "https://test.bigchaindb.com/api/v1/";
-    const conn = new BigchainDB.Connection(API_PATH, {
+
+  addVideoToDB = asset => {
+    const bdbOrm = new Orm(API_PATH, {
       app_id: applicationID,
       app_key: applicationKey
     });
-    const seed = bip39.mnemonicToSeed("ProjectINK").slice(0, 32);
-    const alice = new BigchainDB.Ed25519Keypair(seed);
-
-    const txCreateVideo = BigchainDB.Transaction.makeCreateTransaction(
-      {
-        assets
-      },
-      null,
-      [
-        BigchainDB.Transaction.makeOutput(
-          BigchainDB.Transaction.makeEd25519Condition(alice.publicKey)
-        )
-      ],
-      alice.publicKey
-    );
-    const txSigned = BigchainDB.Transaction.signTransaction(
-      txCreateVideo,
-      alice.privateKey
-    );
-    conn.postTransactionCommit(txSigned).then(res => console.log(res));
+    bdbOrm.define("Movie", "https://schema.org/v1/Movie");
+    const aliceKeypair = new bdbOrm.driver.Ed25519Keypair();
+    bdbOrm.models.Movie.create({
+      keypair: aliceKeypair,
+      data: asset
+    }).then(asset => {
+      console.log(asset);
+      console.log(asset.id);
+      browserHistory.push("/watchVideo?uuid=" + asset.id);
+    });
   };
+
+  // addVideoToDB = assets => {
+  //   const API_PATH = "https://test.bigchaindb.com/api/v1/";
+  //   const conn = new BigchainDB.Connection(API_PATH, {
+  //     app_id: applicationID,
+  //     app_key: applicationKey
+  //   });
+  //   const seed = bip39.mnemonicToSeed("ProjectINK").slice(0, 32);
+  //   const alice = new BigchainDB.Ed25519Keypair(seed);
+
+  //   const txCreateVideo = BigchainDB.Transaction.makeCreateTransaction(
+  //     {
+  //       assets
+  //     },
+  //     null,
+  //     [
+  //       BigchainDB.Transaction.makeOutput(
+  //         BigchainDB.Transaction.makeEd25519Condition(alice.publicKey)
+  //       )
+  //     ],
+  //     alice.publicKey
+  //   );
+  //   const txSigned = BigchainDB.Transaction.signTransaction(
+  //     txCreateVideo,
+  //     alice.privateKey
+  //   );
+  //   conn.postTransactionCommit(txSigned).then(res => console.log(res));
+  // };
 
   render() {
     const { classes } = this.props;
@@ -220,11 +243,13 @@ class UploadVideo extends Component {
                   <input
                     className="form-control"
                     placeholder="Title"
+                    onChange={this.onVideoTitleChange}
                     type="text"
                   />
                 </div>
                 <div className="form-group">
                   <input
+                    onChange={this.onVideoDescriptionChange}
                     className="form-control"
                     placeholder="Description"
                     type="text"
