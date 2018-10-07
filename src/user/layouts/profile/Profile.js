@@ -7,23 +7,13 @@ import { CardMedia, CardContent, Divider } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-const styles = {
+const styles = theme => ({
   card: {
-    maxWidth: 275
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)"
-  },
-  title: {
-    marginBottom: 16,
-    fontSize: 14
-  },
-  pos: {
-    marginBottom: 12
+    maxWidth: 275,
+    marginLeft: "auto",
+    marginRight: "auto"
   }
-};
+});
 class Profile extends Component {
   constructor(props) {
     super(props);
