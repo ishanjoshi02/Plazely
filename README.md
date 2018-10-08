@@ -37,7 +37,7 @@ Refer to [Installation](Installation.md)
 
 ## UML Diagrams and Documentation
 
-For documentation, vist, [ProjectINKDocumentation](https://github.com/ishanjoshi02/ProjectINKDocumentation)
+For documentation, visit, [ProjectINKDocumentation](https://github.com/ishanjoshi02/ProjectINKDocumentation)
 
 ## Testing Videos
 
