@@ -29,6 +29,8 @@ import { ListItem } from "@material-ui/core";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Image } from "semantic-ui-react";
+import red from "@material-ui/core/colors/red";
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -37,10 +39,10 @@ const styles = theme => ({
     height: window.innerHeight,
     zIndex: 1,
     overflow: "auto",
-    paddingBottom: "5%",
     position: "relative",
     display: "flex"
   },
+
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
@@ -212,7 +214,7 @@ class App extends Component {
     const LogoutButton = VisibleOnlyAuth(() => <LogoutButtonContainer />);
     const OnlyGuestLinks = HiddenOnlyAuth(() => <LoginButtonContainer />);
     return (
-      <div className={classes.root}>
+      <div className={classes.root} style={{ backgroundColor: "#ffffff" }}>
         <AppBar
           className={classNames(
             classes.appBar,
