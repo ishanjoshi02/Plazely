@@ -178,17 +178,6 @@ class App extends Component {
             </ListItemIcon>
             <ListItemText primary="Upload Video" />
           </ListItem>
-          <ListItem
-            button
-            onClick={() => {
-              browserHistory.push("/watchVideo");
-            }}
-          >
-            <ListItemIcon>
-              <i className="material-icons">movie</i>
-            </ListItemIcon>
-            <ListItemText primary="Upload Video" />
-          </ListItem>
         </List>
       </Drawer>
     ));
