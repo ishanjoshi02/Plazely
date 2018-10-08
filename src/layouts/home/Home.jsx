@@ -10,7 +10,6 @@ import { createNode } from "ipfs";
 const driver = require("bigchaindb-driver");
 import "./Home.css";
 import Lottie from "react-lottie";
-import { browserHistory } from "react-router";
 import * as animationData from "./data.json";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
@@ -19,6 +18,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import { withStyles } from "@material-ui/core/styles";
 import Orm from "bigchaindb-orm";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import { browserHistory } from "react-router";
 import {
   CardActionArea,
   CardContent,
@@ -26,6 +26,7 @@ import {
   CardActions,
   Button
 } from "@material-ui/core";
+import PreviewVideo from "../../components/PreviewVideo";
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -77,10 +78,10 @@ class Home extends Component {
       return assets[0].data.videoHashes["720p"];
     });
   };
+
   redirectToWatchVideo = uuid => {
     browserHistory.push("/watchVideo?uuid=" + uuid);
   };
-
   render() {
     const node = createNode();
     node.on("ready", () => {
@@ -95,7 +96,10 @@ class Home extends Component {
       }
     };
 
-    const links = ["QmSfithtou6mgEzFHabxrnWTeZx1vM4PdhfRXaNoJkkHP1"];
+    const links = [
+      "id:9b81ac62:Movie:e9103f89-e3e4-4b2a-8efc-ff36f46fd490",
+      "id:9b81ac62:Movie:24dc8b0e-6756-4c52-82a4-e0fa0f4c5d9d"
+    ];
     const { classes } = this.props;
     return (
       <div style={{ paddingTop: "5%" }}>
@@ -103,31 +107,14 @@ class Home extends Component {
           <Grid container spacing={8}>
             {" "}
             {links.map(vid => (
-              <Grid item key={vid}>
-                <Card
-                  onClick={() => {
-                    const uuid = this.getUUID(vid);
-                    console.log(uuid);
-                    this.redirectToWatchVideo(uuid);
-                  }}
-                  className={classes.card}
-                >
-                  <CardActionArea>
-                    {" "}
-                    <CardMedia
-                      component="video"
-                      className={classes.media}
-                      src={"https://ipfs.io/ipfs/" + this.getHash(vid)}
-                    />
-                  </CardActionArea>
-                  <CardContent>
-                    <Typography gutterBottom variant="headline" component="h2">
-                      {vid.title}
-                    </Typography>
-                    <Typography>{vid.description}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
+              <PreviewVideo
+                onClick={() => {
+                  console.log(vid);
+                  this.redirectToWatchVideo(vid);
+                }}
+                key={vid}
+                uuid={vid}
+              />
             ))}
           </Grid>
         </div>
