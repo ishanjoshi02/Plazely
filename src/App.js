@@ -111,9 +111,37 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      drawerOpen: false
+      drawerOpen: false,
+      avatar: null
     };
   }
+
+  componentDidMount() {
+    this.renderAvatar();
+  }
+
+  renderAvatar = () => {
+    const userData = JSON.parse(localStorage.getItem("uPortUserCredentials"));
+    if (userData != null) {
+      this.setState({
+        avatar: (
+          <img
+            onClick={() => {
+              browserHistory.push("/profile");
+            }}
+            className={this.props.classes.toolbar}
+            style={{
+              height: 30,
+              width: 60,
+              padding: 10,
+              borderRadius: "50%"
+            }}
+            src={userData.avatar.uri}
+          />
+        )
+      });
+    }
+  };
 
   setDrawerState = open => () => {
     this.setState({
@@ -216,6 +244,7 @@ class App extends Component {
             >
               INK Player
             </Typography>
+            {this.state.avatar}
             <OnlyGuestLinks />
             <LogoutButton />
           </Toolbar>
