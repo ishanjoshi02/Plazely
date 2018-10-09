@@ -56,6 +56,7 @@
     "bigchaindb-driver": "^4.1.0",
     "bigchaindb-orm": "^3.0.1",
     "bip39": "^2.5.0",
+    "ffmpeg-generate-video-preview": "^1.0.3",
     "ffmpeg.js": "^3.1.9001",
     "ipfs": "^0.31.7",
     "js-cookie": "^2.2.0",

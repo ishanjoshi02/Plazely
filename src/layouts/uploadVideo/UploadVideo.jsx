@@ -25,6 +25,7 @@ const uuidv1 = require("uuid/v1");
 const IPFS = require("ipfs");
 const node = new IPFS();
 var Buffer = require("buffer/").Buffer;
+const generatePreview = require("ffmpeg-generate-video-preview");
 
 const styles = theme => ({
   root: {
@@ -150,12 +151,18 @@ class UploadVideo extends Component {
       // Check if the video title and video description is empty
       console.log("Starting upload of " + this.state.fileName);
       const dataObject = this.state.file;
-      console.log("started upload");
+      const metadata = generatePreview({
+        input: this.state.ipfsHash,
+        output: "hash1.gif",
+        width: 128
+      });
+
+      console.log(metadata);
       //add code to show progress
 
       node.files.add(
-        dataObject,
-        { progress: this.setProgressBar },
+        metadata,
+        // { progress: this.setProgressBar },
         (error, files) => {
           if (error) {
             console.error(error);
@@ -178,7 +185,8 @@ class UploadVideo extends Component {
               uuid: uuid,
               category: this.state.category,
               description: this.state.description,
-              submissionTime: new Date().toDateString()
+              submissionTime: new Date().toDateString(),
+              gif: null
             };
             this.addVideoToDB(asset);
           }

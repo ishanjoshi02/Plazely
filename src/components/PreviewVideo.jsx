@@ -13,6 +13,7 @@ import {
   CardContent,
   Typography
 } from "@material-ui/core";
+
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -29,6 +30,7 @@ const styles = theme => ({
     width: "100%"
   }
 });
+
 class PreviewVideo extends Component {
   constructor(props) {
     super(props);
@@ -41,6 +43,7 @@ class PreviewVideo extends Component {
     };
     this.setGif = this.setGif.bind(this);
   }
+
   componentDidMount = () => {
     const bdbOrm = new Orm(API_PATH, {
       app_id: applicationID,
@@ -49,9 +52,9 @@ class PreviewVideo extends Component {
     bdbOrm.define("Movie", "https://schema.org/v1/Movie");
     bdbOrm.models.Movie.retrieve(this.state.uuid).then(assets => {
       console.log(assets);
-      this.setState({
-        hash: assets[0]["data"]["videoHashes"]["720p"]
-      });
+      // this.setState({
+      //   hash: assets[0]["data"]["videoHashes"]["720p"]
+      // });
       this.setState({
         title: assets[0]["data"]["title"]
       });
@@ -59,6 +62,9 @@ class PreviewVideo extends Component {
         description: assets[0]["data"]["description"]
       });
       this.setState({ category: assets[0]["data"]["category"] });
+      this.setState({
+        gif: assets[0]["data"]["gif"]
+      });
     });
   };
   redirectToWatchVideo = () => {
