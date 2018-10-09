@@ -26,7 +26,6 @@ const styles = theme => ({
     maxWidth: 345
   },
   media: {
-    // height: 140,
     width: "100%"
   }
 });
@@ -37,8 +36,10 @@ class PreviewVideo extends Component {
       title: "",
       description: "",
       hash: "",
-      uuid: this.props.uuid
+      uuid: this.props.uuid,
+      gif: null
     };
+    this.setGif = this.setGif.bind(this);
   }
   componentDidMount = () => {
     const bdbOrm = new Orm(API_PATH, {
@@ -72,9 +73,9 @@ class PreviewVideo extends Component {
           <CardActionArea>
             {" "}
             <CardMedia
-              component="video"
+              component="img"
               className={classes.media}
-              src={"https://ipfs.io/ipfs/" + this.state.hash}
+              src={this.state.gif}
             />
           </CardActionArea>
           <CardContent>

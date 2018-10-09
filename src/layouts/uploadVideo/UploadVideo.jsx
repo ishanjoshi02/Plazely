@@ -164,7 +164,6 @@ class UploadVideo extends Component {
             const videoHashes = {
               "720p": files[0].hash
             };
-
             // add hashes to db
             const uuid = uuidv1();
             const title = this.state.title;
