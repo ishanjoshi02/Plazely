@@ -9,6 +9,7 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import { browserHistory } from "react-router";
 const bip39 = require("bip39");
+import Orm from "bigchaindb-orm";
 import {
   applicationID,
   applicationKey,
@@ -87,13 +88,11 @@ class SignIn extends Component {
     this.setState({ username: e.target.value });
   };
   onSubmitForm = e => {
-    const conn = new BigchainDB.Connection(API_PATH, {
+    const bdbOrm = new Orm(API_PATH, {
       app_id: applicationID,
       app_key: applicationKey
     });
-    const seed = bip39.mnemonicToSeed("ProjectINK").slice(0, 32);
-    const alice = new BigchainDB.Ed25519Keypair(seed);
-
+    bdbOrm.define("User", "https://schema.org/v1/User");
     const assets = {
       name: this.state.name,
       phoneNumber: this.state.phoneNumber,
@@ -102,23 +101,12 @@ class SignIn extends Component {
       avatar: this.state.avatar,
       address: this.state.address
     };
-
-    const txCreateVideo = BigchainDB.Transaction.makeCreateTransaction(
-      assets,
-      null,
-      [
-        BigchainDB.Transaction.makeOutput(
-          BigchainDB.Transaction.makeEd25519Condition(alice.publicKey)
-        )
-      ],
-      alice.publicKey
-    );
-    const txSigned = BigchainDB.Transaction.signTransaction(
-      txCreateVideo,
-      alice.privateKey
-    );
-    conn.postTransactionCommit(txSigned).then(res => {
-      console.log(res);
+    const aliceKeypair = new bdbOrm.driver.Ed25519Keypair();
+    bdbOrm.models.User.create({
+      keypair: aliceKeypair,
+      data: assets
+    }).then(asset => {
+      console.log(asset);
       browserHistory.push("/");
     });
   };

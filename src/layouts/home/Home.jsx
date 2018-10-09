@@ -1,17 +1,24 @@
 import React, { Component } from "react";
 import INKVideo from "../../components/INKVideo";
+import {
+  applicationID,
+  applicationKey,
+  API_PATH
+} from "../../keys/bigchaindbKey";
 import { HiddenOnlyAuth, VisibleOnlyAuth } from "../../util/wrappers";
 import { createNode } from "ipfs";
+const driver = require("bigchaindb-driver");
 import "./Home.css";
 import Lottie from "react-lottie";
-import { browserHistory } from "react-router";
 import * as animationData from "./data.json";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import { withStyles } from "@material-ui/core/styles";
+import Orm from "bigchaindb-orm";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import { browserHistory } from "react-router";
 import {
   CardActionArea,
   CardContent,
@@ -19,7 +26,7 @@ import {
   CardActions,
   Button
 } from "@material-ui/core";
-import { Icon } from "semantic-ui-react";
+import PreviewVideo from "../../components/PreviewVideo";
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -44,18 +51,37 @@ class Home extends Component {
       guestHash:
         "https://ipfs.io/ipfs/QmTKZgRNwDNZwHtJSjCp6r5FYefzpULfy37JvMt9DwvXse/video.mp4",
       isStopped: false,
-      isPaused: false
+      isPaused: false,
+      conn: null
     };
   }
 
-  getUri = hash => {
-    return "https://ipfs.io/ipfs/" + hash;
+  componentWillMount() {}
+
+  getUUID = hash => {
+    const conn = new driver.Connection(API_PATH, {
+      app_id: applicationID,
+      app_key: applicationKey
+    });
+    console.log(conn);
+    conn.searchAssets(hash).then(assets => {
+      console.log(assets[0].data.uuid);
+      return assets[0].data.uuid;
+    });
+  };
+  getHash = hash => {
+    const conn = new driver.Connection(API_PATH, {
+      app_id: applicationID,
+      app_key: applicationKey
+    });
+    conn.searchAssets(hash).then(assets => {
+      return assets[0].data.videoHashes["720p"];
+    });
   };
 
   redirectToWatchVideo = uuid => {
     browserHistory.push("/watchVideo?uuid=" + uuid);
   };
-
   render() {
     const node = createNode();
     node.on("ready", () => {
@@ -69,48 +95,32 @@ class Home extends Component {
         preserveAspectRatio: "xMidYMid slice"
       }
     };
-
     const { classes } = this.props;
-
     const links = [
-      {
-        hash: "QmSpQj4KwWNZT7mQsPyCyt2XWMueCgJe1C5PAVdYgYnz2S",
-        uuid: "2fef4dc0-c893-11e8-8cb6-af52269aab72"
-      }
+      "id:9b81ac62:Movie:e9103f89-e3e4-4b2a-8efc-ff36f46fd490",
+      "id:9b81ac62:Movie:24dc8b0e-6756-4c52-82a4-e0fa0f4c5d9d",
+      "id:9b81ac62:Movie:f012bbb7-a73f-4bcd-802b-3ce140da2066",
+      "id:9b81ac62:Movie:708f1f02-d796-4538-bab7-c27685ee4407"
     ];
-    const AuthVideoPlayer = VisibleOnlyAuth(() => (
-      <div className={classes.root}>
-        <Grid container spacing={8}>
-          {" "}
-          {links.map(vid => (
-            <Grid item key={vid.hash}>
-              <Card
+    const AuthOnlyPlayer = VisibleOnlyAuth(() => (
+      <div style={{ paddingTop: "2.75%" }}>
+        <div className={classes.root}>
+          <Grid container spacing={8}>
+            {" "}
+            {links.map(vid => (
+              <PreviewVideo
                 onClick={() => {
-                  this.redirectToWatchVideo(vid.uuid);
+                  console.log(vid);
+                  this.redirectToWatchVideo(vid);
                 }}
-                className={classes.card}
-              >
-                <CardActionArea>
-                  {" "}
-                  <CardMedia
-                    component="video"
-                    className={classes.media}
-                    src={"https://ipfs.io/ipfs/" + vid.hash}
-                  />
-                </CardActionArea>
-                <CardContent>
-                  <Typography gutterBottom variant="headline" component="h2">
-                    Placeholder Title
-                  </Typography>
-                  <Typography component="p">Placeholder Description</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+                key={vid}
+                uuid={vid}
+              />
+            ))}
+          </Grid>
+        </div>
       </div>
     ));
-
     const GuestVideoPlayer = HiddenOnlyAuth(() => (
       <div className="home-animation">
         <Lottie
@@ -122,8 +132,8 @@ class Home extends Component {
     ));
 
     return (
-      <div style={{ paddingTop: "5%" }}>
-        <AuthVideoPlayer />
+      <div>
+        <AuthOnlyPlayer />
         <GuestVideoPlayer />
       </div>
     );

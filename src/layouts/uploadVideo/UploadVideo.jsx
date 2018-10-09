@@ -164,14 +164,16 @@ class UploadVideo extends Component {
             const videoHashes = {
               "720p": files[0].hash
             };
-
             // add hashes to db
             const uuid = uuidv1();
             const title = this.state.title;
             console.log(title);
+            const userData = JSON.parse(
+              localStorage.getItem("uPortUserCredentials")
+            );
             const asset = {
               videoHashes,
-              author: this.state.author,
+              author: userData.email,
               title: title,
               uuid: uuid,
               category: this.state.category,
@@ -201,35 +203,6 @@ class UploadVideo extends Component {
       browserHistory.push("/watchVideo?uuid=" + asset.id);
     });
   };
-
-  // addVideoToDB = assets => {
-  //   const API_PATH = "https://test.bigchaindb.com/api/v1/";
-  //   const conn = new BigchainDB.Connection(API_PATH, {
-  //     app_id: applicationID,
-  //     app_key: applicationKey
-  //   });
-  //   const seed = bip39.mnemonicToSeed("ProjectINK").slice(0, 32);
-  //   const alice = new BigchainDB.Ed25519Keypair(seed);
-
-  //   const txCreateVideo = BigchainDB.Transaction.makeCreateTransaction(
-  //     {
-  //       assets
-  //     },
-  //     null,
-  //     [
-  //       BigchainDB.Transaction.makeOutput(
-  //         BigchainDB.Transaction.makeEd25519Condition(alice.publicKey)
-  //       )
-  //     ],
-  //     alice.publicKey
-  //   );
-  //   const txSigned = BigchainDB.Transaction.signTransaction(
-  //     txCreateVideo,
-  //     alice.privateKey
-  //   );
-  //   conn.postTransactionCommit(txSigned).then(res => console.log(res));
-  // };
-
   render() {
     const { classes } = this.props;
     const categories = ["Music", "Gaming", "Trailer", "Vlogs", "Advertisement"];

@@ -5,11 +5,11 @@ import {
   applicationKey,
   API_PATH
 } from "../../keys/bigchaindbKey";
-import INKVideo from "../../components/INKVideo";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { Card, CardMedia, CardContent, Typography } from "@material-ui/core";
 import Orm from "bigchaindb-orm";
+import { VisibleOnlyAuth } from "../../util/wrappers";
 const driver = require("bigchaindb-driver");
 
 const styles = theme => ({
@@ -27,7 +27,8 @@ class WatchVideo extends Component {
       name: "",
       description: "",
       category: "",
-      uuid: null
+      uuid: null,
+      isPlaying: true
     };
   }
   componentDidMount = async () => {
@@ -58,13 +59,18 @@ class WatchVideo extends Component {
       await this.setState({ hash: currentLocation.query.hash });
     }
   };
+  handleKeyPress = e => {
+    if (e.keyCode == "SPACE") {
+    }
+  };
   render() {
     return (
-      <div className="container-fluid" style={{ paddingTop: "5%" }}>
+      <div className="container-fluid" style={{ paddingTop: "2.75%" }}>
         <Card style={{ width: "70%" }}>
           <CardMedia
             src={"https://ipfs.io/ipfs/" + this.state.hash}
             component="video"
+            onKeyPress={this.handleKeyPress}
             controls
           />
           <CardContent>
