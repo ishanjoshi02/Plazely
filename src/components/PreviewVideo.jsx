@@ -74,7 +74,7 @@ class PreviewVideo extends Component {
             <CardMedia
               component="video"
               className={classes.media}
-              src={this.state.hash}
+              src={"https://ipfs.io/ipfs/" + this.state.hash}
             />
           </CardActionArea>
           <CardContent>

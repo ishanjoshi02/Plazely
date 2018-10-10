@@ -56,9 +56,9 @@
     "bigchaindb-driver": "^4.1.0",
     "bigchaindb-orm": "^3.0.1",
     "bip39": "^2.5.0",
-    "ffmpeg.js": "^3.1.9001",
+    "classnames": "^2.2.6",
     "ipfs": "^0.31.7",
-    "js-cookie": "^2.2.0",
+    "prop-types": "^15.6.2",
     "react": "16.3.0",
     "react-dom": "^16.5.2",
     "react-lottie": "^1.2.3",
@@ -70,7 +70,8 @@
     "redux-thunk": "^2.2.0",
     "semantic-ui-react": "^0.82.3",
     "uniqid": "^5.0.3",
-    "uport-connect": "^0.7.3"
+    "uport-connect": "^0.7.3",
+    "uuid": "^3.3.2"
   },
   "scripts": {
     "start": "node scripts/start.js",
