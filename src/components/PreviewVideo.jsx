@@ -39,7 +39,6 @@ class PreviewVideo extends Component {
       uuid: this.props.uuid,
       gif: null
     };
-    this.setGif = this.setGif.bind(this);
   }
   componentDidMount = () => {
     const bdbOrm = new Orm(API_PATH, {
