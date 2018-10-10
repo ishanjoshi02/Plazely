@@ -72,9 +72,9 @@ class PreviewVideo extends Component {
           <CardActionArea>
             {" "}
             <CardMedia
-              component="img"
+              component="video"
               className={classes.media}
-              src={this.state.gif}
+              src={this.state.hash}
             />
           </CardActionArea>
           <CardContent>
