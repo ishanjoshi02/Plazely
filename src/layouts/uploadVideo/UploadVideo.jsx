@@ -173,7 +173,7 @@ class UploadVideo extends Component {
             );
             const asset = {
               videoHashes,
-              author: userData.email,
+              author: this.props.authData.phone,
               title: title,
               uuid: uuid,
               category: this.state.category,
