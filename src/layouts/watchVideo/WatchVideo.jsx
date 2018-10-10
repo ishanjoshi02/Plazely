@@ -25,6 +25,7 @@ class WatchVideo extends Component {
     this.state = {
       hash: null,
       name: "",
+      author: "",
       description: "",
       category: "",
       uuid: null,
@@ -44,7 +45,8 @@ class WatchVideo extends Component {
       bdbOrm.models.Movie.retrieve(this.state.uuid).then(assets => {
         console.log(assets);
         this.setState({
-          hash: assets[0]["data"]["videoHashes"]["720p"]
+          hash:
+            "https://ipfs.io/ipfs/" + assets[0]["data"]["videoHashes"]["720p"]
         });
         this.setState({
           name: assets[0]["data"]["title"]
@@ -52,9 +54,22 @@ class WatchVideo extends Component {
         this.setState({
           description: assets[0]["data"]["description"]
         });
-        this.setState({ category: assets[0]["data"]["category"] });
+        bdbOrm.define("User", "https://schema.org/v1/User");
+        bdbOrm.models.User.retrieve().then(a => {
+          // console.log(assets);
+          a.forEach(asset => {
+            console.log(asset.data.phoneNumber.replace(" ", ""));
+            const author = assets[0].data.author.replace("+", "");
+            console.log(author);
+            if (asset.data.phoneNumber.replace(" ", "") == author) {
+              console.log(asset);
+              this.setState({ author: asset.data.name });
+            }
+          });
+        });
       });
     }
+
     if ("hash" in currentLocation.query) {
       await this.setState({ hash: currentLocation.query.hash });
     }
@@ -65,11 +80,13 @@ class WatchVideo extends Component {
   };
   render() {
     return (
-      <div className="container-fluid" style={{ paddingTop: "2.75%" }}>
+      <div className="container-fluid" style={{ paddingTop: "5%" }}>
         <Card style={{ width: "70%" }}>
           <CardMedia
-            src={"https://ipfs.io/ipfs/" + this.state.hash}
+            src={this.state.hash}
             component="video"
+            autoplay
+            loop
             onKeyPress={this.handleKeyPress}
             controls
           />
@@ -80,6 +97,7 @@ class WatchVideo extends Component {
             </Typography>
             <Typography component="p">{this.state.description}</Typography>
             <Typography component="p">{this.state.category}</Typography>
+            <Typography component="p">{this.state.author}</Typography>
           </CardContent>
         </Card>
       </div>

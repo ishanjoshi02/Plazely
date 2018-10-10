@@ -97,13 +97,11 @@ class Home extends Component {
     };
     const { classes } = this.props;
     const links = [
-      "id:9b81ac62:Movie:e9103f89-e3e4-4b2a-8efc-ff36f46fd490",
-      "id:9b81ac62:Movie:24dc8b0e-6756-4c52-82a4-e0fa0f4c5d9d",
-      "id:9b81ac62:Movie:f012bbb7-a73f-4bcd-802b-3ce140da2066",
-      "id:9b81ac62:Movie:708f1f02-d796-4538-bab7-c27685ee4407"
+      "id:798f5fe3:Movie:7427b723-8950-4486-8bc2-e938f081346d",
+      "id:798f5fe3:Movie:7eadde76-257a-41e1-a10e-777085620176"
     ];
     const AuthOnlyPlayer = VisibleOnlyAuth(() => (
-      <div style={{ paddingTop: "2.75%" }}>
+      <div style={{ paddingTop: "5%" }}>
         <div className={classes.root}>
           <Grid container spacing={8}>
             {" "}
