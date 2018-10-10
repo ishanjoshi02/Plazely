@@ -60,6 +60,7 @@
     "ipfs": "^0.31.7",
     "prop-types": "^15.6.2",
     "react": "16.3.0",
+    "react-autosuggest": "^9.4.2",
     "react-dom": "^16.5.2",
     "react-lottie": "^1.2.3",
     "react-redux": "^5.0.2",

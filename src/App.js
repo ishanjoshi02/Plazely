@@ -12,8 +12,10 @@ import { browserHistory } from "react-router";
 import Drawer from "@material-ui/core/Drawer";
 import classNames from "classnames";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-
+import SearchIcon from "@material-ui/icons/Search";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { fade } from "@material-ui/core/styles/colorManipulator";
+import InputBase from "@material-ui/core/InputBase";
 
 // // Styles
 import "./css/oswald.css";
@@ -43,6 +45,50 @@ const styles = theme => ({
     display: "flex"
   },
 
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius * 5,
+    // backgroundColor: fade(theme.palette.common.white, 0.15),
+    // "&:hover": {
+    //   backgroundColor: fade(theme.palette.common.white, 0.1)
+    // },
+    marginRight: theme.spacing.unit * 2,
+    marginLeft: 0,
+    marginBottom: 10,
+    marginTop: 5,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      // marginLeft: theme.spacing.unit * 3,
+      width: "auto"
+    }
+  },
+  searchIcon: {
+    width: theme.spacing.unit * 9,
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+
+  inputRoot: {
+    color: "inherit",
+    width: "100%"
+  },
+
+  inputInput: {
+    paddingTop: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 10,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: 200
+    }
+  },
+
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
@@ -51,6 +97,7 @@ const styles = theme => ({
     }),
     marginBottom: "20px"
   },
+
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
@@ -59,6 +106,7 @@ const styles = theme => ({
       duration: theme.transitions.duration.enteringScreen
     })
   },
+
   menuButton: {
     marginLeft: 12,
     marginRight: 36
@@ -114,9 +162,14 @@ class App extends Component {
     super(props);
     this.state = {
       drawerOpen: false,
-      avatar: null
+      avatar: null,
+      selectedIndex: -1
     };
   }
+
+  handleListItemClick = (event, index) => {
+    this.setState({ selectedIndex: index });
+  };
 
   componentDidMount() {
     this.renderAvatar();
@@ -177,8 +230,11 @@ class App extends Component {
           {" "}
           <ListItem
             button
+            selected={this.state.selectedIndex === 0}
+            title="Dashboard"
             onClick={() => {
               browserHistory.push("/dashboard");
+              this.handleListItemClick(event, 0);
             }}
           >
             <ListItemIcon>
@@ -188,8 +244,11 @@ class App extends Component {
           </ListItem>
           <ListItem
             button
+            title="Profile"
+            selected={this.state.selectedIndex === 1}
             onClick={() => {
               browserHistory.push("/profile");
+              this.handleListItemClick(event, 1);
             }}
           >
             <ListItemIcon>
@@ -199,8 +258,11 @@ class App extends Component {
           </ListItem>{" "}
           <ListItem
             button
+            title="Upload"
+            selected={this.state.selectedIndex === 2}
             onClick={() => {
               browserHistory.push("/uploadVideo");
+              this.handleListItemClick(event, 2);
             }}
           >
             <ListItemIcon>
@@ -246,6 +308,19 @@ class App extends Component {
             >
               INK Player
             </Typography>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
+              />
+            </div>
+            <div className={classes.grow} />
             {this.state.avatar}
             <OnlyGuestLinks />
             <LogoutButton />

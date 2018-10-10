@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { applicationID, applicationKey, API_PATH } from "../keys/bigchaindbKey";
 import Orm from "bigchaindb-orm";
-const driver = require("bigchaindb-driver");
 import { browserHistory } from "react-router";
 import { withStyles } from "@material-ui/core/styles";
 import {

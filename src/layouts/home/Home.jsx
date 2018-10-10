@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import INKVideo from "../../components/INKVideo";
 import {
   applicationID,
   applicationKey,
@@ -13,20 +12,10 @@ import Lottie from "react-lottie";
 import * as animationData from "./data.json";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
-import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
 import { withStyles } from "@material-ui/core/styles";
-import Orm from "bigchaindb-orm";
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import { browserHistory } from "react-router";
-import {
-  CardActionArea,
-  CardContent,
-  Typography,
-  CardActions,
-  Button
-} from "@material-ui/core";
 import PreviewVideo from "../../components/PreviewVideo";
+
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -100,6 +89,7 @@ class Home extends Component {
       "id:798f5fe3:Movie:7427b723-8950-4486-8bc2-e938f081346d",
       "id:798f5fe3:Movie:7eadde76-257a-41e1-a10e-777085620176"
     ];
+
     const AuthOnlyPlayer = VisibleOnlyAuth(() => (
       <div style={{ paddingTop: "5%" }}>
         <div className={classes.root}>
