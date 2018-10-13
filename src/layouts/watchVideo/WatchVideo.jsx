@@ -29,9 +29,19 @@ class WatchVideo extends Component {
       description: "",
       category: "",
       uuid: null,
-      isPlaying: true
+      isPlaying: true,
+      isMute: false
     };
   }
+
+  componentWillMount() {
+    document.addEventListener("keydown", this.handleKeyPress.bind(this));
+  }
+
+  componentWillUnMount() {
+    document.removeEventListener("keydown", this.handleKeyPress.bind(this));
+  }
+
   componentDidMount = async () => {
     const { classes } = this.props;
     var currentLocation = browserHistory.getCurrentLocation();
@@ -74,10 +84,37 @@ class WatchVideo extends Component {
       await this.setState({ hash: currentLocation.query.hash });
     }
   };
+
   handleKeyPress = e => {
-    if (e.keyCode == "SPACE") {
+    let vidFile = document.getElementById("video-file");
+    if (e.code === "Space" || e.key === "k") {
+      this.setState({
+        isPlaying: !this.state.isPlaying
+      });
+    }
+    if (!this.state.isPlaying) {
+      vidFile.pause();
+    } else {
+      vidFile.play();
+    }
+    if (e.key === "m") {
+      this.setState({
+        isMute: !this.state.isMute
+      });
+    }
+    if (!this.state.isMute) {
+      vidFile.muted = true;
+    } else {
+      vidFile.muted = false;
+    }
+    if (e.key === "ArrowRight" || e.key === "l") {
+      vidFile.currentTime += 10;
+    }
+    if (e.key === "ArrowLeft" || e.key === "j") {
+      vidFile.currentTime -= 10;
     }
   };
+
   render() {
     return (
       <div className="container-fluid" style={{ paddingTop: "5%" }}>
@@ -85,10 +122,11 @@ class WatchVideo extends Component {
           <CardMedia
             src={this.state.hash}
             component="video"
-            autoplay
+            autoPlay
             loop
-            onKeyPress={this.handleKeyPress}
             controls
+            onKeyPress={this.handleKeyPress}
+            id="video-file"
           />
           <CardContent>
             {" "}

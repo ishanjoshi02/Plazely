@@ -15,6 +15,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { browserHistory } from "react-router";
 import PreviewVideo from "../../components/PreviewVideo";
+import Autosuggest from "react-autosuggest";
 
 const styles = theme => ({
   root: {
@@ -33,6 +34,7 @@ const styles = theme => ({
     width: "100%"
   }
 });
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -58,6 +60,7 @@ class Home extends Component {
       return assets[0].data.uuid;
     });
   };
+
   getHash = hash => {
     const conn = new driver.Connection(API_PATH, {
       app_id: applicationID,
@@ -71,6 +74,7 @@ class Home extends Component {
   redirectToWatchVideo = uuid => {
     browserHistory.push("/watchVideo?uuid=" + uuid);
   };
+
   render() {
     const node = createNode();
     node.on("ready", () => {
@@ -87,7 +91,8 @@ class Home extends Component {
     const { classes } = this.props;
     const links = [
       "id:798f5fe3:Movie:7427b723-8950-4486-8bc2-e938f081346d",
-      "id:798f5fe3:Movie:7eadde76-257a-41e1-a10e-777085620176"
+      "id:798f5fe3:Movie:7eadde76-257a-41e1-a10e-777085620176",
+      "id:798f5fe3:Movie:010a1f89-8b09-4adc-844a-3ed9a22d7447"
     ];
 
     const AuthOnlyPlayer = VisibleOnlyAuth(() => (

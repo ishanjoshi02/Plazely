@@ -11,6 +11,7 @@ import {
   API_PATH
 } from "../../keys/bigchaindbKey";
 import { browserHistory } from "react-router";
+
 import {
   Card,
   CardMedia,

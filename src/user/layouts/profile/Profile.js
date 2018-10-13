@@ -14,6 +14,7 @@ const styles = theme => ({
     marginRight: "auto"
   }
 });
+
 class Profile extends Component {
   constructor(props) {
     super(props);

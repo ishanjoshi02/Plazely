@@ -181,6 +181,7 @@ class App extends Component {
       this.setState({
         avatar: (
           <img
+            alt="Your avatar"
             selected={this.state.selectedIndex === 1}
             onClick={() => {
               browserHistory.push("/profile");
