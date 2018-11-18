@@ -15,18 +15,41 @@ contract UserStore {
     }
 
     mapping (string=>User) userMapping;
+    string[] emails;
     uint userCount;
     
-    function checkUserExistence(string _email) internal view returns (bool isReal) {
+    function checkUserExistence(string _email) 
+    internal 
+    view 
+    returns (bool isReal) 
+    {
         return userMapping[_email].isReal;
     }
  
+    function checkUserNameExistence(string _username) 
+    internal
+    view 
+    returns (bool exists) 
+    {
+
+        for (uint i = 0;i < userCount;i++) {
+            if (compareStrings(userMapping[emails[i]].username, _username)) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
     function createUser(string _email, string _username, string _firstName, string _lastName, address _address, string _password ) 
-    public view returns (
+    public 
+    view 
+    returns (
         string username,
         string name,
         address ethereumAddress
-    ) { 
+    ) 
+    { 
         // This function is analogous to the sign up user function except this is the server side processing of that process.
 
         // Some validations (also called Guard Functions) are required before creating the user in the store.
@@ -34,7 +57,14 @@ contract UserStore {
         require(!checkUserExistence(_email), "User already exists"); // Using require function. Please refer solidity documentation for more information.
         // Other guard functions go here.
 
+        // add function to check if the username is already being used. This is to ensure that the username is unique
+        require(
+            checkUserNameExistence(_username),
+            "Username already taken. Please try another user name"
+        );
+
         userMapping[_email].username = _username;
+        emails.push(_email);
         userMapping[_email].ethereumAddress = _address;
         userMapping[_email].password = _password;
         userMapping[_email].subscribersCount = 0;
@@ -46,11 +76,15 @@ contract UserStore {
         ethereumAddress = _address;
     }
 
-    function authenticateUser(string _email, string _password) public view returns (
+    function authenticateUser(string _email, string _password) 
+    public 
+    view 
+    returns (
         string username,
         string name,
         address ethereumAddress
-    ) {
+    ) 
+    {
         // If the email password combo is correct, then the user is authentic. If the user is authentic, return the user object
         // The password is not the actual password, but the hashed version of the password. The hashing will occur at the client side
         // i.e. the client sends the hashed password and not the actual password.
@@ -72,11 +106,15 @@ contract UserStore {
     
     //------------------------------------- User Utility functions start here -------------------------------------//
 
-    function changePassword(string _email, string _oldPassword, string _newPassword) public view returns (
+    function changePassword(string _email, string _oldPassword, string _newPassword) 
+    public 
+    view 
+    returns (
         string username,
         string name,
         address ethereumAddress
-    ) {
+    ) 
+    {
         // Utility function that allows the user to change their password.
 
         // Guard Functions
@@ -94,11 +132,15 @@ contract UserStore {
 
     }
 
-    function changeUsername(string _email, string newUsername) public view returns (
+    function changeUsername(string _email, string newUsername) 
+    public 
+    view 
+    returns (
         string username,
         string name,
         address ethereumAddress
-    ) {
+    ) 
+    {
         // Utility function that allows the user to change their username
 
         // Guard Functions
@@ -114,11 +156,15 @@ contract UserStore {
 
     }
 
-    function changeEmail(string _email, string password, string _newEmail) public view returns (
+    function changeEmail(string _email, string password, string _newEmail) 
+    public 
+    view 
+    returns (
         string username,
         string name,
         address ethereumAddress
-    ) {
+    ) 
+    {
         // Utility function that allows the user to change their password.
 
         // Guard Functions
@@ -140,9 +186,11 @@ contract UserStore {
 
     }
 
-    function deleteUser(string _email, string _password) public {
+    function deleteUser(string _email, string _password) 
+    public 
+    {
 
-        // Utility function that delete user from blockchain/database.
+        // Utility function that deletes user from blockchain/database.
 
         // Guard Functions
         // 1. Check if the User exists in the store.
@@ -171,11 +219,11 @@ contract UserStore {
 
     }
 
-    
-
     //------------------------------------- User functions start here -------------------------------------//
 
-    function addSubscriber(string _uploaderEmail, string _subscriberEmail) public {
+    function addSubscriber(string _uploaderEmail, string _subscriberEmail)
+    public 
+    {
         // Function that adds subscriber to an User.
 
         // Guard Functions
@@ -197,7 +245,9 @@ contract UserStore {
         subscriber.subscribedTo[subscriber.subscribedToCount] = _uploaderEmail;
     }
 
-    function removeSubscriber(string _uploaderEmail, string _subscriberEmail) public {
+    function removeSubscriber(string _uploaderEmail, string _subscriberEmail) 
+    public 
+    {
         // Function that remove subscriber from user.
 
         // Guard Functions
@@ -233,13 +283,21 @@ contract UserStore {
 
     //------------------------------------- User functions start here -------------------------------------//
 
-    function compareStrings(string one, string two) internal pure returns (bool) {
+    function compareStrings(string one, string two) 
+    internal 
+    pure 
+    returns (bool) 
+    {
 
         return keccak256(abi.encodePacked(one)) == keccak256(abi.encodePacked(two));
     
     }
 
-    function strConcat(string _a, string _b, string _c, string _d, string _e) internal pure returns (string){
+    function strConcat(string _a, string _b, string _c, string _d, string _e) 
+    internal 
+    pure 
+    returns (string)
+    {
         bytes memory _ba = bytes(_a);
         bytes memory _bb = bytes(_b);
         bytes memory _bc = bytes(_c);
@@ -256,15 +314,27 @@ contract UserStore {
         return string(babcde);
     }
 
-    function strConcat(string _a, string _b, string _c, string _d) internal pure returns (string) {
+    function strConcat(string _a, string _b, string _c, string _d) 
+    internal 
+    pure 
+    returns (string) 
+    {
         return strConcat(_a, _b, _c, _d, "");
     }
 
-    function strConcat(string _a, string _b, string _c) internal pure returns (string) {
+    function strConcat(string _a, string _b, string _c) 
+    internal 
+    pure 
+    returns (string) 
+    {
         return strConcat(_a, _b, _c, "", "");
     }
 
-    function strConcat(string _a, string _b) internal pure returns (string) {
+    function strConcat(string _a, string _b) 
+    internal 
+    pure 
+    returns (string) 
+    {
         return strConcat(_a, _b, "", "", "");
     }
 
