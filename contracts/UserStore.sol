@@ -16,39 +16,46 @@ contract UserStore {
 
     mapping (string=>User) userMapping;
     string[] emails;
-    uint userCount;
+    uint userCount = 0;
+
+    // Testing functions i.e. functions used for testing. Comment out before actually using the smart contract
+
+    function getEmailCount() 
+    public
+    view 
+    returns (uint) 
+    {  
+        return userCount;
+    }
     
     function checkUserExistence(string _email) 
     internal 
     view 
-    returns (bool isReal) 
+    returns (bool) 
     {
-        return userMapping[_email].isReal;
+        for (uint i = 0;i < userCount;i++) {
+            if (compareStrings(emails[i], _email)) {
+                return true;
+            }
+        }
+        return false;
     }
  
     function checkUserNameExistence(string _username) 
     internal
     view 
-    returns (bool exists) 
+    returns (bool) 
     {
-
         for (uint i = 0;i < userCount;i++) {
             if (compareStrings(userMapping[emails[i]].username, _username)) {
                 return false;
             }
         }
         return true;
-
     }
 
     function createUser(string _email, string _username, string _firstName, string _lastName, address _address, string _password ) 
     public 
-    view 
-    returns (
-        string username,
-        string name,
-        address ethereumAddress
-    ) 
     { 
         // This function is analogous to the sign up user function except this is the server side processing of that process.
 
@@ -68,12 +75,28 @@ contract UserStore {
         userMapping[_email].ethereumAddress = _address;
         userMapping[_email].password = _password;
         userMapping[_email].subscribersCount = 0;
-        userMapping[_email].name = strConcat(_firstName, _lastName);
+        userMapping[_email].name = strConcat(_firstName, " ", _lastName);
         userCount++;
+    }
 
-        username = _username;
-        name = strConcat(_firstName, _lastName);
-        ethereumAddress = _address;
+    function getUser(string _email) 
+    public
+    view 
+    returns(
+        string username,
+        string email,
+        address addr
+    ) 
+    {
+
+        // Some validations (also called Guard Functions) are required before creating the user in the store.
+        // 1. Check if the user already exists.
+        require(checkUserExistence(_email), "User does not already exists"); // Using require function. Please refer solidity documentation for more information.
+        // Other guard functions go here.
+
+        username = userMapping[_email].username;
+        email = _email;
+        addr = userMapping[_email].ethereumAddress;
     }
 
     function authenticateUser(string _email, string _password) 
@@ -107,13 +130,7 @@ contract UserStore {
     //------------------------------------- User Utility functions start here -------------------------------------//
 
     function changePassword(string _email, string _oldPassword, string _newPassword) 
-    public 
-    view 
-    returns (
-        string username,
-        string name,
-        address ethereumAddress
-    ) 
+    public
     {
         // Utility function that allows the user to change their password.
 
@@ -126,9 +143,9 @@ contract UserStore {
         // If all guard conditions satisfy, update the password.
         userMapping[_email].password = _newPassword;
         
-        username = userMapping[_email].username;
-        name = userMapping[_email].name;
-        ethereumAddress = userMapping[_email].ethereumAddress;
+        // username = userMapping[_email].username;
+        // name = userMapping[_email].name;
+        // ethereumAddress = userMapping[_email].ethereumAddress;
 
     }
 
