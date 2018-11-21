@@ -52,8 +52,8 @@ const styles = theme => ({
     // "&:hover": {
     //   backgroundColor: fade(theme.palette.common.white, 0.1)
     // },
-    marginRight: theme.spacing.unit * 2,
-    marginLeft: 0,
+    marginRight: "auto",
+    marginLeft: "auto",
     marginBottom: 10,
     marginTop: 5,
     width: "100%",
