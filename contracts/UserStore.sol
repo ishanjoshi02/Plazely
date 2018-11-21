@@ -20,6 +20,13 @@ contract UserStore {
 
     // Testing functions i.e. functions used for testing. Comment out before actually using the smart contract
 
+    function getSubscriberCount(string _uploaderEmail)
+    public 
+    view 
+    returns (uint count) {
+        count = userMapping[_uploaderEmail].subscribersCount;
+    }
+
     function getEmailCount() 
     public
     view 
@@ -28,6 +35,10 @@ contract UserStore {
         return userCount;
     }
     
+    // Events
+
+    event createdUser(string email, string username);
+
     function checkUserExistence(string _email) 
     internal 
     view 
@@ -77,6 +88,9 @@ contract UserStore {
         userMapping[_email].subscribersCount = 0;
         userMapping[_email].name = strConcat(_firstName, " ", _lastName);
         userCount++;
+
+        emit createdUser(_email, _username);
+
     }
 
     function getUser(string _email) 
@@ -116,7 +130,7 @@ contract UserStore {
         // 1. Check if the user exists in the store.
         require(checkUserExistence(_email), "User does not exist");
         // 2. The password entered must be equal to the one stored in the contract.
-        User memory foo = userMapping[_email];
+        User storage foo = userMapping[_email];
         require(compareStrings(foo.password, _password), "Please check the password entered");
 
         // If all the guard conditions pass, return the User contract(object).
@@ -191,7 +205,7 @@ contract UserStore {
         require(compareStrings(userMapping[_email].password, password), "Entered password does not match current password");
 
         // Create a temp variable to store the User struct object.
-        User memory foo = userMapping[_email];
+        User storage foo = userMapping[_email];
         // Delete current instance of the user.
         delete userMapping[_email];
         // Add the user into the userMapping with the new email as the index.
@@ -218,12 +232,12 @@ contract UserStore {
         // Before deleting the user. Delete his/her subscribers
         // This should also reflect on the subscribers end too.
 
-        User memory foo = userMapping[_email];
+        User storage foo = userMapping[_email];
 
         for (uint i = 0;i < foo.subscribersCount;i++) {
 
             for (uint j = 0;j < userMapping[foo.subscribers[i]].subscribedToCount;j++) {
-                string memory temp = userMapping[foo.subscribers[i]].subscribedTo[j];
+                string storage temp = userMapping[foo.subscribers[i]].subscribedTo[j];
                 if (compareStrings(temp, _email)) {
                     delete userMapping[foo.subscribers[i]].subscribedTo[j];
                 }
@@ -250,16 +264,16 @@ contract UserStore {
         require(checkUserExistence(_subscriberEmail), "Subscriber does not exist");
 
          // "memory" keyword is used to hold a variable temporarily.
-        User memory uploader = userMapping[_uploaderEmail];
-        User memory subscriber = userMapping[_subscriberEmail];
+        User storage uploader = userMapping[_uploaderEmail];
+        User storage subscriber = userMapping[_subscriberEmail];
 
         // Add subscriber to uploader's subscriber list.
         uploader.subscribersCount++;
-        uploader.subscribers[uploader.subscribersCount] = _subscriberEmail;
+        uploader.subscribers.push(_subscriberEmail);
 
         // Add uploader to the subscribedTo list for the subscriber.
         subscriber.subscribedToCount++;
-        subscriber.subscribedTo[subscriber.subscribedToCount] = _uploaderEmail;
+        subscriber.subscribedTo.push(_uploaderEmail);
     }
 
     function removeSubscriber(string _uploaderEmail, string _subscriberEmail) 
@@ -274,8 +288,8 @@ contract UserStore {
         require(checkUserExistence(_subscriberEmail), "Subscriber does not exist");
 
         // "memory" keyword is used to hold a variable temporarily.
-        User memory uploader = userMapping[_uploaderEmail];
-        User memory subscriber = userMapping[_subscriberEmail];
+        User storage uploader = userMapping[_uploaderEmail];
+        User storage subscriber = userMapping[_subscriberEmail];
 
         // delete subscriber from uploader subscribers list.
 
