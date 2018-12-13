@@ -235,7 +235,7 @@ class App extends Component {
             button
             selected={this.state.selectedIndex === 0}
             title="Dashboard"
-            onClick={() => {
+            onClick={event => {
               browserHistory.push("/dashboard");
               this.handleListItemClick(event, 0);
             }}
@@ -249,7 +249,7 @@ class App extends Component {
             button
             title="Profile"
             selected={this.state.selectedIndex === 1}
-            onClick={() => {
+            onClick={event => {
               browserHistory.push("/profile");
               this.handleListItemClick(event, 1);
             }}
@@ -263,7 +263,7 @@ class App extends Component {
             button
             title="Upload"
             selected={this.state.selectedIndex === 2}
-            onClick={() => {
+            onClick={event => {
               browserHistory.push("/uploadVideo");
               this.handleListItemClick(event, 2);
             }}
