@@ -1,7 +1,7 @@
 // solium-disable linebreak-style
 pragma solidity ^0.4.24;
 contract UserStore {
-    
+
     struct User {
         string username;
         string name;
@@ -21,28 +21,28 @@ contract UserStore {
     // Testing functions i.e. functions used for testing. Comment out before actually using the smart contract
 
     function getSubscriberCount(string _uploaderEmail)
-    public 
-    view 
+    public
+    view
     returns (uint count) {
         count = userMapping[_uploaderEmail].subscribersCount;
     }
 
-    function getEmailCount() 
+    function getEmailCount()
     public
-    view 
-    returns (uint) 
-    {  
+    view
+    returns (uint)
+    {
         return userCount;
     }
-    
+
     // Events
 
     event createdUser(string email, string username);
 
-    function checkUserExistence(string _email) 
-    internal 
-    view 
-    returns (bool) 
+    function checkUserExistence(string _email)
+    internal
+    view
+    returns (bool)
     {
         for (uint i = 0;i < userCount;i++) {
             if (compareStrings(emails[i], _email)) {
@@ -51,11 +51,11 @@ contract UserStore {
         }
         return false;
     }
- 
-    function checkUserNameExistence(string _username) 
+
+    function checkUserNameExistence(string _username)
     internal
-    view 
-    returns (bool) 
+    view
+    returns (bool)
     {
         for (uint i = 0;i < userCount;i++) {
             if (compareStrings(userMapping[emails[i]].username, _username)) {
@@ -65,16 +65,14 @@ contract UserStore {
         return true;
     }
 
-    function createUser(string _email, string _username, string _firstName, string _lastName, address _address, string _password ) 
-    public 
-    { 
+    function createUser(string _email, string _username, string _firstName, string _lastName, address _address, string _password )
+    public
+    {
         // This function is analogous to the sign up user function except this is the server side processing of that process.
-
         // Some validations (also called Guard Functions) are required before creating the user in the store.
         // 1. Check if the user already exists.
         require(!checkUserExistence(_email), "User already exists"); // Using require function. Please refer solidity documentation for more information.
         // Other guard functions go here.
-
         // add function to check if the username is already being used. This is to ensure that the username is unique
         require(
             checkUserNameExistence(_username),
@@ -93,14 +91,14 @@ contract UserStore {
 
     }
 
-    function getUser(string _email) 
+    function getUser(string _email)
     public
-    view 
+    view
     returns(
         string username,
         string email,
         address addr
-    ) 
+    )
     {
 
         // Some validations (also called Guard Functions) are required before creating the user in the store.
@@ -113,14 +111,14 @@ contract UserStore {
         addr = userMapping[_email].ethereumAddress;
     }
 
-    function authenticateUser(string _email, string _password) 
-    public 
-    view 
+    function authenticateUser(string _email, string _password)
+    public
+    view
     returns (
         string username,
         string name,
         address ethereumAddress
-    ) 
+    )
     {
         // If the email password combo is correct, then the user is authentic. If the user is authentic, return the user object
         // The password is not the actual password, but the hashed version of the password. The hashing will occur at the client side
@@ -140,10 +138,10 @@ contract UserStore {
         ethereumAddress = foo.ethereumAddress;
 
     }
-    
+
     //------------------------------------- User Utility functions start here -------------------------------------//
 
-    function changePassword(string _email, string _oldPassword, string _newPassword) 
+    function changePassword(string _email, string _oldPassword, string _newPassword)
     public
     {
         // Utility function that allows the user to change their password.
@@ -156,21 +154,21 @@ contract UserStore {
 
         // If all guard conditions satisfy, update the password.
         userMapping[_email].password = _newPassword;
-        
+
         // username = userMapping[_email].username;
         // name = userMapping[_email].name;
         // ethereumAddress = userMapping[_email].ethereumAddress;
 
     }
 
-    function changeUsername(string _email, string newUsername) 
-    public 
-    view 
+    function changeUsername(string _email, string newUsername)
+    public
+    view
     returns (
         string username,
         string name,
         address ethereumAddress
-    ) 
+    )
     {
         // Utility function that allows the user to change their username
 
@@ -180,21 +178,21 @@ contract UserStore {
 
         // Update the user's username.
         userMapping[_email].username = newUsername;
-        
+
         username = userMapping[_email].username;
         name = userMapping[_email].name;
         ethereumAddress = userMapping[_email].ethereumAddress;
 
     }
 
-    function changeEmail(string _email, string password, string _newEmail) 
-    public 
-    view 
+    function changeEmail(string _email, string password, string _newEmail)
+    public
+    view
     returns (
         string username,
         string name,
         address ethereumAddress
-    ) 
+    )
     {
         // Utility function that allows the user to change their password.
 
@@ -217,8 +215,8 @@ contract UserStore {
 
     }
 
-    function deleteUser(string _email, string _password) 
-    public 
+    function deleteUser(string _email, string _password)
+    public
     {
 
         // Utility function that deletes user from blockchain/database.
@@ -253,7 +251,7 @@ contract UserStore {
     //------------------------------------- User functions start here -------------------------------------//
 
     function addSubscriber(string _uploaderEmail, string _subscriberEmail)
-    public 
+    public
     {
         // Function that adds subscriber to an User.
 
@@ -276,8 +274,8 @@ contract UserStore {
         subscriber.subscribedTo.push(_uploaderEmail);
     }
 
-    function removeSubscriber(string _uploaderEmail, string _subscriberEmail) 
-    public 
+    function removeSubscriber(string _uploaderEmail, string _subscriberEmail)
+    public
     {
         // Function that remove subscriber from user.
 
@@ -314,19 +312,19 @@ contract UserStore {
 
     //------------------------------------- User functions start here -------------------------------------//
 
-    function compareStrings(string one, string two) 
-    internal 
-    pure 
-    returns (bool) 
+    function compareStrings(string one, string two)
+    internal
+    pure
+    returns (bool)
     {
 
         return keccak256(abi.encodePacked(one)) == keccak256(abi.encodePacked(two));
-    
+
     }
 
-    function strConcat(string _a, string _b, string _c, string _d, string _e) 
-    internal 
-    pure 
+    function strConcat(string _a, string _b, string _c, string _d, string _e)
+    internal
+    pure
     returns (string)
     {
         bytes memory _ba = bytes(_a);
@@ -345,29 +343,28 @@ contract UserStore {
         return string(babcde);
     }
 
-    function strConcat(string _a, string _b, string _c, string _d) 
-    internal 
-    pure 
-    returns (string) 
+    function strConcat(string _a, string _b, string _c, string _d)
+    internal
+    pure
+    returns (string)
     {
         return strConcat(_a, _b, _c, _d, "");
     }
 
-    function strConcat(string _a, string _b, string _c) 
-    internal 
-    pure 
-    returns (string) 
+    function strConcat(string _a, string _b, string _c)
+    internal
+    pure
+    returns (string)
     {
         return strConcat(_a, _b, _c, "", "");
     }
 
-    function strConcat(string _a, string _b) 
-    internal 
-    pure 
-    returns (string) 
+    function strConcat(string _a, string _b)
+    internal
+    pure
+    returns (string)
     {
         return strConcat(_a, _b, "", "", "");
     }
 
 }
-
