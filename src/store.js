@@ -24,7 +24,7 @@ const isSignedIn = () => {
     app_key: applicationKey
   });
   conn.searchAssets(userData.address).then(res => {
-    return !(res.length == 0);
+    return !(res.length === 0);
   });
 };
 

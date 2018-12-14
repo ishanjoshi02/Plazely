@@ -3,7 +3,7 @@ import Avatar from "avataaars";
 import "./Profile.css";
 import Card from "@material-ui/core/Card";
 import PropTypes from "prop-types";
-import { CardMedia, CardContent, Divider } from "@material-ui/core";
+import { CardContent, Divider } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 

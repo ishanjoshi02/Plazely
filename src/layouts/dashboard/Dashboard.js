@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "./Dashboard.css";
-import { Link } from "react-router";
-import UploadVideo from "../uploadVideo/UploadVideo";
 
 class Dashboard extends Component {
   constructor(props, { authData }) {

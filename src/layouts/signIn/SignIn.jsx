@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { browserHistory } from "react-router";
-const bip39 = require("bip39");
 import Orm from "bigchaindb-orm";
 import {
   applicationID,
@@ -16,7 +15,6 @@ import {
   API_PATH
 } from "../../keys/bigchaindbKey";
 import PropTypes from "prop-types";
-const BigchainDB = require("bigchaindb-driver");
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -59,7 +57,8 @@ class SignIn extends Component {
       phoneNumber: "",
       avatar: null,
       email: "",
-      address: ""
+      address: "",
+      password: ""
     };
   }
   componentWillMount() {
@@ -157,7 +156,7 @@ class SignIn extends Component {
             </form>
           </CardContent>
           <CardActions>
-            <Button role="role" color="primary" onClick={this.onSubmitForm}>
+            <Button color="primary" onClick={this.onSubmitForm}>
               Submit
             </Button>
           </CardActions>

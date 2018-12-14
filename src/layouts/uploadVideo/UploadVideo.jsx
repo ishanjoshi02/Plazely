@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import "./UploadVideo.css";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { withStyles } from "@material-ui/core/styles";
-const bip39 = require("bip39");
-const BigchainDB = require("bigchaindb-driver");
 import Orm from "bigchaindb-orm";
 import {
   applicationID,
@@ -168,9 +166,6 @@ class UploadVideo extends Component {
             const uuid = uuidv1();
             const title = this.state.title;
             console.log(title);
-            const userData = JSON.parse(
-              localStorage.getItem("uPortUserCredentials")
-            );
             const asset = {
               videoHashes,
               author: this.props.authData.phone,
@@ -292,7 +287,7 @@ class UploadVideo extends Component {
 
           <div
             style={
-              this.state.percentUploaded != 0
+              this.state.percentUploaded !== 0
                 ? { display: "block" }
                 : { display: "none" }
             }

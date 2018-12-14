@@ -22,13 +22,10 @@ function getUser(userCredentials) {
   });
 
   conn.searchAssets(userCredentials.address).then(res => {
-    if (res.length == 0) {
+    if (res.length === 0) {
       browserHistory.push("signIn?user=" + JSON.stringify(userCredentials));
     }
   });
-
-  // const seed = bip39.mnemonicToSeed("ProjectINK").slice(0, 32);
-  // const alice = new BigchainDB.Ed25519Keypair(seed);
 }
 
 export function loginUser() {

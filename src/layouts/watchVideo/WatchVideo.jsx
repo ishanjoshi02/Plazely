@@ -9,8 +9,6 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { Card, CardMedia, CardContent, Typography } from "@material-ui/core";
 import Orm from "bigchaindb-orm";
-import { VisibleOnlyAuth } from "../../util/wrappers";
-const driver = require("bigchaindb-driver");
 
 const styles = theme => ({
   snackbar: {
@@ -33,7 +31,6 @@ class WatchVideo extends Component {
     };
   }
   componentDidMount = async () => {
-    const { classes } = this.props;
     var currentLocation = browserHistory.getCurrentLocation();
     if ("uuid" in currentLocation.query) {
       await this.setState({ uuid: currentLocation.query.uuid });
@@ -61,7 +58,7 @@ class WatchVideo extends Component {
             console.log(asset.data.phoneNumber.replace(" ", ""));
             const author = assets[0].data.author.replace("+", "");
             console.log(author);
-            if (asset.data.phoneNumber.replace(" ", "") == author) {
+            if (asset.data.phoneNumber.replace(" ", "") === author) {
               console.log(asset);
               this.setState({ author: asset.data.name });
             }
@@ -75,7 +72,7 @@ class WatchVideo extends Component {
     }
   };
   handleKeyPress = e => {
-    if (e.keyCode == "SPACE") {
+    if (e.keyCode === "SPACE") {
     }
   };
   render() {

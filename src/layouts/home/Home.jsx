@@ -16,6 +16,9 @@ import { withStyles } from "@material-ui/core/styles";
 import { browserHistory } from "react-router";
 import PreviewVideo from "../../components/PreviewVideo";
 
+// TODO: Change database from bigdchain db to Ethereum Backend
+
+
 const styles = theme => ({
   root: {
     flexGrow: 1
