@@ -181,8 +181,10 @@ class App extends Component {
       this.setState({
         avatar: (
           <img
+            selected={this.state.selectedIndex === 1}
             onClick={() => {
               browserHistory.push("/profile");
+              this.handleListItemClick(event, 1);
             }}
             className={this.props.classes.toolbar}
             style={{
