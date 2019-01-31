@@ -1,5 +1,5 @@
 // solium-disable linebreak-style
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 contract VideoStore {
 
     struct Comment {
@@ -10,30 +10,32 @@ contract VideoStore {
         Comment[] replies;
     }
 
-    struct ipfsHash {
-        string hashString;
-        string quality;
-    }
-
     struct Video {
         string title;
         string description;
         uint videoTimestamp;
-        ipfsHash[] hashes;
+        string hashes;
         string[] tags;
         string category;
         string userEmail;
         uint commentThreadId;
     }
 
-    mapping(string=>uint[]) tagMappping;
+    mapping(string=>uint[]) tagMapping;
 
     uint videoListCount;
 
     Video[] videoList;
     Comment[] commentThreads; // Tags are used to search the database.
 
-    function addVideo(string _title, string _description, string _hashes, string _tags, string _category, string _userEmail)
+    function addVideo(
+        string memory _title, 
+        string memory _description, 
+        string memory _hashes, 
+        string memory _tags, 
+        string memory _category, 
+        string memory _userEmail
+        )
     public
     {
         // Add insertion functionality.
@@ -44,7 +46,7 @@ contract VideoStore {
 
         videoListCount++;
 
-        Video foo;
+        Video memory foo;
         foo.title = _title;
         foo.description = _description;
         foo.category = _category;
@@ -56,22 +58,22 @@ contract VideoStore {
         // extract all tags in the _tags string.
         // create tag entry, and push the video id to tagMapping
 
-        string[] tags = generateTags(_tags);
+        // string[] tags = generateTags(_tags);
 
         
 
     }
 
-    function addVideoIdToTag(string _tag, uint videoId)
+    function addVideoIdToTag(string memory _tag, uint videoId)
     internal
     {
-        tagMappings[_tag].push(videoId);
+        tagMapping[_tag].push(videoId);
     }
 
-    function searchVideo(string _tags)
+    function searchVideo(string memory _tags)
     public
     view
-    returns (uint[] videoIds)
+    returns (uint[] memory videoIds)
     {
 
         // Implement search algorithm here.
@@ -82,7 +84,15 @@ contract VideoStore {
 
 
 
-    function updateVideo(uint _id, string _title, string _description, string _hashes, string _tags, string _category, string _userEmail)
+    function updateVideo(
+        uint _id, 
+        string memory _title, 
+        string memory _description, 
+        string memory _hashes, 
+        string memory _tags, 
+        string memory _category, 
+        string memory _userEmail
+        )
     public
     {
 
@@ -107,14 +117,14 @@ contract VideoStore {
 
   //________________________________Helper Functions______________________________________//
 
-  function generateTags(string _tags)
-  internal
-  returns (string[] tags)
-  {
+//   function generateTags(string memory _tags)
+//   internal
+//   returns (string[] memory tags)
+//   {
 
-    // separate tags into string array.
-    // separate using delimiter ;
+//     // separate tags into string array.
+//     // separate using delimiter ;
 
-  }
+//   }
 
 }

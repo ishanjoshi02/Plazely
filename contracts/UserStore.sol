@@ -1,5 +1,4 @@
-// solium-disable linebreak-style
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.0;
 contract UserStore {
 
     struct User {
@@ -20,7 +19,7 @@ contract UserStore {
 
     // Testing functions i.e. functions used for testing. Comment out before actually using the smart contract
 
-    function getSubscriberCount(string _uploaderEmail)
+    function getSubscriberCount(string memory _uploaderEmail)
     public
     view
     returns (uint count) {
@@ -39,7 +38,7 @@ contract UserStore {
 
     event createdUser(string email, string username);
 
-    function checkUserExistence(string _email)
+    function checkUserExistence(string memory _email)
     internal
     view
     returns (bool)
@@ -52,7 +51,7 @@ contract UserStore {
         return false;
     }
 
-    function checkUserNameExistence(string _username)
+    function checkUserNameExistence(string memory _username)
     internal
     view
     returns (bool)
@@ -65,45 +64,55 @@ contract UserStore {
         return true;
     }
 
-    function createUser(string _email, string _username, string _firstName, string _lastName, address _address, string _password )
+    function createUser(
+        string memory _email, 
+        string memory _username, 
+        string memory _firstName, 
+        string memory _lastName, 
+        string memory _password)
     public
+    returns (string memory)
     {
         // This function is analogous to the sign up user function except this is the server side processing of that process.
         // Some validations (also called Guard Functions) are required before creating the user in the store.
         // 1. Check if the user already exists.
-        require(!checkUserExistence(_email), "User already exists"); // Using require function. Please refer solidity documentation for more information.
+        require(!checkUserExistence(_email), "User already exists"); 
+        // Using require function. Please refer solidity documentation for more information.
         // Other guard functions go here.
-        // add function to check if the username is already being used. This is to ensure that the username is unique
+        // add function to check if the username is already being used. 
+        // This is to ensure that the username is unique
         require(
             checkUserNameExistence(_username),
-            "Username already taken. Please try another user name"
+            "Username already taken. Please try another user name" 
         );
 
         userMapping[_email].username = _username;
         emails.push(_email);
-        userMapping[_email].ethereumAddress = _address;
+        userMapping[_email].ethereumAddress = msg.sender;
         userMapping[_email].password = _password;
         userMapping[_email].subscribersCount = 0;
         userMapping[_email].name = strConcat(_firstName, " ", _lastName);
         userCount++;
 
-        emit createdUser(_email, _username);
-
+        // emit createdUser(_email, _username);
+        string memory error = "No error";
+        return error;
     }
 
-    function getUser(string _email)
+    function getUser(string memory _email)
     public
     view
     returns(
-        string username,
-        string email,
+        string memory username,
+        string memory email,
         address addr
     )
     {
 
         // Some validations (also called Guard Functions) are required before creating the user in the store.
         // 1. Check if the user already exists.
-        require(checkUserExistence(_email), "User does not already exists"); // Using require function. Please refer solidity documentation for more information.
+        require(checkUserExistence(_email), "User does not already exists"); 
+        // Using require function. Please refer solidity documentation for more information.
         // Other guard functions go here.
 
         username = userMapping[_email].username;
@@ -111,12 +120,12 @@ contract UserStore {
         addr = userMapping[_email].ethereumAddress;
     }
 
-    function authenticateUser(string _email, string _password)
+    function authenticateUser(string memory _email, string memory _password)
     public
     view
     returns (
-        string username,
-        string name,
+        string memory username,
+        string memory name,
         address ethereumAddress
     )
     {
@@ -141,7 +150,7 @@ contract UserStore {
 
     //------------------------------------- User Utility functions start here -------------------------------------//
 
-    function changePassword(string _email, string _oldPassword, string _newPassword)
+    function changePassword(string memory _email, string memory _oldPassword, string memory _newPassword)
     public
     {
         // Utility function that allows the user to change their password.
@@ -161,12 +170,11 @@ contract UserStore {
 
     }
 
-    function changeUsername(string _email, string newUsername)
+    function changeUsername(string memory _email, string memory newUsername)
     public
-    view
     returns (
-        string username,
-        string name,
+        string memory username,
+        string memory name,
         address ethereumAddress
     )
     {
@@ -185,12 +193,11 @@ contract UserStore {
 
     }
 
-    function changeEmail(string _email, string password, string _newEmail)
+    function changeEmail(string memory _email, string memory password, string memory _newEmail)
     public
-    view
     returns (
-        string username,
-        string name,
+        string memory username,
+        string memory name,
         address ethereumAddress
     )
     {
@@ -215,7 +222,7 @@ contract UserStore {
 
     }
 
-    function deleteUser(string _email, string _password)
+    function deleteUser(string memory _email, string memory _password)
     public
     {
 
@@ -250,7 +257,7 @@ contract UserStore {
 
     //------------------------------------- User functions start here -------------------------------------//
 
-    function addSubscriber(string _uploaderEmail, string _subscriberEmail)
+    function addSubscriber(string memory _uploaderEmail, string memory _subscriberEmail)
     public
     {
         // Function that adds subscriber to an User.
@@ -274,7 +281,7 @@ contract UserStore {
         subscriber.subscribedTo.push(_uploaderEmail);
     }
 
-    function removeSubscriber(string _uploaderEmail, string _subscriberEmail)
+    function removeSubscriber(string memory _uploaderEmail, string memory _subscriberEmail)
     public
     {
         // Function that remove subscriber from user.
@@ -312,7 +319,7 @@ contract UserStore {
 
     //------------------------------------- User functions start here -------------------------------------//
 
-    function compareStrings(string one, string two)
+    function compareStrings(string memory one, string memory two)
     internal
     pure
     returns (bool)
@@ -322,10 +329,10 @@ contract UserStore {
 
     }
 
-    function strConcat(string _a, string _b, string _c, string _d, string _e)
+    function strConcat(string memory _a, string memory _b, string memory _c, string memory _d, string memory _e)
     internal
     pure
-    returns (string)
+    returns (string memory)
     {
         bytes memory _ba = bytes(_a);
         bytes memory _bb = bytes(_b);
@@ -335,7 +342,8 @@ contract UserStore {
         string memory abcde = new string(_ba.length + _bb.length + _bc.length + _bd.length + _be.length);
         bytes memory babcde = bytes(abcde);
         uint k = 0;
-        for (uint i = 0; i < _ba.length; i++) babcde[k++] = _ba[i];
+        uint i = 0;
+        for (i = 0; i < _ba.length; i++) babcde[k++] = _ba[i];
         for (i = 0; i < _bb.length; i++) babcde[k++] = _bb[i];
         for (i = 0; i < _bc.length; i++) babcde[k++] = _bc[i];
         for (i = 0; i < _bd.length; i++) babcde[k++] = _bd[i];
@@ -343,26 +351,26 @@ contract UserStore {
         return string(babcde);
     }
 
-    function strConcat(string _a, string _b, string _c, string _d)
+    function strConcat(string memory _a, string memory _b, string memory _c, string memory _d)
     internal
     pure
-    returns (string)
+    returns (string memory)
     {
         return strConcat(_a, _b, _c, _d, "");
     }
 
-    function strConcat(string _a, string _b, string _c)
+    function strConcat(string memory _a, string memory _b, string memory _c)
     internal
     pure
-    returns (string)
+    returns (string memory)
     {
         return strConcat(_a, _b, _c, "", "");
     }
 
-    function strConcat(string _a, string _b)
+    function strConcat(string memory _a, string memory _b)
     internal
     pure
-    returns (string)
+    returns (string memory)
     {
         return strConcat(_a, _b, "", "", "");
     }
