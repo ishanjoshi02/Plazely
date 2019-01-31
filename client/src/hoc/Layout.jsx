@@ -9,7 +9,7 @@ const Layout = ({ children, classes }) => {
   return (
     <div className={classes.root}>
       <Header />
-      <div className={classes.content} style={{ paddingTop: "7%" }}>
+      <div className={classes.content} style={{ paddingTop: `95px` }}>
         {children}
       </div>
     </div>

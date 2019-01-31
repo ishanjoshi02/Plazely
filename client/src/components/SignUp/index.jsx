@@ -110,7 +110,7 @@ class SignUp extends Component {
               />
             </div>
             <button className="btn btn-primary" type="submit">
-              Login
+              Signup
             </button>
             <p>{this.state.error}</p>
           </fieldset>
