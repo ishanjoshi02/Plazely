@@ -8,21 +8,54 @@ class Login extends Component {
     password: "",
     error: ""
   };
-  componentWillMount = () => {
-    this.props.dispatch(login());
-  };
   onChange = e => {
     const { name, value } = e.target;
+    switch (name) {
+      case "email": {
+        this.setState({ email: value });
+        break;
+      }
+      case "password": {
+        this.setState({ password: value });
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   };
   onSubmit = e => {
     e.preventDefault();
+    this.props.dispatch(login(this.state));
   };
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.user.login.error) {
+      this.setState({ error: nextProps.user.login.error.reason });
+    } else {
+      this.props.history.push("/");
+    }
+  };
+  renderError() {
+    if (this.state.error) {
+      return (
+        <div
+          style={{
+            marginTop: `10px`
+          }}
+          className="alert alert-disimmissable alert-danger"
+        >
+          {this.state.error}
+        </div>
+      );
+    }
+    return null;
+  }
   render() {
     return (
       <div>
         <form onSubmit={this.onSubmit}>
           <fieldset>
-            <legend>Login</legend>
+            <legend>Log In Form</legend>
             <div className="form-group ">
               <input
                 id="email"
@@ -47,7 +80,7 @@ class Login extends Component {
             <button className="btn btn-primary" type="submit">
               Sign up
             </button>
-            <p>{this.state.error}</p>
+            {this.renderError()}
           </fieldset>
         </form>
       </div>
@@ -56,9 +89,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
   return {
-    prop: state.prop
+    user: state.user
   };
 };
 

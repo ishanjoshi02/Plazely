@@ -5,7 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import styles from "./styles";
 
-const Layout = ({ children, classes }) => {
+const Layout = ({ children, classes, history }) => {
   return (
     <div className={classes.root}>
       <Header />

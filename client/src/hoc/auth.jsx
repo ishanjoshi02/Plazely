@@ -12,7 +12,7 @@ export default (ComposedClass, reload) => {
     componentWillReceiveProps = nextProps => {
       this.setState({ loading: false });
       if (!nextProps.user.login.isAuth) {
-        // this.props.history.push("/login");
+        this.props.history.push("/login");
       }
     };
     render() {

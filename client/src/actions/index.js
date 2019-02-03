@@ -12,7 +12,6 @@ async function getUserStoreInstance() {
     return ins;
   });
 }
-
 export function auth() {
   const index = document.cookie.indexOf("token");
   return {
@@ -43,7 +42,6 @@ export async function signup({
       };
     })
     .catch(e => {
-      console.error(e);
       return {
         email,
         account: accounts[0],
@@ -58,19 +56,29 @@ export async function signup({
 }
 export async function login({ email, password }) {
   const accounts = await web3.eth.getAccounts();
-  let request = getUserStoreInstance().then(ins => {
-    return ins
-      .authenticateUser(email, password, {
-        from: accounts[0]
-      })
-      .then(res => {
-        console.log(res);
-        return res;
-      });
-  });
+  const ins = await getUserStoreInstance();
+  const payload = ins
+    .authenticateUser(email, password, {
+      from: accounts[0]
+    })
+    .then(res => {
+      return {
+        email,
+        account: accounts[0],
+        isAuth: true
+      };
+    })
+    .catch(e => {
+      return {
+        email,
+        account: accounts[0],
+        isAuth: false,
+        error: e
+      };
+    });
   // Get error from return
   return {
     type: "LOGIN_USER",
-    payload: { email: email, account: accounts[0], error: "No error" }
+    payload
   };
 }
