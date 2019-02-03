@@ -1,15 +1,20 @@
 import JWT_SECRET from "../secrets/jwt_secret";
 
-var jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 export default (state = {}, action) => {
   switch (action.type) {
     case "USER_AUTH": {
-      return { ...state, login: action.payload };
+      return {
+        ...state,
+        login: {
+          isAuth: !(action.payload.index === -1)
+        }
+      };
     }
     case "SIGNUP_USER": {
-      if (action.payload.error === "No error") {
-        document.cookie = `token=${jwt.sign(action.payload, JWT_SECRET)}`;
+      if (action.payload.isAuth) {
+        document.cookie = `token=${jwt.sign(action.payload.email, JWT_SECRET)}`;
         return {
           ...state,
           login: {
@@ -21,7 +26,24 @@ export default (state = {}, action) => {
       return { ...state, login: action.payload };
     }
     case "LOGIN_USER": {
+      if (action.payload.isAuth) {
+        document.cookie = `token=${jwt.sign(action.payload.email, JWT_SECRET)}`;
+        return {
+          ...state,
+          login: {
+            ...action.payload,
+            isAuth: true
+          }
+        };
+      }
       return { ...state, login: action.payload };
+    }
+    case "SIGNOUT_USER": {
+      // Delete  `token` cookie from storage
+      return {
+        ...state,
+        login: {}
+      };
     }
     default: {
       return state;

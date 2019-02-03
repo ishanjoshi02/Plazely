@@ -8,16 +8,17 @@ const web3 = new Web3(
 async function getUserStoreInstance() {
   UserStore.setProvider(web3.currentProvider);
   console.log(web3.eth.getAccounts());
-  return UserStore.deployed();
+  return await UserStore.deployed().then(ins => {
+    return ins;
+  });
 }
 
 export function auth() {
+  const index = document.cookie.indexOf("token");
   return {
     type: "USER_AUTH",
     payload: {
-      email: "ishanjoshi@gmail.com",
-      name: "Ishan",
-      lastname: "Joshi"
+      index
     }
   };
 }
@@ -29,32 +30,47 @@ export async function signup({
   lastname
 }) {
   const accounts = await web3.eth.getAccounts();
+  const ins = await getUserStoreInstance();
+  const payload = await ins
+    .createUser(email, username, firstname, lastname, password, {
+      from: accounts[0]
+    })
+    .then(res => {
+      return {
+        email,
+        account: accounts[0],
+        isAuth: true
+      };
+    })
+    .catch(e => {
+      console.error(e);
+      return {
+        email,
+        account: accounts[0],
+        isAuth: false,
+        error: e
+      };
+    });
+  return {
+    type: "SIGNUP_USER",
+    payload
+  };
+}
+export async function login({ email, password }) {
+  const accounts = await web3.eth.getAccounts();
   let request = getUserStoreInstance().then(ins => {
-    return ins.createUser
-      .call(email, username, firstname, lastname, password, {
+    return ins
+      .authenticateUser(email, password, {
         from: accounts[0]
       })
       .then(res => {
+        console.log(res);
         return res;
       });
   });
-  const error = await request;
-  return {
-    type: "SIGNUP_USER",
-    payload: {
-      email: "ishanjoshi@gmail.com",
-      name: "Ishan",
-      lastname: "Joshi",
-      error,
-      accounts
-    }
-  };
-}
-export function login() {
-  getUserStoreInstance().then(ins => {});
-
+  // Get error from return
   return {
     type: "LOGIN_USER",
-    payload: { email: "ishanjoshi@gmail.com", name: "Ishan", lastname: "Joshi" }
+    payload: { email: email, account: accounts[0], error: "No error" }
   };
 }
