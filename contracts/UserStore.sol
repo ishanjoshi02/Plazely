@@ -111,7 +111,7 @@ contract UserStore {
 
         // Some validations (also called Guard Functions) are required before creating the user in the store.
         // 1. Check if the user already exists.
-        require(checkUserExistence(_email), "User does not already exists"); 
+        require(checkUserExistence(_email), "User does not exists"); 
         // Using require function. Please refer solidity documentation for more information.
         // Other guard functions go here.
 
@@ -124,6 +124,7 @@ contract UserStore {
     public
     view
     returns (
+        string memory error,
         string memory username,
         string memory name,
         address ethereumAddress
@@ -137,11 +138,12 @@ contract UserStore {
         // 1. Check if the user exists in the store.
         require(checkUserExistence(_email), "User does not exist");
         // 2. The password entered must be equal to the one stored in the contract.
-        User storage foo = userMapping[_email];
+        User memory foo = userMapping[_email];
         require(compareStrings(foo.password, _password), "Please check the password entered");
 
         // If all the guard conditions pass, return the User contract(object).
 
+        error = "No error";
         username = foo.username;
         name = foo.name;
         ethereumAddress = foo.ethereumAddress;
