@@ -45,11 +45,9 @@ class SignUp extends Component {
     this.props.dispatch(signup(this.state));
   };
   componentWillReceiveProps = nextProps => {
-    console.log(nextProps);
     if (nextProps.user.login.isAuth) {
       this.props.history.push("/");
     } else {
-      console.log(nextProps);
       this.setState({ error: nextProps.user.login.error.reason });
     }
   };
@@ -138,7 +136,6 @@ class SignUp extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
   return {
     user: state.user
   };
