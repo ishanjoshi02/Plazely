@@ -49,9 +49,25 @@ class SignUp extends Component {
     if (nextProps.user.login.isAuth) {
       this.props.history.push("/");
     } else {
-      this.setState({ error: nextProps.user.error });
+      console.log(nextProps);
+      this.setState({ error: nextProps.user.login.error.reason });
     }
   };
+  renderError() {
+    if (this.state.error) {
+      return (
+        <div
+          style={{
+            marginTop: `10px`
+          }}
+          className="alert alert-dismissible alert-danger"
+        >
+          {this.state.error}
+        </div>
+      );
+    }
+    return null;
+  }
   render() {
     return (
       <div>
@@ -112,7 +128,8 @@ class SignUp extends Component {
             <button className="btn btn-primary" type="submit">
               Signup
             </button>
-            <p>{this.state.error}</p>
+            <br />
+            {this.renderError()}
           </fieldset>
         </form>
       </div>
