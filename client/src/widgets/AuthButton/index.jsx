@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { Button } from "@material-ui/core";
 import { auth } from "../../actions";
 
 import "./styles.css";
@@ -20,9 +18,14 @@ class AuthButton extends Component {
   }
   renderButton() {
     let button = null;
+    // Todo: hide button if login/signup page is shown
     if (this.state.isAuth) {
       button = (
-        <a className="nav-item" href="/login">
+        <a
+          style={{ color: "#fff", textDecoration: "none" }}
+          className="nav-item"
+          href="/login"
+        >
           <div
             onClick={() => {
               this.logoutUser();
@@ -46,7 +49,6 @@ class AuthButton extends Component {
     return button;
   }
   render() {
-    console.log(this.props);
     return (
       <div>
         <ul className="navbar-nav mr-auto">{this.renderButton()}</ul>

@@ -156,7 +156,6 @@ class UploadVideo extends Component {
             >
               <button
                 className="btn btn-primary"
-                role="button"
                 disabled={this.state.uploading}
                 onClick={this.submitVideo}
               >

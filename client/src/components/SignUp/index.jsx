@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { signup } from "../../actions";
 
@@ -48,7 +49,9 @@ class SignUp extends Component {
     if (nextProps.user.login.isAuth) {
       this.props.history.push("/");
     } else {
-      this.setState({ error: nextProps.user.login.error.reason });
+      try {
+        this.setState({ error: nextProps.user.login.error.reason });
+      } catch (e) {}
     }
   };
   renderError() {
@@ -126,6 +129,14 @@ class SignUp extends Component {
             <button className="btn btn-primary" type="submit">
               Signup
             </button>
+            <p
+              style={{
+                marginTop: "10px"
+              }}
+            >
+              Already have an account,{" "}
+              <Link to="/login">Click here to Login</Link>
+            </p>
             <br />
             {this.renderError()}
           </fieldset>

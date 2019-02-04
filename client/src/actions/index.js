@@ -7,7 +7,6 @@ const web3 = new Web3(
 );
 async function getUserStoreInstance() {
   UserStore.setProvider(web3.currentProvider);
-  console.log(web3.eth.getAccounts());
   return await UserStore.deployed().then(ins => {
     return ins;
   });

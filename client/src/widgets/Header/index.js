@@ -1,17 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import MenuIcon from "@material-ui/icons/Menu";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  Button
-} from "@material-ui/core";
+import { AppBar, Toolbar, IconButton, Typography } from "@material-ui/core";
 
 import MyDrawer from "./Drawer";
 
@@ -22,7 +15,6 @@ import AuthButton from "../AuthButton";
 
 const Header = props => {
   const classes = props.classes;
-  console.log(props);
   const [active, setActive] = useState(false);
   const closeDrawer = () => {
     setActive(false);
@@ -56,7 +48,7 @@ const Header = props => {
             noWrap
             className={classes.grow}
           >
-            <Link style={{ color: "#ffffff", textDecoration: "none" }} to="">
+            <Link style={{ color: "#ffffff", textDecoration: "none" }} to="/">
               Ink Player
             </Link>
           </Typography>

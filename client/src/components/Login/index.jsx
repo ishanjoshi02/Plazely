@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { login } from "../../actions";
+import { Link } from "react-router-dom";
 
 class Login extends Component {
   state = {
@@ -30,7 +31,7 @@ class Login extends Component {
   };
   componentWillReceiveProps = nextProps => {
     if (nextProps.user.login.error) {
-      this.setState({ error: nextProps.user.login.error.reason });
+      this.setState({ error: nextProps.user.login.error.message });
     } else {
       this.props.history.push("/");
     }
@@ -78,8 +79,16 @@ class Login extends Component {
               />
             </div>
             <button className="btn btn-primary" type="submit">
-              Sign up
+              Log in
             </button>
+            <p
+              style={{
+                marginTop: "10px"
+              }}
+            >
+              Don't have an account,{" "}
+              <Link to="/signup">Click here to Register</Link>
+            </p>
             {this.renderError()}
           </fieldset>
         </form>
