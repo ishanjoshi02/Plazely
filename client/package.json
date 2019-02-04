@@ -8,6 +8,8 @@
     "ethers": "^4.0.20",
     "ipfs": "^0.31.7",
     "jsonwebtoken": "^8.4.0",
+    "node-gyp": "^3.8.0",
+    "package.json": "^2.0.1",
     "react": "next",
     "react-dom": "next",
     "react-fontawesome": "^1.6.1",

@@ -34,7 +34,11 @@ class AuthButton extends Component {
       );
     } else {
       button = (
-        <a className="nav-item" href="/login">
+        <a
+          style={{ color: "#fff", textDecoration: "none" }}
+          className="nav-item"
+          href="/login"
+        >
           Login
         </a>
       );
