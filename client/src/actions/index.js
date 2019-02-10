@@ -1,9 +1,9 @@
-const contract = require("truffle-contract");
+import TruffleContract from "truffle-contract";
 const Web3 = require("web3");
 const UserStoreArtifact = require("../contracts/UserStore.json");
-const UserStore = contract(UserStoreArtifact);
+const UserStore = TruffleContract(UserStoreArtifact);
 const web3 = new Web3(
-  new Web3.providers.HttpProvider(`http://localhost:${7545}`)
+  new Web3.providers.HttpProvider(`http://localhost:${8545}`)
 );
 async function getUserStoreInstance() {
   UserStore.setProvider(web3.currentProvider);
