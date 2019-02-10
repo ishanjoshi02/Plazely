@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { auth } from "../../actions";
 
-import "./styles.css";
-
 class AuthButton extends Component {
   state = { isAuth: false };
   componentWillMount() {
