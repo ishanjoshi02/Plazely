@@ -71,7 +71,7 @@ class SignUp extends Component {
   }
   render() {
     return (
-      <div>
+      <React.Fragment>
         <form onSubmit={this.onSubmit}>
           <fieldset>
             <legend>Sign Up Form</legend>
@@ -141,7 +141,7 @@ class SignUp extends Component {
             {this.renderError()}
           </fieldset>
         </form>
-      </div>
+      </React.Fragment>
     );
   }
 }

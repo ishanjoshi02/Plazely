@@ -53,7 +53,7 @@ class Login extends Component {
   }
   render() {
     return (
-      <div>
+      <React.Fragment>
         <form onSubmit={this.onSubmit}>
           <fieldset>
             <legend>Log In Form</legend>
@@ -92,7 +92,7 @@ class Login extends Component {
             {this.renderError()}
           </fieldset>
         </form>
-      </div>
+      </React.Fragment>
     );
   }
 }

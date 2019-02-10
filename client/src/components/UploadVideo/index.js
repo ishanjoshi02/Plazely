@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-// import { uploadVideo } from "../../actions";
-// import { connect } from "react-redux";
 import {
   withStyles,
   Card,
