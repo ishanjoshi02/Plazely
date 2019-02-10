@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import UploadVideo from "./components/UploadVideo";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import View from "./components/ViewVideo";
 
 const Routes = () => {
   return (
@@ -15,6 +16,7 @@ const Routes = () => {
         <Route path="/upload" exact component={IsAuth(UploadVideo)} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={SignUp} />
+        <Route path="/view/:id" exact component={View} />
       </Switch>
     </Layout>
   );
