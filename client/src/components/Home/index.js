@@ -7,11 +7,7 @@ class Home extends React.Component {
   };
 
   render() {
-    return (
-      <div>
-        <Profile name={this.state.name} />
-      </div>
-    );
+    return <div>Home</div>;
   }
 }
 
