@@ -28,6 +28,11 @@ const MyDrawer = ({ active, closeDrawer, classes, theme, history }) => {
       icon: "upload",
       link: "/upload",
       title: "Upload Video"
+    },
+    {
+      icon: "user",
+      link: "/profile",
+      title: "Profile"
     }
   ];
   const renderNavItems = () =>
