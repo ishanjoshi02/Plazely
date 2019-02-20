@@ -1,5 +1,6 @@
 // solium-disable linebreak-style
 pragma solidity ^0.5.0;
+pragma experimental ABIEncoderV2;
 contract VideoStore {
 
     struct Comment {
@@ -22,18 +23,18 @@ contract VideoStore {
     }
 
     mapping(string=>uint[]) tagMapping;
+    mapping(uint => Video) videoList;
 
-    uint videoListCount;
+    uint videoListCount = 0;
 
-    Video[] videoList;
     Comment[] commentThreads; // Tags are used to search the database.
 
     function addVideo(
-        string memory _title, 
-        string memory _description, 
-        string memory _hashes, 
-        string memory _tags, 
-        string memory _category, 
+        string memory _title,
+        string memory _description,
+        string memory _hashes,
+        string memory _tags,
+        string memory _category,
         string memory _userEmail
         )
     public
@@ -53,15 +54,26 @@ contract VideoStore {
         foo.userEmail = _userEmail;
         foo.videoTimestamp = now;
 
-        videoList.push(foo);
+        videoList[videoListCount] = foo;
 
         // extract all tags in the _tags string.
         // create tag entry, and push the video id to tagMapping
 
         // string[] tags = generateTags(_tags);
 
-        
+    }
 
+    function getVideoListCount()
+    public
+    returns (uint) {
+      return videoListCount;
+    }
+
+    function getVideo(uint _id)
+    public
+    returns (Video memory) {
+      require(_id <= videoListCount, "Video does not exist");
+      return videoList[_id];
     }
 
     function addVideoIdToTag(string memory _tag, uint videoId)
@@ -85,12 +97,12 @@ contract VideoStore {
 
 
     function updateVideo(
-        uint _id, 
-        string memory _title, 
-        string memory _description, 
-        string memory _hashes, 
-        string memory _tags, 
-        string memory _category, 
+        uint _id,
+        string memory _title,
+        string memory _description,
+        string memory _hashes,
+        string memory _tags,
+        string memory _category,
         string memory _userEmail
         )
     public
