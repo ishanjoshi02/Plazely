@@ -9,9 +9,14 @@ const web3 = new Web3(
 );
 
 // Add metadata to Ethereum Blockchain function
-export function addVideoToBC({ title, description, hash, tags, category }) {
-    const instance = await VideoStore.deployed();
-    
+export async function addVideoToBC({
+  title,
+  description,
+  hash,
+  tags,
+  category
+}) {
+  const instance = await VideoStore.deployed();
 }
 
 // Upload function

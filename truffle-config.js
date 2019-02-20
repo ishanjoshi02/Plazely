@@ -1,9 +1,10 @@
-const path = require("path");
-
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
-  contracts_build_directory: path.join(__dirname, "client/src/contracts"),
+
+  // Removed path since __dirname returns "/" in case of webpack
+
+  contracts_build_directory: "./client/src/contracts",
   networks: {
     development: {
       host: "127.0.0.1",
