@@ -30,7 +30,7 @@ class Login extends Component {
     this.props.dispatch(login(this.state));
   };
   componentWillReceiveProps = nextProps => {
-    if (nextProps.user.login.error) {
+    if (nextProps.user.error) {
       this.setState({ error: nextProps.user.login.error.message });
     } else {
       this.props.history.push("/");

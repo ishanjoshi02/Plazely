@@ -5,17 +5,16 @@ const jwt = require("jsonwebtoken");
 export default (state = {}, action) => {
   switch (action.type) {
     case "USER_AUTH": {
+      console.log(action.payload);
       return {
+        ...action.payload,
         ...state,
-        login: {
-          isAuth: !(action.payload.index === -1)
-        }
+        isAuth: !(action.payload.index === -1)
       };
     }
     case "SIGNUP_USER": {
       if (action.payload.isAuth) {
         document.cookie = `token=${jwt.sign(action.payload.email, JWT_SECRET)}`;
-        console.log(action.payload);
         return {
           ...state,
           ...action.payload,
@@ -29,20 +28,11 @@ export default (state = {}, action) => {
         document.cookie = `token=${jwt.sign(action.payload.email, JWT_SECRET)}`;
         return {
           ...state,
-          login: {
-            ...action.payload,
-            isAuth: true
-          }
+          ...action.payload,
+          isAuth: true
         };
       }
       return { ...state, login: action.payload };
-    }
-    case "SIGNOUT_USER": {
-      // Delete  `token` cookie from storage
-      return {
-        ...state,
-        login: {}
-      };
     }
     default: {
       return state;

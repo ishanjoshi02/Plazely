@@ -8,7 +8,7 @@ class AuthButton extends Component {
     this.props.dispatch(auth());
   }
   componentWillReceiveProps(nextProps) {
-    const { isAuth } = nextProps.user.login;
+    const { isAuth } = nextProps.user;
     this.setState({ isAuth });
   }
   logoutUser() {

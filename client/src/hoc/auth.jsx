@@ -11,7 +11,8 @@ export default (ComposedClass, reload) => {
     };
     componentWillReceiveProps = nextProps => {
       this.setState({ loading: false });
-      if (!nextProps.user.login.isAuth) {
+      console.log(nextProps);
+      if (!nextProps.user.isAuth) {
         this.props.history.push("/login");
       }
     };
