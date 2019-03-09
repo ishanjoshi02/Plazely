@@ -29,6 +29,13 @@ contract VideoStore {
 
     Comment[] commentThreads; // Tags are used to search the database.
 
+    function getVideoCount() 
+    public 
+    view 
+    returns (uint) {
+        return videoListCount;
+    }
+
     function addVideo(
         string memory _title,
         string memory _description,

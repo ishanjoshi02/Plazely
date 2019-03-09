@@ -103,6 +103,7 @@ contract UserStore {
     public
     view
     returns(
+        string memory name,
         string memory username,
         string memory email,
         address addr
@@ -115,6 +116,7 @@ contract UserStore {
         // Using require function. Please refer solidity documentation for more information.
         // Other guard functions go here.
 
+        name = userMapping[_email].name;
         username = userMapping[_email].username;
         email = _email;
         addr = userMapping[_email].ethereumAddress;

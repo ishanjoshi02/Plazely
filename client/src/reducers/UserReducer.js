@@ -15,12 +15,11 @@ export default (state = {}, action) => {
     case "SIGNUP_USER": {
       if (action.payload.isAuth) {
         document.cookie = `token=${jwt.sign(action.payload.email, JWT_SECRET)}`;
+        console.log(action.payload);
         return {
           ...state,
-          login: {
-            ...action.payload,
-            isAuth: true
-          }
+          ...action.payload,
+          isAuth: true
         };
       }
       return { ...state, login: action.payload };

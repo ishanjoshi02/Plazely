@@ -3,7 +3,7 @@ const Web3 = require("web3");
 const UserStoreArtifact = require("../contracts/UserStore.json");
 const UserStore = TruffleContract(UserStoreArtifact);
 const web3 = new Web3(
-  new Web3.providers.HttpProvider(`http://localhost:${8545}`)
+  new Web3.providers.HttpProvider(`http://localhost:${7545}`)
 );
 async function getUserStoreInstance() {
   UserStore.setProvider(web3.currentProvider);
@@ -33,10 +33,14 @@ export async function signup({
     .createUser(email, username, firstname, lastname, password, {
       from: accounts[0]
     })
-    .then(res => {
+    .then(async res => {
+      const retVal = await ins.getUser.call(email);
+      console.log(retVal);
       return {
-        email,
-        account: accounts[0],
+        email: retVal.email,
+        address: retVal.addr,
+        name: retVal.name,
+        username: retVal.username,
         isAuth: true
       };
     })

@@ -46,7 +46,7 @@ class SignUp extends Component {
     this.props.dispatch(signup(this.state));
   };
   componentWillReceiveProps = nextProps => {
-    if (nextProps.user.login.isAuth) {
+    if (nextProps.user.isAuth) {
       this.props.history.push("/");
     } else {
       try {
