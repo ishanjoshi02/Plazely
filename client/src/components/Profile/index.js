@@ -1,37 +1,37 @@
 import React from "react";
-import styles from "./styles";
-import {
-  CardMedia,
-  CardContent,
-  Divider,
-  Card,
-  Typography
-} from "@material-ui/core";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
-const Profile = ({ email, name, username }) => {
+import styles from "./styles";
+
+const Profile = props => {
+  const { classes } = props;
   return (
-    <div style={{ paddingTop: `5%` }} className="container-fluid">
-      <Card style={styles.card}>
-        <CardContent>
-          <Typography
-            style={{ marginTop: 10 }}
-            gutterBottom
-            variant="headline"
-            component="h2"
-          >
-            {name}
-          </Typography>
-          <Divider />
-          <Typography style={{ marginTop: 10 }} component="p">
-            {username}
-          </Typography>
-          <Typography style={{ marginTop: 10 }} component="p">
-            {email}
-          </Typography>
-        </CardContent>
-      </Card>
-    </div>
+    <Card className={classes.card}>
+      <CardContent>
+        <Typography className={classes.title} color="textPrimary" gutterBottom>
+          {props.name}
+        </Typography>
+        <Typography variant="h5" component="h2" />
+        <Typography className={classes.pos} color="textPrimary">
+          Email: {props.email}
+        </Typography>
+        <Typography className={classes.pos} component="p">
+          No. of videos uploaded: 0
+        </Typography>
+      </CardContent>
+    </Card>
   );
 };
 
-export default Profile;
+Profile.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(Profile);
