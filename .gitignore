@@ -2,3 +2,5 @@ package-lock.json
 /node_modules
 src/keys/
 build/
+
+truffle-config.js
