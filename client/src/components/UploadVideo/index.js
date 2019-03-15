@@ -15,7 +15,8 @@ import {
 import styles from "./styles";
 
 const IPFS = require("ipfs");
-
+const node = new IPFS();
+console.log(node);
 class UploadVideo extends Component {
   state = {
     title: "",
@@ -73,8 +74,7 @@ class UploadVideo extends Component {
     });
   };
   uploadFileToIPFS = file => {
-    const node = new IPFS();
-    node.files.add(file, { progress: this.setProgressBar }, (err, files) => {
+    node.files.add(file, (err, files) => {
       if (err) {
         console.log(err);
       } else {
@@ -88,6 +88,7 @@ class UploadVideo extends Component {
     reader.readAsArrayBuffer(file);
     reader.onload = e => {
       const { result } = e.target;
+      console.log(result);
       this.uploadFileToIPFS(result);
     };
   };
