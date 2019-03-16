@@ -8,6 +8,7 @@ contract UserStore {
         string password; // Contains the hashed version of the password.
         bool isReal; // To check if the user actually exists.
         string[] subscribers;
+        uint videoCount;
         string[] subscribedTo;
         uint subscribedToCount;
         uint subscribersCount;
@@ -91,6 +92,7 @@ contract UserStore {
         userMapping[_email].ethereumAddress = msg.sender;
         userMapping[_email].password = _password;
         userMapping[_email].subscribersCount = 0;
+        userMapping[_email].videoCount = 0;
         userMapping[_email].name = strConcat(_firstName, " ", _lastName);
         userCount++;
 

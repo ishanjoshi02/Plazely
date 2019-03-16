@@ -12,6 +12,9 @@ import styles from "./styles";
 
 const Profile = props => {
   const { classes } = props;
+  const getVideoCount = () => {
+    return 0;
+  };
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -23,7 +26,7 @@ const Profile = props => {
           Email: {props.email}
         </Typography>
         <Typography className={classes.pos} component="p">
-          No. of videos uploaded: 0
+          No. of videos uploaded: {getVideoCount()}
         </Typography>
       </CardContent>
     </Card>
