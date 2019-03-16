@@ -11,6 +11,7 @@ import {
   Chip,
   LinearProgress
 } from "@material-ui/core";
+import JWT_SECRET from "../../secrets/jwt_secret";
 
 // CSS
 import styles from "./styles";
@@ -24,6 +25,8 @@ const web3 = new Web3(
 );
 const VideoStoreArtifact = require("../../contracts/VideoStore.json");
 const VideoStore = TruffleContract(VideoStoreArtifact);
+const jwt = require("jsonwebtoken");
+
 class UploadVideo extends Component {
   state = {
     title: "",
@@ -34,6 +37,18 @@ class UploadVideo extends Component {
     percentUploaded: 0,
     ipfsHash: ""
   };
+
+  readCookie = name => {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(";");
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === " ") c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  };
+
   handleTitleChange = e => {
     this.setState({ title: e.target.value });
   };
@@ -47,21 +62,24 @@ class UploadVideo extends Component {
     const file = e.target.files[0];
     this.setState({ file });
   };
+
   renderCategoriesOptions = () => {
     const categories = [
-      "",
       "Music",
       "Gaming",
       "Trailer",
       "Vlogs",
-      "Advertisement"
+      "Advertisement",
+      "Other"
     ];
+
     return categories.map((item, i) => (
       <MenuItem key={i} value={item}>
         {item}
       </MenuItem>
     ));
   };
+
   renderFilePreview = () => {
     const { classes } = this.props;
     return this.state.file ? (
@@ -75,12 +93,14 @@ class UploadVideo extends Component {
       />
     ) : null;
   };
+
   setProgressBar = chunks => {
     console.log(chunks);
     this.setState({
       percentUploaded: Math.floor((chunks / this.state.file.size) * 100)
     });
   };
+
   submitVideo = e => {
     const { file } = this.state;
     const reader = new FileReader();
@@ -95,6 +115,8 @@ class UploadVideo extends Component {
           VideoStore.setProvider(web3.currentProvider);
           const instance = await VideoStore.deployed();
           const accounts = await web3.eth.getAccounts();
+          const email = jwt.decode(this.readCookie(`token`), JWT_SECRET);
+          console.log(`Your email is: ${email}`);
           const { title, description, category } = this.state;
           await instance.addVideo(
             title,
@@ -102,7 +124,7 @@ class UploadVideo extends Component {
             hash,
             "tags",
             category,
-            "ishanjoshi02@gmail.com",
+            email,
             { from: accounts[0] }
           );
           const count = (await instance.getVideoListCount.call({
@@ -114,6 +136,7 @@ class UploadVideo extends Component {
       });
     };
   };
+
   render() {
     const { classes } = this.props;
     return (

@@ -19,7 +19,7 @@
     "warning": "4.0.2"
   },
   "scripts": {
-    "start": "truffle migrate --reset && cd client && npm run start",
+    "start": "truffle compile && truffle migrate --reset && cd client && npm run start",
     "build": "cd client && npm run build",
     "test": "cd client && npm run test",
     "eject": "cd client && npm run eject",
