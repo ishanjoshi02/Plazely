@@ -14,30 +14,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 import styles from "./styles";
 
-<<<<<<< HEAD
-const Profile = props => {
-  const { classes } = props;
-  const getVideoCount = () => {
-    return 0;
-  };
-  return (
-    <Card className={classes.card}>
-      <CardContent>
-        <Typography className={classes.title} color="textPrimary" gutterBottom>
-          {props.name}
-        </Typography>
-        <Typography variant="h5" component="h2" />
-        <Typography className={classes.pos} color="textPrimary">
-          Email: {props.email}
-        </Typography>
-        <Typography className={classes.pos} component="p">
-          No. of videos uploaded: {getVideoCount()}
-        </Typography>
-      </CardContent>
-    </Card>
-  );
-};
-=======
 class Profile extends Component {
   state = {
     open: false
@@ -53,6 +29,9 @@ class Profile extends Component {
 
   render() {
     const { classes } = this.props;
+    const getVideoCount = () => {
+      return 0;
+    };
     return (
       <Card className={classes.card}>
         <CardContent>
@@ -68,7 +47,7 @@ class Profile extends Component {
             Email: {this.props.email}
           </Typography>
           <Typography className={classes.pos} component="p">
-            No. of videos uploaded: {this.props.videoCount}
+            No. of videos uploaded: {getVideoCount()}
           </Typography>
           <Button
             variant="outlined"
@@ -108,7 +87,6 @@ class Profile extends Component {
     );
   }
 }
->>>>>>> 9d71463ee67c14ca833080ac99ead9b52329d19d
 
 Profile.propTypes = {
   classes: PropTypes.object.isRequired
