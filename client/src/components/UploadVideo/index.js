@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TruffleContract from "truffle-contract";
 import {
   withStyles,
   Card,
@@ -17,6 +18,12 @@ import styles from "./styles";
 const IPFS = require("ipfs");
 const node = new IPFS();
 console.log(node);
+const Web3 = require("web3");
+const web3 = new Web3(
+  new Web3.providers.HttpProvider(`http://localhost:${7545}`)
+);
+const VideoStoreArtifact = require("../../contracts/VideoStore.json");
+const VideoStore = TruffleContract(VideoStoreArtifact);
 class UploadVideo extends Component {
   state = {
     title: "",
@@ -24,7 +31,8 @@ class UploadVideo extends Component {
     category: "",
     file: null,
     uploading: false,
-    percentUploaded: 0
+    percentUploaded: 0,
+    ipfsHash: ""
   };
   handleTitleChange = e => {
     this.setState({ title: e.target.value });
@@ -73,23 +81,36 @@ class UploadVideo extends Component {
       percentUploaded: Math.floor((chunks / this.state.file.size) * 100)
     });
   };
-  uploadFileToIPFS = file => {
-    node.files.add(file, (err, files) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(files);
-      }
-    });
-  };
   submitVideo = e => {
     const { file } = this.state;
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
     reader.onload = e => {
       const { result } = e.target;
-      console.log(result);
-      this.uploadFileToIPFS(result);
+      node.files.add(result, async (err, files) => {
+        if (err) {
+          console.log(`Error while uploading ${err}`);
+        } else {
+          const { hash } = files[0];
+          VideoStore.setProvider(web3.currentProvider);
+          const instance = await VideoStore.deployed();
+          const accounts = await web3.eth.getAccounts();
+          const { title, description, category } = this.state;
+          await instance.addVideo(
+            title,
+            description,
+            hash,
+            "tags",
+            category,
+            "ishanjoshi02@gmail.com",
+            { from: accounts[0] }
+          );
+          const count = (await instance.getVideoListCount.call({
+            from: accounts[0]
+          })).toNumber();
+          console.log(`Videos on Blockchain are ${count}`);
+        }
+      });
     };
   };
   render() {
