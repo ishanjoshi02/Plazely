@@ -5,7 +5,7 @@ const UserStoreArtifact = require("../contracts/UserStore.json");
 const UserStore = TruffleContract(UserStoreArtifact);
 const jwt = require("jsonwebtoken");
 const web3 = new Web3(
-  new Web3.providers.HttpProvider(`http://localhost:${8545}`)
+  new Web3.providers.HttpProvider(`http://localhost:${7545}`)
 );
 async function getUserStoreInstance() {
   UserStore.setProvider(web3.currentProvider);
