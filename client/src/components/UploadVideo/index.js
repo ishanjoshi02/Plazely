@@ -109,6 +109,7 @@ class UploadVideo extends Component {
             from: accounts[0]
           })).toNumber();
           console.log(`Videos on Blockchain are ${count}`);
+          console.log(this.props.history.push(`/view/${count}`));
         }
       });
     };
