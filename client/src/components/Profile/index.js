@@ -11,12 +11,22 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import TruffleContract from "truffle-contract";
 
 import styles from "./styles";
 
+const Web3 = require("web3");
+const web3 = new Web3(
+  new Web3.providers.HttpProvider(`http://localhost:${7545}`)
+);
+const VideoStoreArtifact = require("../../contracts/VideoStore.json");
+const VideoStore = TruffleContract(VideoStoreArtifact);
+
 class Profile extends Component {
   state = {
-    open: false
+    open: false,
+    password: "",
+    vidCount: 0
   };
 
   handleClickOpen = () => {
@@ -27,11 +37,34 @@ class Profile extends Component {
     this.setState({ open: false });
   };
 
+  retVidCound = () => {
+    VideoStore.setProvider(web3.currentProvider);
+    const instance = VideoStore.deployed().then(vidInst => {
+      const accounts = web3.eth.getAccounts().then(accInst => {
+        const count = vidInst.getVideoListCount
+          .call({
+            from: accInst[0]
+          })
+          .then(res => {
+            this.changeCount(res["words"][0]);
+          });
+      });
+    });
+  };
+
+  changeCount = videoCount => {
+    this.setState({
+      vidCount: videoCount
+    });
+  };
+
+  componentDidMount() {
+    this.retVidCound();
+  }
+
   render() {
     const { classes } = this.props;
-    const getVideoCount = () => {
-      return 0;
-    };
+
     return (
       <Card className={classes.card}>
         <CardContent>
@@ -47,7 +80,7 @@ class Profile extends Component {
             Email: {this.props.email}
           </Typography>
           <Typography className={classes.pos} component="p">
-            No. of videos uploaded: {getVideoCount()}
+            No. of videos uploaded: {this.state.vidCount}
           </Typography>
           <Button
             variant="outlined"
