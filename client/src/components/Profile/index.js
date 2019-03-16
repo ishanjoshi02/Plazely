@@ -29,6 +29,9 @@ class Profile extends Component {
 
   render() {
     const { classes } = this.props;
+    const getVideoCount = () => {
+      return 0;
+    };
     return (
       <Card className={classes.card}>
         <CardContent>
@@ -44,7 +47,7 @@ class Profile extends Component {
             Email: {this.props.email}
           </Typography>
           <Typography className={classes.pos} component="p">
-            No. of videos uploaded: {this.props.videoCount}
+            No. of videos uploaded: {getVideoCount()}
           </Typography>
           <Button
             variant="outlined"
