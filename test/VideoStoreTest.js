@@ -1,6 +1,6 @@
 const VideoStore = artifacts.require("./VideoStore.sol");
 
-contract("VideoStore", accounts => {
+contract("VideoStore", async accounts => {
   it("should upload video with metadata", async () => {
     const instance = await VideoStore.deployed();
     const id = await instance.addVideo(
@@ -31,5 +31,13 @@ contract("VideoStore", accounts => {
     console.log(
       (await instance.getVideoListCount.call({ from: accounts[0] })).toNumber()
     );
+  });
+  it("should return video from id", async () => {
+    const instance = await VideoStore.deployed();
+    const result = await instance.getVideo.call(1);
+    console.log("All details");
+    console.log(result);
+    console.log("Video Title");
+    console.log(result["title"]);
   });
 });
