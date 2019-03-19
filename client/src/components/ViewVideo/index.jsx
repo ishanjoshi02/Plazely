@@ -1,5 +1,14 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Typography from "@material-ui/core/Typography";
 import TruffleContract from "truffle-contract";
+
+import styles from "./styles";
 
 const Web3 = require("web3");
 const web3 = new Web3(
@@ -9,14 +18,28 @@ const VideoStoreArtifact = require("../../contracts/VideoStore.json");
 const VideoStore = TruffleContract(VideoStoreArtifact);
 
 class View extends Component {
+  state = {
+    vidHash: "",
+    title: "",
+    description: ""
+  };
+
   getVidInfo = () => {
     VideoStore.setProvider(web3.currentProvider);
     const instance = VideoStore.deployed().then(vidInst => {
       const accounts = web3.eth.getAccounts().then(accInst => {
         const vidInfo = vidInst.getVideo.call(1).then(res => {
-          console.log(res);
+          this.setData(res["hash"], res["title"], res["description"]);
         });
       });
+    });
+  };
+
+  setData = (hash, title, description) => {
+    this.setState({
+      vidHash: hash,
+      title: title,
+      description: description
     });
   };
 
@@ -24,8 +47,32 @@ class View extends Component {
     this.getVidInfo();
   }
   render() {
-    return <div>This is View</div>;
+    const { classes } = this.props;
+    return (
+      <Card className={classes.card}>
+        <CardActionArea>
+          <CardMedia
+            component="video"
+            src={"https://ipfs.io/ipfs/" + this.state.vidHash}
+            alt="Sample Video"
+            className={classes.media}
+            height="140"
+            title="Contemplative Reptile"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {this.state.title}
+            </Typography>
+            <Typography component="p">{this.state.description}</Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    );
   }
 }
 
-export default View;
+View.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(View);
