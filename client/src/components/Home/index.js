@@ -1,5 +1,5 @@
 import React from "react";
-
+import View from "../ViewVideo/index";
 import store from "../../store";
 
 class Home extends React.Component {
@@ -8,7 +8,12 @@ class Home extends React.Component {
     console.log(store.getState());
   }
   render() {
-    return <div>Home</div>;
+    return (
+      <div>
+        Home
+        <View />
+      </div>
+    );
   }
 }
 
