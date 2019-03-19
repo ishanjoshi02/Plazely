@@ -16,6 +16,7 @@ contract VideoStore {
         string description;
         uint videoTimestamp;
         string hashes;
+        string hash;
         string[] tags;
         string category;
         string userEmail;
@@ -39,7 +40,7 @@ contract VideoStore {
     function addVideo(
         string memory _title,
         string memory _description,
-        string memory _hashes,
+        string memory _hash,
         string memory _tags,
         string memory _category,
         string memory _userEmail
@@ -59,6 +60,7 @@ contract VideoStore {
         foo.description = _description;
         foo.category = _category;
         foo.userEmail = _userEmail;
+        foo.hash = _hash;
         foo.videoTimestamp = now;
 
         videoList[videoListCount] = foo;
