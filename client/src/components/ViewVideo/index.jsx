@@ -1,12 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
 import TruffleContract from "truffle-contract";
+import ReactPlayer from "react-player";
 
 import styles from "./styles";
 
@@ -46,33 +40,16 @@ class View extends Component {
   componentDidMount() {
     this.getVidInfo();
   }
+
   render() {
-    const { classes } = this.props;
     return (
-      <Card className={classes.card}>
-        <CardActionArea>
-          <CardMedia
-            component="video"
-            src={"https://ipfs.io/ipfs/" + this.state.vidHash}
-            alt="Sample Video"
-            className={classes.media}
-            height="140"
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {this.state.title}
-            </Typography>
-            <Typography component="p">{this.state.description}</Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
+      <ReactPlayer
+        url={"https://ipfs.io/ipfs/" + this.state.vidHash}
+        playing
+        controls={true}
+      />
     );
   }
 }
 
-View.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(View);
+export default View;

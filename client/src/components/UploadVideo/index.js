@@ -107,7 +107,8 @@ class UploadVideo extends Component {
     reader.readAsArrayBuffer(file);
     reader.onload = e => {
       const { result } = e.target;
-      node.files.add(result, async (err, files) => {
+      const buffer = Buffer.from(result);
+      node.add(buffer, async (err, files) => {
         if (err) {
           console.log(`Error while uploading ${err}`);
         } else {
