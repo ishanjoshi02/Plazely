@@ -1,5 +1,12 @@
 import React, { Component } from "react";
 import TruffleContract from "truffle-contract";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Typography from "@material-ui/core/Typography";
 import ReactPlayer from "react-player";
 
 import styles from "./styles";
@@ -42,14 +49,43 @@ class View extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <ReactPlayer
-        url={"https://ipfs.io/ipfs/" + this.state.vidHash}
-        playing
-        controls={true}
-      />
+      <Card className={classes.card}>
+        <CardActionArea>
+          <ReactPlayer
+            url={"https://ipfs.io/ipfs/" + this.state.vidHash}
+            playing
+            controls={true}
+            width={640}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {this.state.title}
+            </Typography>
+            <Typography component="p">{this.state.description}</Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
     );
   }
 }
 
-export default View;
+View.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(View);
+
+//   render() {
+//     return (
+//       <ReactPlayer
+//         url={"https://ipfs.io/ipfs/" + this.state.vidHash}
+//         playing
+//         controls={true}
+//       />
+//     );
+//   }
+// }
+
+// export default View;
