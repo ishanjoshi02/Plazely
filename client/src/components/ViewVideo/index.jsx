@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import TruffleContract from "truffle-contract";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
+import {
+  Typography,
+  CardContent,
+  CardActionArea,
+  Card,
+  Grid
+} from "@material-ui/core/";
 import ReactPlayer from "react-player";
 
 import styles from "./styles";
@@ -22,16 +24,22 @@ class View extends Component {
   state = {
     vidHash: "",
     title: "",
-    description: ""
+    description: "",
+    firstVideo: false
   };
 
   getVidInfo = () => {
     VideoStore.setProvider(web3.currentProvider);
     const instance = VideoStore.deployed().then(vidInst => {
       const accounts = web3.eth.getAccounts().then(accInst => {
-        const vidInfo = vidInst.getVideo.call(1).then(res => {
-          this.setData(res["hash"], res["title"], res["description"]);
-        });
+        const vidInfo = vidInst.getVideo.call(1).then(
+          res => {
+            this.setData(res["hash"], res["title"], res["description"]);
+          },
+          err => {
+            console.log(err);
+          }
+        );
       });
     });
   };
@@ -40,7 +48,8 @@ class View extends Component {
     this.setState({
       vidHash: hash,
       title: title,
-      description: description
+      description: description,
+      firstVideo: true
     });
   };
 
@@ -50,23 +59,30 @@ class View extends Component {
 
   render() {
     const { classes } = this.props;
+    const firstVideo = this.state.firstVideo;
     return (
-      <Card className={classes.card}>
-        <CardActionArea>
-          <ReactPlayer
-            url={"https://ipfs.io/ipfs/" + this.state.vidHash}
-            playing
-            controls={true}
-            width={640}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {this.state.title}
-            </Typography>
-            <Typography component="p">{this.state.description}</Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
+      <div>
+        {firstVideo ? (
+          <Card className={classes.card}>
+            <CardActionArea>
+              <ReactPlayer
+                url={"https://ipfs.io/ipfs/" + this.state.vidHash}
+                playing
+                controls={true}
+                width={640}
+              />
+            </CardActionArea>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {this.state.title}
+              </Typography>
+              <Typography component="p">{this.state.description}</Typography>
+            </CardContent>
+          </Card>
+        ) : (
+          <div />
+        )}
+      </div>
     );
   }
 }
