@@ -29,10 +29,11 @@ class View extends Component {
   };
 
   getVidInfo = () => {
+    const id = this.props.match.params.id;
     VideoStore.setProvider(web3.currentProvider);
     const instance = VideoStore.deployed().then(vidInst => {
       const accounts = web3.eth.getAccounts().then(accInst => {
-        const vidInfo = vidInst.getVideo.call(1).then(
+        const vidInfo = vidInst.getVideo.call(id).then(
           res => {
             this.setData(res["hash"], res["title"], res["description"]);
           },
