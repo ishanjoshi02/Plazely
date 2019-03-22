@@ -7,7 +7,8 @@ import {
   CardContent,
   CardActionArea,
   Card,
-  Grid
+  Grid,
+  CardMedia
 } from "@material-ui/core/";
 import ReactPlayer from "react-player";
 
@@ -24,8 +25,7 @@ class View extends Component {
   state = {
     vidHash: "",
     title: "",
-    description: "",
-    firstVideo: false
+    description: ""
   };
 
   getVidInfo = () => {
@@ -49,8 +49,7 @@ class View extends Component {
     this.setState({
       vidHash: hash,
       title: title,
-      description: description,
-      firstVideo: true
+      description: description
     });
   };
 
@@ -63,26 +62,28 @@ class View extends Component {
     const firstVideo = this.state.firstVideo;
     return (
       <div>
-        {firstVideo ? (
-          <Card className={classes.card}>
-            <CardActionArea>
-              <ReactPlayer
-                url={"https://ipfs.io/ipfs/" + this.state.vidHash}
-                playing
-                controls={true}
-                width={640}
-              />
-            </CardActionArea>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                {this.state.title}
-              </Typography>
-              <Typography component="p">{this.state.description}</Typography>
-            </CardContent>
-          </Card>
-        ) : (
-          <div />
-        )}
+        <Card className={classes.card}>
+          {/* <CardActionArea> */}
+          {/* <ReactPlayer
+              url={"https://ipfs.io/ipfs/" + this.state.vidHash}
+              playing
+              controls={true}
+              width={640}
+            /> */}
+          {/* </CardActionArea> */}
+          <CardMedia
+            component="video"
+            src={`https://ipfs.io/ipfs/${this.state.vidHash}`}
+            controls
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {this.state.title}
+            </Typography>
+            <Typography component="p">{this.state.description}</Typography>
+          </CardContent>
+        </Card>
+        <div />
       </div>
     );
   }
