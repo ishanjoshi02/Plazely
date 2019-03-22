@@ -25,30 +25,33 @@ class View extends Component {
   state = {
     vidHash: "",
     title: "",
+    firstVideo: false,
     description: ""
   };
 
   getVidInfo = () => {
-    const id = this.props.match.params.id;
     VideoStore.setProvider(web3.currentProvider);
     const instance = VideoStore.deployed().then(vidInst => {
       const accounts = web3.eth.getAccounts().then(accInst => {
-        const vidInfo = vidInst.getVideo.call(id).then(
-          res => {
-            this.setData(res["hash"], res["title"], res["description"]);
-          },
-          err => {
-            console.log(err);
-          }
-        );
+        for (let i = 0; i < 2; i++) {
+          const vidInfo = vidInst.getVideo.call(i).then(
+            res => {
+              this.setData(res["hash"], res["title"], res["description"]);
+            },
+            err => {
+              console.log(err);
+            }
+          );
+        }
       });
     });
   };
 
-  setData = (hash, title, description) => {
+  setData = (hash, title, description, id) => {
     this.setState({
       vidHash: hash,
       title: title,
+      firstVideo: true,
       description: description
     });
   };
@@ -62,28 +65,22 @@ class View extends Component {
     const firstVideo = this.state.firstVideo;
     return (
       <div>
-        <Card className={classes.card}>
-          {/* <CardActionArea> */}
-          {/* <ReactPlayer
-              url={"https://ipfs.io/ipfs/" + this.state.vidHash}
-              playing
-              controls={true}
-              width={640}
-            /> */}
-          {/* </CardActionArea> */}
-          <CardMedia
-            component="video"
-            src={`https://ipfs.io/ipfs/${this.state.vidHash}`}
-            controls
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {this.state.title}
-            </Typography>
-            <Typography component="p">{this.state.description}</Typography>
-          </CardContent>
-        </Card>
-        <div />
+        {firstVideo ? (
+          <Card className={classes.card}>
+            <CardContent>
+              <ReactPlayer
+                url={`https://ipfs.io/ipfs/${this.state.vidHash}`}
+                controls={true}
+              />
+              <Typography gutterBottom variant="h5" component="h2">
+                {this.state.title}
+              </Typography>
+              <Typography component="p">{this.state.description}</Typography>
+            </CardContent>
+          </Card>
+        ) : (
+          <div />
+        )}
       </div>
     );
   }
@@ -94,16 +91,3 @@ View.propTypes = {
 };
 
 export default withStyles(styles)(View);
-
-//   render() {
-//     return (
-//       <ReactPlayer
-//         url={"https://ipfs.io/ipfs/" + this.state.vidHash}
-//         playing
-//         controls={true}
-//       />
-//     );
-//   }
-// }
-
-// export default View;

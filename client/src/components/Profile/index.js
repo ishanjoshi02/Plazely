@@ -71,7 +71,6 @@ class Profile extends Component {
 
   render() {
     const { classes } = this.props;
-
     return (
       <Card className={classes.card}>
         <CardContent>

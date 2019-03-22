@@ -1,6 +1,6 @@
 const styles = {
   card: {
-    maxWidth: 640
+    maxWidth: 650
   },
   media: {
     // ⚠️ object-fit is not supported by IE 11.
