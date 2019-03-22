@@ -33,16 +33,14 @@ class View extends Component {
     VideoStore.setProvider(web3.currentProvider);
     const instance = VideoStore.deployed().then(vidInst => {
       const accounts = web3.eth.getAccounts().then(accInst => {
-        for (let i = 0; i < 2; i++) {
-          const vidInfo = vidInst.getVideo.call(i).then(
-            res => {
-              this.setData(res["hash"], res["title"], res["description"]);
-            },
-            err => {
-              console.log(err);
-            }
-          );
-        }
+        const vidInfo = vidInst.getVideo.call(1).then(
+          res => {
+            this.setData(res["hash"], res["title"], res["description"]);
+          },
+          err => {
+            console.log(err);
+          }
+        );
       });
     });
   };
