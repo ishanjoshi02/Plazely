@@ -8,12 +8,13 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import View from "./components/ViewVideo";
 import ProfileContainer from "./containers/ProfileContainer";
+import ViewContainer from "./containers/ViewContainer";
 
 const Routes = () => {
   return (
     <Layout>
       <Switch>
-        <Route path="/" exact component={IsAuth(Home)} />
+        <Route path="/" exact component={IsAuth(ViewContainer)} />
         <Route path="/upload" exact component={IsAuth(UploadVideo)} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={SignUp} />

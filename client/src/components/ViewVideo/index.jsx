@@ -11,6 +11,7 @@ import {
   CardMedia
 } from "@material-ui/core/";
 import ReactPlayer from "react-player";
+import { Link } from "react-router-dom";
 
 import styles from "./styles";
 
@@ -45,7 +46,7 @@ class View extends Component {
     });
   };
 
-  setData = (hash, title, description, id) => {
+  setData = (hash, title, description) => {
     this.setState({
       vidHash: hash,
       title: title,
@@ -74,6 +75,15 @@ class View extends Component {
                 {this.state.title}
               </Typography>
               <Typography component="p">{this.state.description}</Typography>
+              <Typography className={classes.uploader} component="p">
+                By:{" "}
+                <Link
+                  to="/profile"
+                  style={{ color: "#000", textDecoration: "none" }}
+                >
+                  {this.props.username}
+                </Link>
+              </Typography>
             </CardContent>
           </Card>
         ) : (
