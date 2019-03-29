@@ -27,16 +27,20 @@ class View extends Component {
     vidHash: "",
     title: "",
     firstVideo: false,
-    description: ""
+    description: "",
+    username: ""
   };
 
   getVidInfo = () => {
+    const { id } = this.props.match.params;
     VideoStore.setProvider(web3.currentProvider);
     const instance = VideoStore.deployed().then(vidInst => {
       const accounts = web3.eth.getAccounts().then(accInst => {
-        const vidInfo = vidInst.getVideo.call(1).then(
+        const vidInfo = vidInst.getVideo.call(id).then(
           res => {
+            console.log(res);
             this.setData(res["hash"], res["title"], res["description"]);
+            this.setState({ username: res[7] });
           },
           err => {
             console.log(err);
@@ -81,7 +85,7 @@ class View extends Component {
                   to="/profile"
                   style={{ color: "#000", textDecoration: "none" }}
                 >
-                  {this.props.username}
+                  {this.state.username}
                 </Link>
               </Typography>
             </CardContent>
