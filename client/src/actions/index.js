@@ -116,4 +116,13 @@ export async function login({ email, password }) {
     payload
   };
 }
-export function addVideo({}) {}
+export function getAudioStatus() {
+  return {
+    type: "AUDIO_STATUS"
+  };
+}
+export function toggleMode() {
+  return {
+    type: "TOGGLE_MODE"
+  };
+}

@@ -8,10 +8,13 @@ import {
   CardActionArea,
   Card,
   Grid,
+  Button,
   CardMedia
 } from "@material-ui/core/";
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
+import { getAudioStatus, toggleMode } from "../../actions";
+import { connect } from "react-redux";
 
 import styles from "./styles";
 
@@ -28,8 +31,15 @@ class View extends Component {
     title: "",
     firstVideo: false,
     description: "",
-    username: ""
+    username: "",
+    audio: false
   };
+
+  componentWillMount() {
+    this.props.dispatch(getAudioStatus());
+    const { audio } = this.props;
+    this.setState({ audio });
+  }
 
   getVidInfo = () => {
     const { id } = this.props.match.params;
@@ -63,33 +73,59 @@ class View extends Component {
     this.getVidInfo();
   }
 
+  componentWillReceiveProps = nextProps => {
+    const { audio } = nextProps;
+    this.setState({ audio });
+  };
+
+  toggleMode = () => {
+    this.props.dispatch(toggleMode());
+  };
+
   render() {
     const { classes } = this.props;
     const firstVideo = this.state.firstVideo;
     return (
       <div>
         {firstVideo ? (
-          <Card className={classes.card}>
-            <CardContent>
-              <ReactPlayer
-                url={`https://ipfs.io/ipfs/${this.state.vidHash}`}
-                controls={true}
-              />
-              <Typography gutterBottom variant="h5" component="h2">
-                {this.state.title}
-              </Typography>
-              <Typography component="p">{this.state.description}</Typography>
-              <Typography className={classes.uploader} component="p">
-                By:{" "}
-                <Link
-                  to="/profile"
-                  style={{ color: "#000", textDecoration: "none" }}
-                >
-                  {this.state.username}
-                </Link>
-              </Typography>
-            </CardContent>
-          </Card>
+          <React.Fragment>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={this.toggleMode}
+            >
+              {this.state.audio ? `Video` : `Audio`}
+            </Button>
+            <Card className={classes.card}>
+              <CardContent>
+                {this.state.audio ? (
+                  <audio controls>
+                    <source
+                      src={`https://ipfs.io/ipfs/${this.state.vidHash}`}
+                    />
+                  </audio>
+                ) : (
+                  <ReactPlayer
+                    url={`https://ipfs.io/ipfs/${this.state.vidHash}`}
+                    controls={true}
+                  />
+                )}
+                <Typography gutterBottom variant="h5" component="h2">
+                  {this.state.title}
+                </Typography>
+                <Typography component="p">{this.state.description}</Typography>
+                <Typography className={classes.uploader} component="p">
+                  By:{" "}
+                  <Link
+                    to="/profile"
+                    style={{ color: "#000", textDecoration: "none" }}
+                  >
+                    {this.state.username}
+                  </Link>
+                </Typography>
+              </CardContent>
+            </Card>
+          </React.Fragment>
         ) : (
           <div />
         )}
@@ -102,4 +138,11 @@ View.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(View);
+const mapStateToProps = (state, ownProps) => {
+  console.log(state);
+  return {
+    audio: state.videos.audio
+  };
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(View));
