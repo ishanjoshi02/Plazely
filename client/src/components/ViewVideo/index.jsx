@@ -36,28 +36,33 @@ class View extends Component {
   };
 
   componentWillMount() {
+    console.log(this.props);
     this.props.dispatch(getAudioStatus());
     const { audio } = this.props;
     this.setState({ audio });
   }
 
   getVidInfo = () => {
-    const { id } = this.props.match.params;
-    VideoStore.setProvider(web3.currentProvider);
-    const instance = VideoStore.deployed().then(vidInst => {
-      const accounts = web3.eth.getAccounts().then(accInst => {
-        const vidInfo = vidInst.getVideo.call(id).then(
-          res => {
-            console.log(res);
-            this.setData(res["hash"], res["title"], res["description"]);
-            this.setState({ username: res[7] });
-          },
-          err => {
-            console.log(err);
-          }
-        );
+    try {
+      const { id } = this.props.match.params;
+      VideoStore.setProvider(web3.currentProvider);
+      const instance = VideoStore.deployed().then(vidInst => {
+        const accounts = web3.eth.getAccounts().then(accInst => {
+          const vidInfo = vidInst.getVideo.call(id).then(
+            res => {
+              console.log(res);
+              this.setData(res["hash"], res["title"], res["description"]);
+              this.setState({ username: res[7] });
+            },
+            err => {
+              console.log(err);
+            }
+          );
+        });
       });
-    });
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   setData = (hash, title, description) => {
