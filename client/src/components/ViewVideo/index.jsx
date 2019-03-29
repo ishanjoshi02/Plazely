@@ -63,14 +63,6 @@ class View extends Component {
     return (
       <div>
         <Card className={classes.card}>
-          {/* <CardActionArea> */}
-          {/* <ReactPlayer
-              url={"https://ipfs.io/ipfs/" + this.state.vidHash}
-              playing
-              controls={true}
-              width={640}
-            /> */}
-          {/* </CardActionArea> */}
           <CardMedia
             component="video"
             src={`https://ipfs.io/ipfs/${this.state.vidHash}`}
