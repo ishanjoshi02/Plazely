@@ -94,13 +94,6 @@ class View extends Component {
       <div>
         {firstVideo ? (
           <React.Fragment>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={this.toggleMode}
-            >
-              {this.state.audio ? `Video` : `Audio`}
-            </Button>
             <Card className={classes.card}>
               <CardContent>
                 {this.state.audio ? (
@@ -119,6 +112,14 @@ class View extends Component {
                   {this.state.title}
                 </Typography>
                 <Typography component="p">{this.state.description}</Typography>
+                <Button
+                  className={classes.buttonPos}
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.toggleMode}
+                >
+                  {this.state.audio ? `Video` : `Audio`}
+                </Button>
                 <Typography className={classes.uploader} component="p">
                   By:{" "}
                   <Link
