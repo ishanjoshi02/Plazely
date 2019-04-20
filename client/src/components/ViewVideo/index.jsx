@@ -92,22 +92,6 @@ class View extends Component {
     const firstVideo = this.state.firstVideo;
     return (
       <div>
-<<<<<<< HEAD
-        <Card className={classes.card}>
-          <CardMedia
-            component="video"
-            src={`https://ipfs.io/ipfs/${this.state.vidHash}`}
-            controls
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {this.state.title}
-            </Typography>
-            <Typography component="p">{this.state.description}</Typography>
-          </CardContent>
-        </Card>
-        <div />
-=======
         {firstVideo ? (
           <React.Fragment>
             <Card className={classes.card}>
@@ -151,7 +135,6 @@ class View extends Component {
         ) : (
           <div />
         )}
->>>>>>> neeraj-experimentations
       </div>
     );
   }
