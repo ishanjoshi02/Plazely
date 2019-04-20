@@ -1,47 +1,31 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import {
-  Card,
-  CardContent,
-  Button,
-  Typography,
-  TextField,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle
-} from "@material-ui/core";
+import { Card, CardContent, Button, Typography } from "@material-ui/core";
 import TruffleContract from "truffle-contract";
+import { Link } from "react-router-dom";
 
 import styles from "./styles";
 
 const Web3 = require("web3");
-const web3 = new Web3(
-  new Web3.providers.HttpProvider(`http://localhost:${7545}`)
-);
+// const web3 = new Web3(
+//   new Web3.providers.HttpProvider(`http://localhost:${7545}`)
+// );
+const web3 = new Web3(window.web3.currentProvider);
 const VideoStoreArtifact = require("../../contracts/VideoStore.json");
 const VideoStore = TruffleContract(VideoStoreArtifact);
 
 class Profile extends Component {
   state = {
-    open: false,
     password: "",
     vidCount: 0
   };
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
   retVidCound = () => {
     VideoStore.setProvider(web3.currentProvider);
-    const instance = VideoStore.deployed().then(vidInst => {
+    const instance = VideoStore.at(
+      `0x90154d3e6bcf0eb951b501eca479c1224fb125c6`
+    ).then(vidInst => {
       const accounts = web3.eth.getAccounts().then(accInst => {
         const count = vidInst.getVideoListCount
           .call({
@@ -71,7 +55,6 @@ class Profile extends Component {
 
   render() {
     const { classes } = this.props;
-
     return (
       <Card className={classes.card}>
         <CardContent>
@@ -89,39 +72,15 @@ class Profile extends Component {
           <Typography className={classes.pos} component="p">
             No. of videos uploaded: {this.state.vidCount}
           </Typography>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={this.handleClickOpen}
-          >
-            Change Password
-          </Button>
-          <Dialog
-            open={this.state.open}
-            onClose={this.handleClose}
-            aria-labelledby="form-dialog-title"
-          >
-            <DialogTitle id="form-dialog-title">Submit</DialogTitle>
-            <DialogContent>
-              <DialogContentText>Enter new password</DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="New Password"
-                type="password"
-                fullWidth
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleClose} color="default">
-                Cancel
-              </Button>
-              <Button onClick={this.handleClose} color="primary">
-                Submit
-              </Button>
-            </DialogActions>
-          </Dialog>
+          <Link to="/edit">
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.editButton}
+            >
+              Edit Profile
+            </Button>
+          </Link>
         </CardContent>
       </Card>
     );

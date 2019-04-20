@@ -44,10 +44,6 @@ Refer to [Installation](Installation.md)
 
 For documentation, visit, [ProjectINKDocumentation](https://github.com/ishanjoshi02/ProjectINKDocumentation)
 
-## Testing Videos
-
-I have added some of my favorite videos off of youtube for testing the our website's upload module.
-
 ## Contributors
 
 [<img src="https://avatars1.githubusercontent.com/u/13968549?s=460&v=4" width="100px;"/>](https://github.com/FlashBlaze)

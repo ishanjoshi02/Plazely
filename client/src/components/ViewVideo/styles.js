@@ -1,6 +1,13 @@
 const styles = {
   card: {
-    maxWidth: 640
+    maxWidth: 650
+  },
+  uploader: {
+    fontSize: "32px",
+    float: "right"
+  },
+  buttonPos: {
+    marginTop: "12px"
   },
   media: {
     // ⚠️ object-fit is not supported by IE 11.

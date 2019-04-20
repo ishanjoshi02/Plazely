@@ -1,17 +1,20 @@
 import TruffleContract from "truffle-contract";
 import JWT_SECRET from "../secrets/jwt_secret";
-const Web3 = require("web3");
+import { getWeb3 } from "../utils/getWeb3";
 const UserStoreArtifact = require("../contracts/UserStore.json");
 const UserStore = TruffleContract(UserStoreArtifact);
+// const UserStore = artifacts.require("UserStore");
 const jwt = require("jsonwebtoken");
-const web3 = new Web3(
-  new Web3.providers.HttpProvider(`http://localhost:${7545}`)
-);
+// const web3 = new Web3(
+//   new Web3.providers.HttpProvider(`http://localhost:${7545}`)
+// );
 async function getUserStoreInstance() {
+  const web3 = await getWeb3();
   UserStore.setProvider(web3.currentProvider);
-  return await UserStore.deployed().then(ins => {
-    return ins;
-  });
+  // return await UserStore.deployed().then(ins => {
+  //   return ins;
+  // });
+  return await UserStore.at(`0x7da7cf1016ddd07a43818dc7f0ba4ea3f65eccd3`);
 }
 function readCookie(name) {
   var nameEQ = name + "=";
@@ -57,7 +60,10 @@ export async function signup({
   firstname,
   lastname
 }) {
+  const web3 = await getWeb3();
+  console.log(web3);
   const accounts = await web3.eth.getAccounts();
+  console.log(accounts);
   const ins = await getUserStoreInstance();
   const payload = await ins
     .createUser(email, username, firstname, lastname, password, {
@@ -87,6 +93,7 @@ export async function signup({
   };
 }
 export async function login({ email, password }) {
+  const web3 = await getWeb3();
   const accounts = await web3.eth.getAccounts();
   const ins = await getUserStoreInstance();
   const payload = ins
@@ -116,4 +123,13 @@ export async function login({ email, password }) {
     payload
   };
 }
-export function addVideo({}) {}
+export function getAudioStatus() {
+  return {
+    type: "AUDIO_STATUS"
+  };
+}
+export function toggleMode() {
+  return {
+    type: "TOGGLE_MODE"
+  };
+}
