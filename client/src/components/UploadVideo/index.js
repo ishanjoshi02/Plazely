@@ -15,14 +15,15 @@ import JWT_SECRET from "../../secrets/jwt_secret";
 
 // CSS
 import styles from "./styles";
+import { getWeb3 } from "../../utils/getWeb3";
 
-const IPFS = require("ipfs");
-const node = new IPFS();
+// const IPFS = require("ipfs");
+// const node = new IPFS();
+const ipfsClient = require("ipfs-http-client");
+const node = ipfsClient("ipfs.infura.io", "5001", { protocol: "https" });
 console.log(node);
 const Web3 = require("web3");
-const web3 = new Web3(
-  new Web3.providers.HttpProvider(`http://localhost:${7545}`)
-);
+const web3 = getWeb3();
 const VideoStoreArtifact = require("../../contracts/VideoStore.json");
 const VideoStore = TruffleContract(VideoStoreArtifact);
 const jwt = require("jsonwebtoken");
@@ -108,33 +109,44 @@ class UploadVideo extends Component {
     reader.onload = e => {
       const { result } = e.target;
       const buffer = Buffer.from(result);
-      node.add(buffer, async (err, files) => {
-        if (err) {
-          console.log(`Error while uploading ${err}`);
-        } else {
-          const { hash } = files[0];
-          VideoStore.setProvider(web3.currentProvider);
-          const instance = await VideoStore.deployed();
-          const accounts = await web3.eth.getAccounts();
-          const email = jwt.decode(this.readCookie(`token`), JWT_SECRET);
-          console.log(`Your email is: ${email}`);
-          const { title, description, category } = this.state;
-          await instance.addVideo(
-            title,
-            description,
-            hash,
-            "tags",
-            category,
-            email,
-            { from: accounts[0] }
-          );
-          const count = (await instance.getVideoListCount.call({
-            from: accounts[0]
-          })).toNumber();
-          console.log(`Videos on Blockchain are ${count}`);
-          console.log(this.props.history.push(`/view/${count}`));
+      node.add(
+        buffer,
+        { progress: this.setProgressBar },
+        async (err, files) => {
+          if (err) {
+            console.log(`Error while uploading \n${err}`);
+          } else {
+            const { hash } = files[0];
+            // VideoStore.setProvider(web3.currentProvider);
+            // const instance = await VideoStore.deployed();
+            // const web3 = new Web3(window.web3.currentProvider);
+            const web3 = await getWeb3();
+            VideoStore.setProvider(web3.currentProvider);
+            const instance = await VideoStore.at(
+              `0x90154d3e6bcf0eb951b501eca479c1224fb125c6`
+            );
+            const accounts = await web3.eth.getAccounts();
+            console.log(accounts);
+            const email = jwt.decode(this.readCookie(`token`), JWT_SECRET);
+            console.log(`Your email is: ${email}`);
+            const { title, description, category } = this.state;
+            await instance.addVideo(
+              title,
+              description,
+              hash,
+              "tags",
+              category,
+              email,
+              { from: accounts[0] }
+            );
+            const count = (await instance.getVideoListCount.call({
+              from: accounts[0]
+            })).toNumber();
+            console.log(`Videos on Blockchain are ${count}`);
+            console.log(this.props.history.push(`/view/${count}`));
+          }
         }
-      });
+      );
     };
   };
 

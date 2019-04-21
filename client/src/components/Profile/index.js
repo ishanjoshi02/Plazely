@@ -8,9 +8,10 @@ import { Link } from "react-router-dom";
 import styles from "./styles";
 
 const Web3 = require("web3");
-const web3 = new Web3(
-  new Web3.providers.HttpProvider(`http://localhost:${7545}`)
-);
+// const web3 = new Web3(
+//   new Web3.providers.HttpProvider(`http://localhost:${7545}`)
+// );
+const web3 = new Web3(window.web3.currentProvider);
 const VideoStoreArtifact = require("../../contracts/VideoStore.json");
 const VideoStore = TruffleContract(VideoStoreArtifact);
 
@@ -22,7 +23,9 @@ class Profile extends Component {
 
   retVidCound = () => {
     VideoStore.setProvider(web3.currentProvider);
-    const instance = VideoStore.deployed().then(vidInst => {
+    const instance = VideoStore.at(
+      `0x90154d3e6bcf0eb951b501eca479c1224fb125c6`
+    ).then(vidInst => {
       const accounts = web3.eth.getAccounts().then(accInst => {
         const count = vidInst.getVideoListCount
           .call({
