@@ -15,28 +15,36 @@ const UserStore = TruffleContract(UserStoreArtifact);
 
 class Edit extends Component {
   state = {
-    firstname: this.props.name.split(" ")[0],
-    lastname: this.props.name.split(" ")[1],
+    name: this.props.name,
     username: this.props.username,
     email: this.props.email
   };
 
   //Changing input field
-  handleChange = username => event => {
+  handleChange = param => event => {
     this.setState({
-      username: event.target.value
+      [param]: event.target.value
     });
   };
+
+  // You cannot change email for now. After changing name and username, hard refresh profile to see changes.
+  // Will probably solve by next commit
 
   changeUserName = () => {
     UserStore.setProvider(web3.currentProvider);
     const instance = UserStore.deployed().then(userInst => {
       const accounts = web3.eth.getAccounts().then(accInst => {
         //sendTransaction is used for writing, since data is modified in the blockchain
-        userInst.changeUsername
-          .sendTransaction(this.state.email, this.state.username, {
-            from: accInst[0]
-          })
+        userInst.changeInfo
+          .sendTransaction(
+            this.props.email,
+            this.state.name,
+            this.state.username,
+            this.state.email,
+            {
+              from: accInst[0]
+            }
+          )
           .then(
             res => {
               console.log(res);
@@ -55,10 +63,9 @@ class Edit extends Component {
 
   setThoseStates = (name, username, email) => {
     this.setState({
-      firstname: name.split(" ")[0],
-      lastname: name.split(" ")[1],
+      name: name,
       username: username,
-      email: this.props.email
+      email: email
     });
   };
 
@@ -68,11 +75,12 @@ class Edit extends Component {
       const accounts = web3.eth.getAccounts().then(accInst => {
         //call is used for reading purposes
         userInst.getUser
-          .call(this.state.email, {
+          .call(this.props.email, {
             from: accInst[0]
           })
           .then(
             res => {
+              console.log(res);
               this.setThoseStates(res["name"], res["username"], res["email"]);
             },
             err => {
@@ -96,16 +104,10 @@ class Edit extends Component {
           <form className={classes.container} noValidate autoComplete="off">
             <TextField
               id="standard-name"
-              label="First Name"
+              label="Name"
               className={classes.textField}
-              value={this.state.firstname}
-              margin="normal"
-            />
-            <TextField
-              id="standard-name"
-              label="Last Name"
-              className={classes.textField}
-              value={this.state.lastname}
+              value={this.state.name}
+              onChange={this.handleChange("name")}
               margin="normal"
             />
             <TextField
@@ -121,6 +123,7 @@ class Edit extends Component {
               label="Email"
               className={classes.textField}
               value={this.state.email}
+              onChange={this.handleChange("email")}
               margin="normal"
             />
             <Button

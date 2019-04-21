@@ -156,6 +156,31 @@ contract UserStore {
 
     //------------------------------------- User Utility functions start here -------------------------------------//
 
+    function changeInfo(string memory _email, string memory newName, string memory newUsername, string memory newEmail)
+    public
+    returns (
+        string memory name,
+        string memory username,
+        string memory email,
+        address ethereumAddress
+    )
+    {
+        require(checkUserExistence(_email), "User does not exist");
+
+        User storage temp = userMapping[_email];
+        delete userMapping[_email];
+        userMapping[newEmail] = temp;
+        
+        userMapping[newEmail].username = newUsername;
+        userMapping[newEmail].name = newName;
+
+        username = userMapping[newEmail].username;
+        name = userMapping[newEmail].name;
+        email = newEmail;
+        ethereumAddress = userMapping[newEmail].ethereumAddress;
+
+    }
+
     function changePassword(string memory _email, string memory _oldPassword, string memory _newPassword)
     public
     {
